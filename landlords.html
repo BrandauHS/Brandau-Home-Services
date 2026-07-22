@@ -167,6 +167,171 @@
   </div>
 </section>
 
+
+<section class="section" id="renter-insights-section">
+  <div class="container">
+    <div class="section-head center">
+      <div class="eyebrow" style="justify-content:center;">Brandau Landlord Tool &middot; Only Here</div>
+      <h2>What Do Renters In Your Area Actually Want?</h2>
+      <p>Pick your area and property type to see the upgrades that win tenants and raise rent &mdash; plus what renters complain about most. Built from national and Chicago-area rental data.</p>
+    </div>
+
+    <div id="renter-insights">
+      <div class="ri-controls">
+        <label class="ri-field">
+          <span>Your area</span>
+          <select id="ri-area"></select>
+        </label>
+        <label class="ri-field">
+          <span>Property type</span>
+          <select id="ri-type"></select>
+        </label>
+      </div>
+
+      <div class="ri-results" id="ri-results"></div>
+
+      <div class="ri-cta">
+        <div>
+          <strong>Want any of these done?</strong>
+          <span>Brandau Home Services installs every upgrade on this list &mdash; kitchens, baths, HVAC, flooring, smart locks, waterproofing and more.</span>
+        </div>
+        <a href="contact.html" class="btn btn-primary">Get a Free Quote &rarr;</a>
+      </div>
+      <p class="ri-note">Insights are compiled from national and Chicago-area renter surveys and rental-market data &mdash; a smart starting point, not a guarantee for any single unit.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+#renter-insights{max-width:940px;margin:8px auto 0;}
+#renter-insights .ri-controls{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;margin-bottom:26px;}
+#renter-insights .ri-field{display:flex;flex-direction:column;gap:6px;flex:1 1 300px;max-width:420px;}
+#renter-insights .ri-field span{font-size:.78rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#0C3A52;}
+#renter-insights select{appearance:none;-webkit-appearance:none;width:100%;padding:13px 16px;font-size:1rem;font-family:inherit;color:#1f2d34;background:#fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231B9BD1' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E") no-repeat right 14px center;border:1.5px solid #d5e2ea;border-radius:10px;cursor:pointer;}
+#renter-insights select:focus{outline:none;border-color:#1B9BD1;box-shadow:0 0 0 3px rgba(27,155,209,.15);}
+#renter-insights .ri-results{display:grid;grid-template-columns:1.35fr 1fr;gap:20px;}
+@media(max-width:760px){#renter-insights .ri-results{grid-template-columns:1fr;}}
+#renter-insights .ri-panel{background:#f4f8fb;border:1px solid #e3ebf0;border-radius:14px;padding:22px 24px;}
+#renter-insights .ri-panel h3{font-size:1.05rem;color:#0C3A52;margin:0 0 4px;}
+#renter-insights .ri-who{font-size:.9rem;color:#5a6b74;margin:0 0 16px;line-height:1.5;}
+#renter-insights ol.ri-up{list-style:none;margin:0;padding:0;counter-reset:ri;}
+#renter-insights ol.ri-up li{counter-increment:ri;position:relative;padding:0 0 15px 40px;margin-bottom:14px;border-bottom:1px solid #e7eef3;}
+#renter-insights ol.ri-up li:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0;}
+#renter-insights ol.ri-up li::before{content:counter(ri);position:absolute;left:0;top:1px;width:26px;height:26px;border-radius:50%;background:#1B9BD1;color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;}
+#renter-insights .ri-up .ri-t{font-weight:700;color:#12222b;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+#renter-insights .ri-badge{font-size:.66rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:#e2f2fa;color:#0d6ea0;}
+#renter-insights .ri-badge.win{background:#e6f6ec;color:#1f8a4c;}
+#renter-insights .ri-up .ri-why{font-size:.86rem;color:#54646d;margin-top:4px;line-height:1.5;}
+#renter-insights ul.ri-pain{list-style:none;margin:0;padding:0;}
+#renter-insights ul.ri-pain li{position:relative;padding:0 0 11px 26px;font-size:.9rem;color:#3d4d55;line-height:1.45;}
+#renter-insights ul.ri-pain li::before{content:"";position:absolute;left:4px;top:7px;width:9px;height:9px;border:2px solid #e08a8a;border-radius:50%;}
+#renter-insights .ri-split{margin-top:16px;padding-top:16px;border-top:1px solid #e7eef3;}
+#renter-insights .ri-split h4{font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:#0C3A52;margin:0 0 8px;}
+#renter-insights .ri-split span{display:inline-block;font-size:.8rem;color:#3d4d55;background:#fff;border:1px solid #e3ebf0;border-radius:8px;padding:5px 10px;margin:0 6px 6px 0;}
+#renter-insights .ri-cta{margin-top:24px;background:#0C3A52;border-radius:14px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+#renter-insights .ri-cta strong{color:#fff;display:block;font-size:1.05rem;margin-bottom:3px;}
+#renter-insights .ri-cta span{color:#bcd6e5;font-size:.88rem;line-height:1.5;max-width:520px;display:block;}
+#renter-insights .ri-note{font-size:.75rem;color:#8a9aa2;text-align:center;margin:16px auto 0;max-width:640px;line-height:1.5;}
+</style>
+
+<script>
+(function(){
+  var AREAS=[
+    ["Downtown / Loop / West Loop","downtown_premium"],
+    ["Chicago — North Side (Lincoln Park, Lakeview, Logan Square)","urban_young"],
+    ["Chicago — South & West Side (Pilsen, Bronzeville, Austin)","urban_value"],
+    ["Near Suburbs (Evanston, Oak Park, Skokie)","inner_ring"],
+    ["Northwest Suburbs (Schaumburg, Arlington Hts, Palatine)","suburban_family"],
+    ["West Suburbs (Naperville, Aurora, Wheaton)","suburban_family"],
+    ["Southwest Suburbs (Joliet, Orland Park, Tinley Park)","suburban_value"],
+    ["South Suburbs (Oak Lawn, Homewood, Matteson)","suburban_value"]
+  ];
+  var TYPES=[["Single-family house","house"],["2–4 unit / small multi","multi"],["Apartment or condo unit","unit"],["Basement / garden unit","garden"]];
+  // upgrade = [title, why, tier, cost(low|mid|high)]
+  var ARCH={
+    urban_young:{who:"Younger renters and young professionals who'll pay for convenience and clean, modern finishes.",
+      up:[["In-unit washer & dryer","Consistently the #1 most-requested feature — renters pay a premium to skip the shared laundry room.","Top demand","high"],
+          ["Updated kitchen with a dishwasher","A modern kitchen (a dishwasher especially) drives the decision and lets you list at the top of the block.","High appeal","mid"],
+          ["Central or efficient A/C","Chicago summers make reliable cooling a near-requirement, not a bonus.","High appeal","mid"],
+          ["Smart lock / keyless entry","Cheap, modern, renters love it — and it makes your turnovers painless.","Rising fast","low"],
+          ["Hard-surface flooring (LVP)","Renters prefer it over old carpet, and it wears better between tenants.","High appeal","mid"]],
+      pain:["Coin-op or shared laundry instead of in-unit","No A/C, or window units only","Dated kitchens and bathrooms","Slow response when something breaks"]},
+    urban_value:{who:"Working renters and families who want a safe, solid, affordable home over luxury finishes.",
+      up:[["Reliable heat & efficient furnace","Warm, dependable heat through a Chicago winter is the first thing these renters check.","Top demand","mid"],
+          ["Solid locks, lighting & security","Good deadbolts, exterior lighting, and secure entries top the list — safety comes first.","Top demand","low"],
+          ["In-unit laundry hookups","Still a major draw and a real rent-raiser, even in value markets.","High appeal","high"],
+          ["Fresh paint & updated flooring","A clean, move-in-ready feel wins tenants fast and cheaply.","Quick win","low"],
+          ["Weatherizing for lower bills","Sealing drafts and adding insulation lowers renters' bills — a big edge here.","High appeal","mid"]],
+      pain:["Drafty windows and high heating bills","Feeling unsafe — weak locks, dark entries","Repairs that take forever","Old, worn finishes"]},
+    downtown_premium:{who:"Renters paying top dollar who expect the finishes and convenience to match the price.",
+      up:[["In-unit washer & dryer","Non-negotiable at this price point — its absence kills interest instantly.","Top demand","high"],
+          ["Modern, high-end kitchen","Stone counters, stainless, and a dishwasher are expected, not extras.","Top demand","high"],
+          ["Smart home (locks + thermostat)","Keyless entry and smart climate control are baseline downtown.","High appeal","low"],
+          ["Central air & quiet comfort","Comfort and quiet are must-haves for premium renters.","High appeal","mid"],
+          ["Polished lighting & finishes","Sharp lighting, fixtures, and paint justify top-of-market rent.","High appeal","mid"]],
+      pain:["Finishes that don't match the rent","Not enough storage or closet space","Street and traffic noise","No in-unit laundry"]},
+    inner_ring:{who:"A mix of families, professionals, and students in older, characterful housing stock.",
+      up:[["In-unit laundry","Top of the wishlist in these established neighborhoods.","Top demand","high"],
+          ["Off-street parking / garage","Parking is gold in the dense inner-ring suburbs.","Top demand","mid"],
+          ["Updated kitchen & bath","Refreshing dated kitchens and baths in older buildings pays off fast.","High appeal","mid"],
+          ["Energy-efficient windows & HVAC","Older housing stock is drafty — efficiency upgrades stand out.","High appeal","high"],
+          ["Pet-friendly, durable finishes","Pet-friendly units with pet-proof flooring open a huge renter pool.","Rising fast","low"]],
+      pain:["No parking or permit headaches","Drafty old windows, high bills","Dated kitchens and bathrooms","Not pet-friendly"]},
+    suburban_family:{who:"Families and professionals renting houses and larger units, focused on space and comfort.",
+      up:[["Updated kitchen & bathrooms","The top value-driver for family renters comparing suburban options.","Top demand","mid"],
+          ["Central air & efficient HVAC","Whole-home comfort is simply expected in the suburbs.","Top demand","mid"],
+          ["Garage or driveway parking","Families expect covered, convenient parking.","High appeal","mid"],
+          ["In-unit laundry","Assumed at this level — its absence is a dealbreaker.","Top demand","high"],
+          ["Storage & energy efficiency","Ample storage plus low utility bills seals the deal.","High appeal","mid"]],
+      pain:["Not enough storage space","Dated kitchens/baths vs. the competition","High energy bills","No central air"]},
+    suburban_value:{who:"Value-minded families who want a safe, updated, dependable home without luxury pricing.",
+      up:[["In-unit laundry","A top draw that reliably lets you raise rent in these markets.","Top demand","high"],
+          ["Dependable heat & central air","Year-round comfort is the first thing families check.","Top demand","mid"],
+          ["Updated bathrooms","A clean, updated bath is one of the best-value rent-raisers there is.","High appeal","mid"],
+          ["Weatherizing for lower bills","Sealing drafts and adding insulation is a real edge for budget-minded renters.","High appeal","mid"],
+          ["Fresh paint, flooring & good locks","Move-in-ready and secure wins tenants fast and cheaply.","Quick win","low"]],
+      pain:["Dated finishes and old flooring","Drafty units, high utility bills","Slow maintenance","Storage and parking"]}
+  };
+  var MODS={
+    house:{up:[["Fenced yard or usable outdoor space","Renters with kids and pets prize a private yard.","High appeal","mid"],["Curb appeal & exterior upkeep","A tidy exterior signals a well-kept home and rents faster.","Quick win","low"]],pain:["Yard and snow upkeep left unclear","No basement/garage for storage"]},
+    multi:{up:[["Sound insulation between units","Quiet neighbors are a top request in shared buildings.","High appeal","mid"],["Separate, secure, well-lit entries","Private, safe entries make a unit feel like home.","High appeal","low"]],pain:["Noise between units","Shared or tight parking"]},
+    unit:{up:[["More closet & storage space","Storage is the quiet dealbreaker in apartments.","High appeal","low"],["Add a dishwasher","A dishwasher punches way above its cost in appeal.","Quick win","low"]],pain:["Tiny closets","Thin walls and noise"]},
+    garden:{up:[["Waterproofing — a dry, no-leak space","Nothing sinks a garden unit faster than dampness; a dry, sealed space is everything.","Top demand","mid"],["Brighter lighting & safe egress","Bright, up-to-code lighting and exits make a lower-level unit feel like home.","High appeal","low"]],pain:["Musty smell or dampness","Dark, low light","Worry about flooding","Feels cold in winter"]}
+  };
+
+  var areaSel=document.getElementById('ri-area'), typeSel=document.getElementById('ri-type'), out=document.getElementById('ri-results');
+  if(!areaSel) return;
+  AREAS.forEach(function(a){var o=document.createElement('option');o.value=a[1];o.textContent=a[0];areaSel.appendChild(o);});
+  TYPES.forEach(function(t){var o=document.createElement('option');o.value=t[1];o.textContent=t[0];typeSel.appendChild(o);});
+  areaSel.selectedIndex=6; // Southwest Suburbs (Brandau home turf) as default
+
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+  function render(){
+    var arch=ARCH[areaSel.value], mod=MODS[typeSel.value];
+    var ups=mod.up.concat(arch.up);           // property-specific first
+    var seen={}, up=[]; ups.forEach(function(u){if(!seen[u[0]]){seen[u[0]]=1;up.push(u);}}); up=up.slice(0,6);
+    var pain=mod.pain.concat(arch.pain), ps={}, pn=[]; pain.forEach(function(p){if(!ps[p]){ps[p]=1;pn.push(p);}}); pn=pn.slice(0,5);
+    var wins=up.filter(function(u){return u[3]==='low';}).map(function(u){return u[0];});
+    var bets=up.filter(function(u){return u[3]!=='low';}).map(function(u){return u[0];});
+
+    var upHtml=up.map(function(u){
+      var win=(u[2]==='Quick win'||u[3]==='low');
+      return '<li><div class="ri-t">'+esc(u[0])+' <span class="ri-badge'+(win?' win':'')+'">'+esc(u[2])+'</span></div><div class="ri-why">'+esc(u[1])+'</div></li>';
+    }).join('');
+    var painHtml=pn.map(function(p){return '<li>'+esc(p)+'</li>';}).join('');
+    var winHtml=wins.length?wins.map(function(w){return '<span>'+esc(w)+'</span>';}).join(''):'<span>Fresh paint &amp; fixtures</span>';
+    var betHtml=bets.map(function(b){return '<span>'+esc(b)+'</span>';}).join('');
+
+    out.innerHTML=
+      '<div class="ri-panel"><h3>Top upgrades renters here want</h3><p class="ri-who">'+esc(arch.who)+'</p><ol class="ri-up">'+upHtml+'</ol></div>'+
+      '<div class="ri-panel"><h3>What renters complain about most</h3><ul class="ri-pain">'+painHtml+'</ul>'+
+        '<div class="ri-split"><h4>Quick wins (low cost, high impact)</h4>'+winHtml+'</div>'+
+        '<div class="ri-split"><h4>Bigger bets (worth the investment)</h4>'+betHtml+'</div></div>';
+  }
+  areaSel.addEventListener('change',render); typeSel.addEventListener('change',render); render();
+})();
+</script>
+
 <section class="section section--gray">
   <div class="container">
     <div class="section-head center">

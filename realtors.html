@@ -167,6 +167,168 @@
   </div>
 </section>
 
+
+<section class="section" id="seller-radar-section">
+  <div class="container">
+    <div class="section-head center">
+      <div class="eyebrow" style="justify-content:center;">Brandau Agent Tool &middot; Only Here</div>
+      <h2>The 60-Second Listing Prep Report</h2>
+      <p>Enter a home&rsquo;s ZIP, age, and condition &mdash; get the fixes that help it sell faster <em>and</em> the deal-killers most likely to flag at inspection. Print it and hand it to your seller.</p>
+    </div>
+
+    <div id="seller-radar">
+      <div class="sr-controls">
+        <label class="sr-field"><span>Property ZIP</span><input id="sr-zip" type="text" inputmode="numeric" maxlength="5" placeholder="e.g. 60435" autocomplete="off"></label>
+        <label class="sr-field"><span>Home age</span>
+          <select id="sr-age">
+            <option value="pre1950">Before 1950</option>
+            <option value="1950">1950 – 1979</option>
+            <option value="1980">1980 – 1999</option>
+            <option value="2000">2000 – 2015</option>
+            <option value="2016">2016 or newer</option>
+          </select>
+        </label>
+        <label class="sr-field"><span>Current condition</span>
+          <select id="sr-cond">
+            <option value="dated">Dated / original</option>
+            <option value="partly">Partly updated</option>
+            <option value="ready">Move-in ready</option>
+          </select>
+        </label>
+        <button id="sr-go" class="btn btn-primary" type="button">Get the Report &rarr;</button>
+      </div>
+
+      <p id="sr-hint" class="sr-hint">Enter a 5-digit ZIP to build the report.</p>
+      <div class="sr-results" id="sr-results" hidden></div>
+
+      <div class="sr-cta" id="sr-cta" hidden>
+        <div>
+          <strong>Want it handled before you list?</strong>
+          <span>Brandau Home Services does pre-listing make-readies and the repairs that clear inspection &mdash; on your closing timeline. Refer a client or get a quote.</span>
+        </div>
+        <a href="contact.html" class="btn btn-primary">Get a Free Quote &rarr;</a>
+      </div>
+      <p class="sr-note">A smart starting point built from home-age patterns and Chicago-area inspection trends &mdash; not a substitute for a licensed inspection.</p>
+    </div>
+  </div>
+</section>
+
+<style>
+#seller-radar{max-width:960px;margin:8px auto 0;}
+#seller-radar .sr-controls{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;justify-content:center;margin-bottom:14px;}
+#seller-radar .sr-field{display:flex;flex-direction:column;gap:6px;flex:1 1 190px;max-width:260px;}
+#seller-radar .sr-field span{font-size:.76rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:#0C3A52;}
+#seller-radar input,#seller-radar select{width:100%;padding:12px 15px;font-size:1rem;font-family:inherit;color:#1f2d34;background:#fff;border:1.5px solid #d5e2ea;border-radius:10px;}
+#seller-radar select{appearance:none;-webkit-appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%231B9BD1' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:36px;}
+#seller-radar input:focus,#seller-radar select:focus{outline:none;border-color:#1B9BD1;box-shadow:0 0 0 3px rgba(27,155,209,.15);}
+#seller-radar .btn{flex:0 0 auto;}
+#seller-radar .sr-hint{text-align:center;color:#7a8b93;font-size:.9rem;margin:6px 0 0;}
+#seller-radar .sr-results{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:22px;}
+@media(max-width:760px){#seller-radar .sr-results{grid-template-columns:1fr;}}
+#seller-radar .sr-panel{border:1px solid #e3ebf0;border-radius:14px;padding:22px 24px;background:#f4f8fb;}
+#seller-radar .sr-panel.kill{background:#fdf6f4;border-color:#f2ddd6;}
+#seller-radar .sr-panel h3{font-size:1.05rem;color:#0C3A52;margin:0 0 3px;display:flex;align-items:center;gap:8px;}
+#seller-radar .sr-panel.kill h3{color:#a23b23;}
+#seller-radar .sr-panel .sr-sub{font-size:.85rem;color:#5a6b74;margin:0 0 15px;line-height:1.5;}
+#seller-radar ol.sr-list{list-style:none;margin:0;padding:0;counter-reset:sr;}
+#seller-radar ol.sr-list li{counter-increment:sr;position:relative;padding:0 0 13px 38px;margin-bottom:13px;border-bottom:1px solid #e7eef3;}
+#seller-radar ol.sr-list li:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0;}
+#seller-radar ol.sr-list li::before{content:counter(sr);position:absolute;left:0;top:0;width:25px;height:25px;border-radius:50%;background:#1B9BD1;color:#fff;font-weight:700;font-size:.82rem;display:flex;align-items:center;justify-content:center;}
+#seller-radar .kill ol.sr-list li::before{background:#c65a3d;}
+#seller-radar .sr-t{font-weight:700;color:#12222b;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}
+#seller-radar .sr-why{font-size:.85rem;color:#54646d;margin-top:3px;line-height:1.5;}
+#seller-radar .sr-tag{font-size:.64rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:#e2f2fa;color:#0d6ea0;white-space:nowrap;}
+#seller-radar .sr-market{margin-top:18px;background:#eef6fb;border-left:3px solid #1B9BD1;border-radius:8px;padding:12px 16px;font-size:.9rem;color:#33454e;line-height:1.5;}
+#seller-radar .sr-print{display:block;margin:16px auto 0;background:none;border:1.5px solid #d5e2ea;color:#0C3A52;font-weight:600;font-size:.85rem;padding:9px 16px;border-radius:9px;cursor:pointer;}
+#seller-radar .sr-cta{margin-top:24px;background:#0C3A52;border-radius:14px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+#seller-radar .sr-cta strong{color:#fff;display:block;font-size:1.05rem;margin-bottom:3px;}
+#seller-radar .sr-cta span{color:#bcd6e5;font-size:.88rem;line-height:1.5;max-width:520px;display:block;}
+#seller-radar .sr-note{font-size:.75rem;color:#8a9aa2;text-align:center;margin:16px auto 0;max-width:660px;line-height:1.5;}
+@media print{body *{visibility:hidden;}#seller-radar-section,#seller-radar-section *{visibility:visible;}#seller-radar-section{position:absolute;left:0;top:0;width:100%;}#seller-radar .sr-controls,#seller-radar .sr-print,#seller-radar .sr-cta,#seller-radar .sr-hint{display:none!important;}}
+</style>
+
+<script>
+(function(){
+  var FIX={
+    dated:[["Fresh, neutral paint throughout","The highest-return pre-listing move — buyers instantly read 'move-in ready.'","Brandau"],
+           ["Refinish or replace worn flooring","Old carpet and scuffed floors read as a project; new LVP or refinished hardwood photographs beautifully.","Brandau"],
+           ["Light kitchen refresh","Cabinet paint & hardware, a modern faucet, and better lighting modernize a kitchen without a gut.","Brandau"],
+           ["Refresh the main bathroom","A new vanity, fixtures, fresh caulk, and paint make a dated bath feel clean and current.","Brandau"],
+           ["Boost curb appeal","Trim, mulch, a tidy entry, and a painted front door earn the click and the first impression.","Brandau"],
+           ["Fix the obvious little stuff","Sticking doors, cracked plates, running toilets, torn screens — buyers tally every one.","Brandau"]],
+    partly:[["Finish what's half-updated","Buyers punish an 80%-done home. Close the gaps on the kitchen or bath already started.","Brandau"],
+            ["Neutralize bold paint","A room or two of neutral paint keeps listing photos calm and broad-appeal.","Brandau"],
+            ["Flooring in the worn rooms","Replace flooring only where it's tired — targeted, not whole-house.","Brandau"],
+            ["Curb appeal tune-up","Landscaping cleanup and a crisp entry lift the first impression cheaply.","Brandau"],
+            ["Deep clean & a punch-list pass","A pro clean plus knocking out small repairs makes 'good' feel 'great' at showings.","Brandau"]],
+    ready:[["Pre-listing inspection","Get ahead of surprises — knowing what an inspector will flag lets you fix or disclose on your terms.","Brandau"],
+           ["Curb appeal polish","Even move-in-ready homes sell faster with a sharp entry and tidy landscaping.","Brandau"],
+           ["Paint & caulk touch-ups","Small touch-ups keep the 'like new' feel that justifies top-of-market pricing.","Brandau"],
+           ["Clear any deferred maintenance","Knock out the one or two lingering items so nothing gives a buyer pause.","Brandau"]]
+  };
+  var KILL={
+    pre1950:[["Outdated wiring (knob-and-tube)","Insurers and lenders balk at it — have it evaluated and updated before it derails financing.","Electrical"],
+             ["Old plumbing (galvanized/lead)","Corroded or lead supply lines scare inspectors; know your material and have a plan.","Plumbing"],
+             ["Undersized electrical panel","Fuse boxes and 60–100A panels flag as safety/capacity issues; an upgrade removes the objection.","Electrical"],
+             ["Aging roof & flashing","A roof near end-of-life is a classic negotiation lever — get it assessed early.","Roofing"],
+             ["Foundation & settling","Cracks and uneven floors invite scary inspection language; get ahead of the story.","Repair"]],
+    "1950":[["Aging galvanized plumbing","Original supply lines corrode from the inside — low pressure and leaks surface on inspection.","Plumbing"],
+            ["End-of-life furnace / HVAC","Old systems flag as a near-term cost buyers negotiate against; service or replace proactively.","HVAC"],
+            ["Original single-pane windows","Drafty windows read as high bills; even a few key replacements help.","Repair"],
+            ["Aluminum wiring (some homes)","Common in the late '60s–'70s and a known insurance/fire concern — have it checked.","Electrical"],
+            ["Roof at or past midlife","Document the age and address it before a buyer's inspector does.","Roofing"]],
+    "1980":[["HVAC & water heater aging out","Equipment from this era is near end-of-life — a top inspection call-out.","HVAC"],
+            ["Polybutylene plumbing (some homes)","This gray plastic pipe is a known failure and insurance issue; identify it early.","Plumbing"],
+            ["Original roof at end-of-life","20-plus-year shingles are a negotiation magnet — assess and plan.","Roofing"],
+            ["Deck & exterior rot","Aging decks and rotted trim flag safety and maintenance; a repair pass clears it.","Repair"]],
+    "2000":[["HVAC / water heater midlife","Not failing, but old enough that inspectors note remaining life — service and document.","HVAC"],
+            ["Roof approaching midlife","Get maintenance and age on record so it isn't a question mark.","Roofing"],
+            ["Grading & drainage","Settling and downspouts sending water to the foundation is a common flag.","Waterproofing"],
+            ["Builder-grade wear","Worn caulk, seals, and finishes add up across an inspection report.","Repair"]],
+    "2016":[["Workmanship punch items","Newer homes still flag loose fixtures, missing caulk, and minor drywall — small stuff adds up.","Repair"],
+            ["Grading & drainage","Fresh landscaping settles; make sure water still runs away from the house.","Waterproofing"],
+            ["First-round maintenance","Even a young home needs its first upkeep pass before it shows its best.","Repair"]]
+  };
+  var REGION=[["Basement water intrusion","Seepage, stains, and a questionable sump pump are top Chicago deal-killers — dry it out and document it.","Waterproofing"],
+              ["Radon","Common in Illinois soil and a routine test in the sale; a mitigation system is a clean fix.","Test it"],
+              ["Sewer line (older homes)","Clay lines and root intrusion surprise buyers on a camera scope — worth knowing before you list.","Scope it"]];
+
+  var zipEl=document.getElementById('sr-zip'), ageEl=document.getElementById('sr-age'), condEl=document.getElementById('sr-cond');
+  var go=document.getElementById('sr-go'), res=document.getElementById('sr-results'), hint=document.getElementById('sr-hint'), cta=document.getElementById('sr-cta');
+  if(!zipEl) return;
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+  function tag(x){return '<span class="sr-tag">'+esc(x)+'</span>';}
+  function num(list){return '<ol class="sr-list">'+list.map(function(r){return '<li><div class="sr-t">'+esc(r[0])+' '+tag(r[2])+'</div><div class="sr-why">'+esc(r[1])+'</div></li>';}).join('')+'</ol>';}
+
+  function build(){
+    var zip=(zipEl.value||'').trim();
+    if(!/^\d{5}$/.test(zip)){hint.textContent='Please enter a valid 5-digit ZIP to build the report.';hint.style.color='#c0392b';res.hidden=true;cta.hidden=true;return;}
+    var age=ageEl.value, cond=condEl.value;
+    var chi=zip.charAt(0)+zip.charAt(1)==='60';
+    var city=zip.indexOf('606')===0;
+    var kills=KILL[age].slice();
+    if(chi){kills=kills.concat(REGION);}
+    var market = !chi ? "Buyers reward move-in-ready and punish deferred maintenance — get ahead of both, and price with confidence."
+      : city ? "In the city&rsquo;s older housing stock, buyers scrutinize systems, water, and condition — pre-empting the big-ticket inspection items protects your price and your timeline."
+             : "Chicagoland suburban buyers reward move-in-ready — updated kitchens and baths plus clean, documented systems sell faster and appraise better.";
+
+    res.innerHTML =
+      '<div class="sr-panel"><h3>Sell-Ready &mdash; do these before you list</h3><p class="sr-sub">The highest-impact prep for a '+esc({dated:"dated / original",partly:"partly updated",ready:"move-in ready"}[cond])+' home.</p>'+num(FIX[cond])+'</div>'+
+      '<div class="sr-panel kill"><h3>Deal-Killer Radar</h3><p class="sr-sub">What&rsquo;s most likely to flag on inspection for this home&rsquo;s age'+(chi?' in the Chicago area':'')+' &mdash; head it off first.</p>'+num(kills)+'</div>';
+    res.insertAdjacentHTML('beforeend','<div class="sr-market" style="grid-column:1/-1;"><strong>Your market:</strong> '+market+'</div>');
+    res.insertAdjacentHTML('beforeend','<button class="sr-print" type="button" onclick="window.print()" style="grid-column:1/-1;">Print / Save this report as a PDF</button>');
+    res.hidden=false; cta.hidden=false;
+    hint.textContent='Report for ZIP '+zip+' — change any field and rebuild.'; hint.style.color='#7a8b93';
+
+    // capture: ZIP + profile as an analytics event (fires only if Google Analytics is connected)
+    var payload={zip:zip, home_age:age, condition:cond, region:(chi?(city?'chicago_city':'chicago_suburb'):'other')};
+    try{ if(typeof gtag==='function'){gtag('event','listing_prep_report',payload);} window.dataLayer=window.dataLayer||[]; window.dataLayer.push(Object.assign({event:'listing_prep_report'},payload)); }catch(e){}
+  }
+  go.addEventListener('click',build);
+  zipEl.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();build();}});
+})();
+</script>
+
 <section class="section section--gray">
   <div class="container">
     <div class="section-head center">
