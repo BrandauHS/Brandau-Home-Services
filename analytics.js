@@ -18,7 +18,7 @@
    ============================================================================ */
 (function () {
   // ====== PASTE YOUR GOOGLE ANALYTICS MEASUREMENT ID HERE ======
-  var GA_MEASUREMENT_ID = ""; // e.g. "G-ABCD1234EF"
+  var GA_MEASUREMENT_ID = "G-SFE0PTDKJ3"; // e.g. "G-ABCD1234EF"
   // =============================================================
 
   window.dataLayer = window.dataLayer || [];
