@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roast My To-Do List | Brandau Home Services</title>
+<title>Snap Diagnosis | Free AI Photo Repair Check | Brandau Home Services</title>
 <meta name="description" content="Reliable repairs, upgrades, maintenance, and junk removal for Chicagoland homeowners — everything on your list, handled.">
 <link rel="icon" href="images/favicon.ico" sizes="any">
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
@@ -99,9 +99,9 @@
 </header>
 <section class="page-hero">
   <div class="container" style="text-align:center;">
-    <div class="eyebrow" style="justify-content:center;">Preview &middot; Sandbox</div>
-    <h1>Two Tools To Try</h1>
-    <p class="hero-sub" style="margin-left:auto;margin-right:auto;">Both of these are just for you right now &mdash; nothing&rsquo;s on the real site yet. Play with them, and if you like one, we&rsquo;ll make it official.</p>
+    <div class="eyebrow" style="justify-content:center;">Free &middot; AI-Powered</div>
+    <h1>Snap Diagnosis</h1>
+    <p class="hero-sub" style="margin-left:auto;margin-right:auto;">Got something in your home that doesn&rsquo;t look right? Snap a photo and our tool tells you what it most likely is, how urgent it is, and what it&rsquo;d take to fix &mdash; in seconds.</p>
   </div>
 </section>
 
@@ -457,216 +457,6 @@
       });
     }).catch(function(){ if(state.sym){ guidedRead(); } else { out.innerHTML='<div class="dx-empty"><div class="dx-hand">&#129300;</div><p>Something hiccuped reading that photo. Give it another try, or tap what you’re seeing.</p></div>'; } });
   });
-})();
-</script>
-
-<section class="section section--gray">
-  <div class="container">
-    <div class="rm-wrap">
-      <div class="rm-input">
-        <label class="rm-eye" for="rm-list">Your list &mdash; one task per line</label>
-        <textarea id="rm-list" rows="8" placeholder="Fix the leaky kitchen faucet&#10;Paint the guest room&#10;Clean out the garage (someday)&#10;That deck I&#39;ve been ignoring since 2019&#10;Mount the TV without killing myself"></textarea>
-        <button class="btn btn-primary rm-go" id="rm-go">Roast My List &rarr;</button>
-        <p class="rm-fine">We don&rsquo;t save your list &mdash; the roasting happens right here in your browser.</p>
-      </div>
-      <div class="rm-out" id="rm-out">
-        <div class="rm-empty">
-          <div class="rm-hand">&#128293;</div>
-          <p>Type your list and hit the button. Danny&rsquo;s already warming up.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<style>
-.rm-wrap{display:grid;grid-template-columns:.92fr 1.08fr;gap:34px;align-items:start;}
-@media(max-width:860px){.rm-wrap{grid-template-columns:1fr;}}
-.rm-eye{display:block;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1B9BD1;margin:0 0 10px;}
-#rm-list{width:100%;box-sizing:border-box;border:1px solid #d6e0e7;border-radius:14px;padding:16px 18px;font-family:'Inter',sans-serif;font-size:1rem;line-height:1.55;color:#22333c;resize:vertical;background:#fbfdfe;}
-#rm-list:focus{outline:none;border-color:#1B9BD1;box-shadow:0 0 0 3px rgba(27,155,209,.15);}
-.rm-go{margin-top:16px;width:100%;font-size:1.02rem;padding:14px 20px;}
-.rm-fine{font-size:.8rem;color:#8a99a1;margin:12px 2px 0;}
-.rm-out{background:#f4f8fb;border:1px solid #e3ebf0;border-radius:18px;padding:24px;min-height:360px;}
-.rm-empty{text-align:center;color:#7a8b93;padding:60px 12px;}
-.rm-hand{font-size:38px;margin-bottom:12px;}
-.rm-scorecard{background:linear-gradient(135deg,#0C3A52,#12506e);color:#eaf4fa;border-radius:14px;padding:20px 22px;margin-bottom:18px;}
-.rm-scorecard h3{font-family:'Space Grotesk',sans-serif;margin:0 0 6px;font-size:1.25rem;color:#fff;}
-.rm-scorecard p{margin:0;font-size:.95rem;line-height:1.5;color:#cfe4f0;}
-.rm-tally{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
-.rm-tally span{font-size:.78rem;font-weight:600;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.12);}
-.rm-item{background:#fff;border:1px solid #e6edf1;border-radius:13px;padding:15px 17px;margin-bottom:12px;}
-.rm-item-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:7px;}
-.rm-task{font-family:'Space Grotesk',sans-serif;font-weight:700;color:#0C3A52;font-size:1rem;}
-.rm-chip{font-size:.68rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:4px 10px;border-radius:999px;white-space:nowrap;flex:none;}
-.rm-chip.diy{background:#e4f5e9;color:#2f8f4e;}
-.rm-chip.pro{background:#e2f1fa;color:#1477a8;}
-.rm-chip.uhoh{background:#fdeee4;color:#c26a34;}
-.rm-roast{color:#42525b;font-size:.95rem;line-height:1.55;margin:0;}
-.rm-danny{background:#fff7ed;border:1px dashed #e6c79c;border-radius:13px;padding:15px 17px;margin:16px 0 4px;color:#7a5a2e;font-size:.95rem;line-height:1.55;}
-.rm-danny strong{color:#5c4420;}
-.rm-cta{margin-top:20px;border-top:1px solid #e3ebf0;padding-top:20px;}
-.rm-cta h4{font-family:'Space Grotesk',sans-serif;color:#0C3A52;margin:0 0 6px;font-size:1.08rem;}
-.rm-cta p{color:#5a6a72;font-size:.92rem;margin:0 0 14px;line-height:1.5;}
-.rm-actions{display:flex;gap:10px;flex-wrap:wrap;}
-.rm-actions .btn{flex:1;min-width:150px;text-align:center;}
-.rm-copy{background:#fff;border:1px solid #1B9BD1;color:#1477a8;}
-.rm-copy:hover{background:#eef8fd;}
-.rm-share-note{font-size:.82rem;color:#8a99a1;margin:12px 2px 0;text-align:center;}
-</style>
-
-<script>
-(function(){
-  // Hand-written roast engine. Keyword match -> roast + verdict.
-  // verdict: 'diy' (you got this), 'pro' (let us), 'uhoh' (do NOT touch this yourself)
-  var RULES = [
-    {k:['leak','drip','faucet','water heater','pipe','plumb'],v:'pro',
-      r:"A drip is your house tapping its foot at you. Twenty bucks in parts — or twenty more months of that sound at 3am. We’ll make it stop."},
-    {k:['toilet','running toilet'],v:'diy',
-      r:"A running toilet: the ghost that lives in every house and haunts your water bill. Usually a ten-minute fix. Usually."},
-    {k:['paint','painting','repaint'],v:'pro',
-      r:"Painting. The job everyone swears they can do, and everyone regrets by the second wall and the first drop cloth mutiny. Tape it, or call us and keep your marriage."},
-    {k:['deck','porch'],v:'pro',
-      r:"The deck you’ve ‘been meaning to get to.’ We both know ‘been meaning to’ is doing Olympic-level heavy lifting in that sentence. That wood isn’t getting younger."},
-    {k:['drywall','patch','hole in','nail hole','crack in the wall'],v:'diy',
-      r:"A hole in the drywall: small enough to ignore, big enough that your guests definitely noticed. It’s fine. We won’t ask how it got there."},
-    {k:['gutter'],v:'pro',
-      r:"Cleaning the gutters — the chore you’ll get to right after you finally buy that ladder you keep almost buying. Spoiler: you won’t. We have the ladder."},
-    {k:['roof','shingle','flashing'],v:'uhoh',
-      r:"Roof stuff. We love a can-do attitude, but the roof is where can-do attitudes go to get humbled. Stay on the ground, champ — we’ll patch the leak."},
-    {k:['outlet','wiring','wire','electric','breaker','gfci','light switch','ceiling fan'],v:'uhoh',
-      r:"Electrical work — where ‘how hard can it be’ and ‘why is the whole house dark now’ are about ninety seconds apart. Please let a pro touch that one."},
-    {k:['floor','tile','laminate','hardwood','vinyl','carpet'],v:'pro',
-      r:"New floors: 10% installation, 90% arguing about which shade of greige. We’ll handle the 10% if you handle the negotiations."},
-    {k:['garage','clean out','cleanout','junk','declutter','clutter','haul','get rid of'],v:'pro',
-      r:"Cleaning out the garage — a task so eternal it deserves its own religion. One truck from us and it’s gone, or keep circling it like a shark for another year."},
-    {k:['yard','lawn','mow','weed','bush','hedge','landscap','leaves','tree','overgrow'],v:'diy',
-      r:"The yard. Nature’s way of reminding you that doing nothing has consequences. We’ll tame it before the neighbors start a group chat about your house."},
-    {k:['door','lock','hinge','handle','sticks','squeak'],v:'diy',
-      r:"A door that sticks, a lock that fights you — tiny stuff that makes you mutter every single day. Fifteen minutes for us. Years of muttering for you."},
-    {k:['basement','sump','flood','foundation','seep'],v:'uhoh',
-      r:"Water in the basement is your house saying ‘pay me now or pay me later — with interest.’ This one is not a maybe. Call before it becomes a swim."},
-    {k:['window','draft'],v:'pro',
-      r:"Drafty windows: you’re basically air-conditioning the whole block for free. Generous of you, honestly. Let’s stop funding the outdoors."},
-    {k:['bathroom','shower','tub','vanity','grout','caulk','re-caulk','recaulk'],v:'pro',
-      r:"The bathroom job that starts as ‘just re-caulk it’ and ends as a full gut and a fresh understanding of your credit limit. We’ll keep it sane."},
-    {k:['kitchen','cabinet','countertop','counter','backsplash'],v:'pro',
-      r:"Kitchen redo. Ambitious. Also the fastest known way to eat takeout for six straight weeks. We’ll make it quick so you can cook again."},
-    {k:['mount','tv','shelf','shelves','hang','picture','curtain','blinds'],v:'diy',
-      r:"Mounting the TV. Famous last words: ‘I found a stud.’ Narrator: he had not found a stud. Measure twice, or hand us the drill."},
-    {k:['fence','gate'],v:'pro',
-      r:"The fence — half leaning, fully judged by everyone who walks past. Let’s stand it back up before it commits fully to the ground."},
-    {k:['honey','wife','husband','spouse','she wants','he wants'],v:'diy',
-      r:"Ah, the classic honey-do item. Nothing says love like a laminated backlog. Let’s clear it before the annual performance review."},
-    {k:['siding','exterior','pressure wash','power wash'],v:'pro',
-      r:"The siding’s got that ‘lived-in’ look — and by lived-in we mean it’s been quietly collecting a decade of Chicago winters. A wash and a patch and it’s reborn."},
-    {k:['stair','railing','handrail','banister'],v:'pro',
-      r:"A wobbly railing is a lawsuit doing stretches. Grandma’s coming for the holidays — let’s bolt that thing down first."}
-  ];
-
-  var FALLBACK = [
-    {v:'pro', r:"Not totally sure what this one is, but the fact that it made the list means it’s been haunting you a while. We can exorcise it."},
-    {v:'diy', r:"This one’s vague enough that even you forgot what you meant by it. Classic. Point us at it and we’ll figure it out together."},
-    {v:'pro', r:"Bold of you to write this down instead of doing it. Genuinely, respect. We’ll be the ones who actually do it, though."},
-    {v:'diy', r:"Every list has one wildcard, and this is yours. We’re intrigued. Show us the mystery and we’ll handle it."}
-  ];
-
-  var LABEL = {diy:'You got this', pro:'Let us', uhoh:'Do NOT DIY'};
-
-  function roastLine(text, idx){
-    var low = text.toLowerCase();
-    for(var i=0;i<RULES.length;i++){
-      for(var j=0;j<RULES[i].k.length;j++){
-        if(low.indexOf(RULES[i].k[j])!==-1){
-          return {task:text, v:RULES[i].v, r:RULES[i].r};
-        }
-      }
-    }
-    var fb = FALLBACK[idx % FALLBACK.length];
-    return {task:text, v:fb.v, r:fb.r};
-  }
-
-  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-  var out = document.getElementById('rm-out');
-  var go = document.getElementById('rm-go');
-  var ta = document.getElementById('rm-list');
-
-  function summary(items){
-    var diy=0, pro=0, uh=0;
-    items.forEach(function(it){ if(it.v==='diy')diy++; else if(it.v==='uhoh')uh++; else pro++; });
-    var n = items.length;
-    var line;
-    if(uh>0 && (pro+uh) >= diy){
-      line = "Bit of a rescue mission, this one. A few you can handle on a good Saturday — but "+(pro+uh)+" of these belong to people who own the right ladder and know which wire is which. Lucky for you, that’s us.";
-    } else if(diy >= (pro+uh)){
-      line = "Honestly? You’re handier than this list makes you look. Knock out the easy ones and let us swoop in for the "+(pro+uh)+" that bite back.";
-    } else {
-      line = n+" things standing between you and a house you’re not annoyed at. Point us at the tricky ones and they’re gone by the weekend.";
-    }
-    return {diy:diy, pro:pro, uh:uh, n:n, line:line};
-  }
-
-  function render(){
-    var raw = ta.value.split('\n').map(function(s){return s.trim();}).filter(function(s){return s.length>1;});
-    if(!raw.length){
-      out.innerHTML = '<div class="rm-empty"><div class="rm-hand">&#129300;</div><p>That’s a blank list. Even Danny needs something to work with. Type a few tasks and try again.</p></div>';
-      return;
-    }
-    raw = raw.slice(0,15);
-    var items = raw.map(function(t,i){return roastLine(t,i);});
-    var s = summary(items);
-
-    var html = '';
-    html += '<div class="rm-scorecard"><h3>Alright, let’s see the damage&hellip;</h3><p>'+s.line+'</p>'+
-             '<div class="rm-tally">'+
-               '<span>&#9989; '+s.diy+' you got this</span>'+
-               '<span>&#128295; '+s.pro+' let us</span>'+
-               (s.uh>0?'<span>&#9888;&#65039; '+s.uh+' do NOT DIY</span>':'')+
-             '</div></div>';
-
-    items.forEach(function(it){
-      html += '<div class="rm-item"><div class="rm-item-top">'+
-                '<span class="rm-task">'+esc(it.task)+'</span>'+
-                '<span class="rm-chip '+it.v+'">'+LABEL[it.v]+'</span>'+
-              '</div><p class="rm-roast">'+it.r+'</p></div>';
-    });
-
-    html += '<div class="rm-danny"><strong>Danny’s take:</strong> Danny read your list too. He says he can do all of it, personally, by Tuesday. He cannot do all of it by Tuesday. That’s why the rest of the crew exists — and why the trim comes out straight.</div>';
-
-    html += '<div class="rm-cta"><h4>Want us to just knock these out?</h4>'+
-              '<p>Send us the list, get a real quote, and reclaim your weekends. We serve the whole Chicagoland area.</p>'+
-              '<div class="rm-actions">'+
-                '<a href="contact.html" class="btn btn-primary">Get a Free Quote &rarr;</a>'+
-                '<button class="btn rm-copy" id="rm-copy" type="button">Copy my roast</button>'+
-              '</div>'+
-              '<p class="rm-share-note">Screenshot this and tag us &mdash; or send it to the friend whose list is worse.</p>'+
-            '</div>';
-
-    out.innerHTML = html;
-    out.scrollIntoView({behavior:'smooth', block:'start'});
-
-    var copyBtn = document.getElementById('rm-copy');
-    if(copyBtn){
-      copyBtn.addEventListener('click', function(){
-        var txt = 'My home to-do list, roasted by Brandau Home Services:\n\n';
-        items.forEach(function(it){ txt += '• '+it.task+' — ['+LABEL[it.v]+']\n   '+it.r.replace(/’/g,"'").replace(/‘/g,"'").replace(/—/g,'-')+'\n\n'; });
-        txt += 'Get yours roasted at brandauhomeservices.com';
-        if(navigator.clipboard && navigator.clipboard.writeText){
-          navigator.clipboard.writeText(txt).then(function(){ copyBtn.textContent='Copied!'; setTimeout(function(){copyBtn.textContent='Copy my roast';},1800); });
-        } else {
-          copyBtn.textContent='Press Ctrl+C';
-        }
-      });
-    }
-
-    // Analytics hook (no-op until Google Analytics is connected)
-    if(typeof gtag === 'function'){ gtag('event','list_roasted',{items:items.length}); }
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({event:'list_roasted', items:items.length});
-  }
-
-  go.addEventListener('click', render);
 })();
 </script>
 

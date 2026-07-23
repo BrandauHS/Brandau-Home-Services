@@ -1662,3 +1662,10 @@ img { max-width: 100%; display: block; }
   font-size: 12px; color: var(--gray-500); margin-top: 14px;
 }
 .punch-privacy-note svg { flex: none; color: var(--gray-500); }
+
+
+/* Snap Diagnosis header button */
+.header-snap { display: inline-flex; align-items: center; gap: 6px; border: 1.5px solid #1B9BD1; color: #1477a8; font-weight: 600; font-size: 14px; padding: 7px 13px; border-radius: 999px; text-decoration: none; white-space: nowrap; transition: background .15s ease, color .15s ease; }
+.header-snap:hover { background: #eef8fd; color: #0f5f86; }
+.header-snap svg { flex: none; }
+@media (max-width: 640px) { .header-snap span { display: none; } .header-snap { padding: 7px 9px; } }
