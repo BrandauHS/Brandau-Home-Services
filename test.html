@@ -201,8 +201,16 @@
 
 <script>
 (function(){
+  // ============================================================
+  //  AI PHOTO READING  (true computer-vision diagnosis)
+  //  Paste your Cloudflare Worker URL between the quotes below to
+  //  turn it on. Leave it empty ("") and the tool falls back to the
+  //  built-in guided read, so it always works either way.
+  var AI_ENDPOINT = "https://brandau-photo-ai.office-4fb.workers.dev";
+  // ============================================================
+
   var UT = {1:{l:'Keep an eye on it',c:'lo'},2:{l:'Worth handling soon',c:'md'},3:{l:'Don’t wait on this',c:'hi'}};
-  // Symptom-driven reads, with optional location-specific extra line.
+  var UMAP = {low:1, medium:2, high:3};
   var DX = {
     stain:{t:'Most likely: water finding its way in',u:2,
       p:"A water stain almost always means water is getting somewhere it shouldn’t — even if it looks dry right now. The stain is the evidence; the real culprit is a leak nearby, usually above it.",
@@ -242,6 +250,9 @@
       d:"Send it over and we’ll tell you what we’re seeing and what it would take to make it right."}
   };
 
+  var LOCLABEL = {bathroom:'bathroom',kitchen:'kitchen',basement:'basement',roof:'roof or ceiling',exterior:'outside/siding area',living:'bedroom or living area',other:''};
+  var SYMLABEL = {stain:'a water stain',crack:'a crack',leak:'an active leak or drip',mold:'mold or musty spots',peel:'peeling or bubbling paint',sag:'sagging',burn:'a burn mark or hot outlet',rust:'rust or corrosion',flood:'standing water',broken:'a broken or missing piece',unsure:''};
+
   var drop = document.getElementById('dx-drop');
   var dropInner = document.getElementById('dx-drop-inner');
   var fileEl = document.getElementById('dx-file');
@@ -249,7 +260,9 @@
   var go = document.getElementById('dx-go');
   var locBox = document.getElementById('dx-loc');
   var symBox = document.getElementById('dx-sym');
-  var state = {photo:null, loc:null, sym:null};
+  var state = {photo:null, file:null, loc:null, sym:null};
+
+  function esc(s){ s=(s==null?'':String(s)); return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
   function pickGroup(box, key){
     box.addEventListener('click', function(e){
@@ -264,7 +277,7 @@
   function showPhoto(file){
     if(!file || !/^image\//.test(file.type)) return;
     var url = URL.createObjectURL(file);
-    state.photo = url;
+    state.photo = url; state.file = file;
     drop.classList.remove('drag');
     dropInner.style.display='none';
     var wrap = document.createElement('div');
@@ -274,7 +287,7 @@
     drop.appendChild(wrap);
     wrap.querySelector('.dx-x').addEventListener('click', function(ev){
       ev.preventDefault(); ev.stopPropagation();
-      state.photo=null; wrap.remove(); dropInner.style.display='';
+      state.photo=null; state.file=null; wrap.remove(); dropInner.style.display='';
     });
   }
 
@@ -283,33 +296,84 @@
   ['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('drag');});});
   drop.addEventListener('drop', function(e){ if(e.dataTransfer.files[0]) showPhoto(e.dataTransfer.files[0]); });
 
+  function fileToScaledB64(file){
+    return new Promise(function(resolve){
+      try{
+        var img = new Image();
+        img.onload = function(){
+          var max=1024, w=img.width, h=img.height;
+          if(w>h && w>max){ h=Math.round(h*max/w); w=max; }
+          else if(h>=w && h>max){ w=Math.round(w*max/h); h=max; }
+          var c=document.createElement('canvas'); c.width=w; c.height=h;
+          c.getContext('2d').drawImage(img,0,0,w,h);
+          var dataUrl=c.toDataURL('image/jpeg',0.85);
+          resolve({b64:dataUrl.split(',')[1], mime:'image/jpeg'});
+        };
+        img.onerror=function(){ resolve(null); };
+        img.src=URL.createObjectURL(file);
+      }catch(e){ resolve(null); }
+    });
+  }
+
+  function badge(u){ var x=UT[u]||UT[2]; return '<span class="dx-urg '+x.c+'">'+x.l+'</span>'; }
+
+  function renderCard(o){
+    var smsBody = encodeURIComponent("Hi Brandau — here's a photo of something at my place. What would it cost to fix?");
+    var html='';
+    if(state.photo){ html += '<img class="dx-res-photo" src="'+state.photo+'" alt="your photo">'; }
+    html += badge(o.urgency);
+    html += '<div class="dx-res"><h3>'+esc(o.title)+'</h3><p>'+esc(o.body)+'</p>';
+    html += '<div class="dx-do"><b>What we’d do</b><span>'+esc(o.doText)+'</span></div>';
+    html += '<p class="dx-disc">This is a likely read, not a final diagnosis. The real answer comes from eyes on it — and we’re happy to take a look for free.</p>';
+    html += '<div class="dx-actions"><a href="contact.html" class="btn btn-primary">Get a Free Quote &rarr;</a><a href="sms:+18158002557?&body='+smsBody+'" class="btn dx-text">Text us this photo</a></div></div>';
+    out.innerHTML = html;
+    out.scrollIntoView({behavior:'smooth', block:'nearest'});
+  }
+
+  function guidedRead(){
+    var dx = DX[state.sym]; if(!dx) return;
+    var body = dx.p;
+    if(dx.loc && state.loc && dx.loc[state.loc]){ body += ' ' + dx.loc[state.loc]; }
+    renderCard({title:dx.t, urgency:dx.u, body:body, doText:dx.d});
+  }
+
+  function hintsString(){
+    var parts=[];
+    if(state.loc && LOCLABEL[state.loc]) parts.push("it's in the "+LOCLABEL[state.loc]);
+    if(state.sym && SYMLABEL[state.sym]) parts.push("they think they see "+SYMLABEL[state.sym]);
+    return parts.join(', ');
+  }
+
+  function track(mode){
+    if(typeof gtag==='function'){ gtag('event','photo_diagnosed',{symptom:state.sym||'ai', location:state.loc||'na', mode:mode}); }
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'photo_diagnosed', symptom:state.sym||'ai', location:state.loc||'na', mode:mode});
+  }
+
   go.addEventListener('click', function(){
-    if(!state.sym){
+    var useAI = AI_ENDPOINT && state.file;
+    if(!useAI && !state.sym){
       out.innerHTML = '<div class="dx-empty"><div class="dx-hand">&#128072;</div><p>Tap <strong>what you’re seeing</strong> first — even a rough guess. A photo helps too, but the symptom is what we read.</p></div>';
       return;
     }
-    var dx = DX[state.sym];
-    var urg = UT[dx.u];
-    var body = dx.p;
-    if(dx.loc && state.loc && dx.loc[state.loc]){ body += ' ' + dx.loc[state.loc]; }
+    if(!useAI){ guidedRead(); track('guided'); return; }
 
-    var smsBody = encodeURIComponent("Hi Brandau — here's a photo of something at my place. What would it cost to fix?");
-    var html = '';
-    if(state.photo){ html += '<img class="dx-res-photo" src="'+state.photo+'" alt="your photo">'; }
-    html += '<span class="dx-urg '+urg.c+'">'+urg.l+'</span>';
-    html += '<div class="dx-res"><h3>'+dx.t+'</h3><p>'+body+'</p>';
-    html += '<div class="dx-do"><b>What we’d do</b><span>'+dx.d+'</span></div>';
-    html += '<p class="dx-disc">This is a likely read from what you told us — not a final diagnosis. The real answer comes from eyes on it, and we’re happy to take a look for free.</p>';
-    html += '<div class="dx-actions">'+
-              '<a href="contact.html" class="btn btn-primary">Get a Free Quote &rarr;</a>'+
-              '<a href="sms:+18158002557?&body='+smsBody+'" class="btn dx-text">Text us this photo</a>'+
-            '</div></div>';
-    out.innerHTML = html;
-    out.scrollIntoView({behavior:'smooth', block:'nearest'});
-
-    if(typeof gtag === 'function'){ gtag('event','photo_diagnosed',{symptom:state.sym, location:state.loc||'na'}); }
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({event:'photo_diagnosed', symptom:state.sym, location:state.loc||'na'});
+    out.innerHTML = '<div class="dx-empty"><div class="dx-hand">&#128260;</div><p>Reading your photo&hellip; give it a few seconds.</p></div>';
+    fileToScaledB64(state.file).then(function(img){
+      if(!img){ if(state.sym){ guidedRead(); } return; }
+      return fetch(AI_ENDPOINT, {
+        method:'POST', headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ image: img.b64, mime: img.mime, hints: hintsString() })
+      }).then(function(r){ return r.json(); }).then(function(res){
+        if(!res || res.error || !res.title){
+          if(state.sym){ guidedRead(); }
+          else { out.innerHTML='<div class="dx-empty"><div class="dx-hand">&#129300;</div><p>Couldn’t get a clear read on that photo. Try a clearer shot, or tap what you’re seeing and we’ll still help.</p></div>'; }
+          return;
+        }
+        renderCard({ title:res.title, urgency:(UMAP[(res.urgency||'medium').toLowerCase()]||2), body:res.likely, doText:res.whatWeDo });
+        track('ai');
+      });
+    }).catch(function(){ if(state.sym){ guidedRead(); } else { out.innerHTML='<div class="dx-empty"><div class="dx-hand">&#129300;</div><p>Something hiccuped reading that photo. Give it another try, or tap what you’re seeing.</p></div>'; } });
   });
 })();
 </script>
