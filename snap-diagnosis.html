@@ -128,6 +128,23 @@
 .s2-thanks h3{font-family:'Space Grotesk',sans-serif;color:#fff;margin:0 0 8px;}
 .s2-thanks p{color:#c4d6e0;font-size:.95rem;line-height:1.55;margin:0;}
 </style>
+<style>
+/* Fit the whole tool in the viewport (minimize scrolling) */
+.page-hero{padding-top:22px !important;padding-bottom:6px !important;}
+.page-hero .container{text-align:center;}
+.page-hero h1{font-size:2.05rem;line-height:1.1;margin:6px auto 8px;max-width:none;text-align:center;}
+.page-hero .eyebrow{margin-bottom:2px;}
+.page-hero .hero-sub{font-size:.96rem;line-height:1.5;max-width:520px;}
+.snap2-section, section.section{padding-top:10px !important;padding-bottom:22px !important;}
+.snap2-console{padding:18px;}
+.snap2-view:not(.has-photo){aspect-ratio:auto;height:260px;}
+.snap2-controls{margin-top:14px;}
+.s2-note{margin-top:12px;}
+@media(max-width:600px){
+  .page-hero h1{font-size:1.7rem;}
+  .snap2-view:not(.has-photo){height:220px;}
+}
+</style>
 </head>
 <body>
 
@@ -242,7 +259,7 @@
     var r=state.iw/state.ih;
     view.style.width=''; view.style.height=''; view.style.aspectRatio='';
     var availW=view.clientWidth;
-    var maxH=Math.min(window.innerHeight*0.60, 520);
+    var maxH=Math.min(window.innerHeight*0.52, 440);
     var w=Math.min(availW, maxH*r);
     var h=w/r;
     view.style.width=Math.round(w)+'px';
