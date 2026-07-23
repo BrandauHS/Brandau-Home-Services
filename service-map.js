@@ -38,6 +38,9 @@
   }
 
   function trackAddressChecked(payload) {
+    payload = payload || {};
+    // Privacy: never send the typed address (PII) to analytics — coarse fields only.
+    if (payload.address_entered) delete payload.address_entered;
     // Google Analytics 4 / Google Tag Manager hook.
     if (typeof gtag === 'function') {
       gtag('event', 'address_checked', payload);
