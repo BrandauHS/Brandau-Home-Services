@@ -1686,3 +1686,15 @@ img { max-width: 100%; display: block; }
 .band-dark p, .band-dark .section-head p { color: var(--gray-300); }
 /* Photo-backed CTA band */
 .cta-band--photo { background: linear-gradient(120deg, rgba(10,22,32,0.90) 0%, rgba(12,58,82,0.80) 100%), url('images/exteriorsiding-after.jpg'); background-size: cover; background-position: center; }
+
+
+/* ---- Dark photographic page-hero (inner pages) ---- */
+.band-dark h1 { color: var(--white); }
+.page-hero.band-dark { background: var(--black); }
+.page-hero.band-dark .hero-sub, .page-hero.band-dark p { color: var(--gray-300); }
+.page-hero.band-dark .hero-badge { background: rgba(255,255,255,0.10); color: var(--white); border: 1px solid rgba(255,255,255,0.18); box-shadow: none; }
+.page-hero.band-dark .trust-badge--light { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.16); box-shadow: none; }
+.page-hero.band-dark .trust-badge--light strong { color: var(--white); }
+.page-hero.band-dark .trust-badge--light span { color: #aebcc4; }
+.page-hero.band-dark .btn-outline { color: var(--white); border-color: rgba(255,255,255,0.4); }
+.page-hero.band-dark .btn-outline:hover { background: var(--white); color: var(--black); border-color: var(--white); }
