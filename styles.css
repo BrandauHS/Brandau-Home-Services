@@ -1669,3 +1669,8 @@ img { max-width: 100%; display: block; }
 .header-snap:hover { background: #eef8fd; color: #0f5f86; }
 .header-snap svg { flex: none; }
 @media (max-width: 640px) { .header-snap span { display: none; } .header-snap { padding: 7px 9px; } }
+
+
+/* Clickable Google Reviews badge */
+.trust-badge--link { color: inherit; text-decoration: none; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease; }
+.trust-badge--link:hover { transform: translateY(-2px); box-shadow: 0 10px 24px -12px rgba(10,22,32,0.45); }
