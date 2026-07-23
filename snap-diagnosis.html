@@ -254,6 +254,17 @@
     view.classList.remove('drag');
     analyze();
   }
+  function fitEmpty(){
+    if(state.iw) return;
+    var con=document.querySelector('.snap2-console'); if(!con) return;
+    view.style.height=''; view.style.width=''; view.style.aspectRatio='';
+    var rectTop=con.getBoundingClientRect().top + window.scrollY;
+    var chrome=con.getBoundingClientRect().height - view.getBoundingClientRect().height;
+    var avail=window.innerHeight - rectTop - chrome - 18;
+    avail=Math.max(180, Math.min(avail, 360));
+    view.style.aspectRatio='';
+    view.style.height=Math.round(avail)+'px';
+  }
   function fitView(){
     if(!state.iw||!state.ih) return;
     var r=state.iw/state.ih;
@@ -265,9 +276,9 @@
     view.style.width=Math.round(w)+'px';
     view.style.height=Math.round(h)+'px';
   }
-  window.addEventListener('resize',function(){ if(state.iw) fitView(); });
+  window.addEventListener('resize',function(){ if(state.iw) fitView(); else fitEmpty(); });
 
-  function clearPhoto(){ state.photo=null; state.file=null; state.iw=null; state.ih=null; view.classList.remove('has-photo'); view.style.width=''; view.style.height=''; view.style.aspectRatio=''; img.removeAttribute('src'); removeBtn.hidden=true; result.classList.remove('show'); result.innerHTML=''; }
+  function clearPhoto(){ state.photo=null; state.file=null; state.iw=null; state.ih=null; view.classList.remove('has-photo'); view.style.width=''; view.style.height=''; view.style.aspectRatio=''; img.removeAttribute('src'); removeBtn.hidden=true; result.classList.remove('show'); result.innerHTML=''; fitEmpty(); }
 
   document.getElementById('s2-btn-upload').addEventListener('click',function(){ upload.click(); });
   document.getElementById('s2-btn-snap').addEventListener('click',function(){ snap.click(); });
@@ -402,6 +413,10 @@
         });
     }).catch(function(){ finish(renderError); });
   }
+  fitEmpty();
+  window.addEventListener('load', fitEmpty);
+  setTimeout(fitEmpty, 200);
+  if(document.fonts && document.fonts.ready){ document.fonts.ready.then(fitEmpty); }
 })();
 </script>
 
