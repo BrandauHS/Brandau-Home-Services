@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Interactive Preview | Brandau Home Services</title>
+<title>Roast My To-Do List | Brandau Home Services</title>
 <meta name="description" content="Reliable repairs, upgrades, maintenance, and junk removal for Chicagoland homeowners — everything on your list, handled.">
 <link rel="icon" href="images/favicon.ico" sizes="any">
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
@@ -23,7 +23,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
 <!--
   GOOGLE ANALYTICS (GA4) / GOOGLE ADS TAG — not active yet.
   Once you have a GA4 Measurement ID (starts with "G-") or a Google Tag
@@ -100,124 +99,221 @@
 <section class="page-hero">
   <div class="container" style="text-align:center;">
     <div class="eyebrow" style="justify-content:center;">Preview &middot; Sandbox</div>
-    <h1>Two New Ideas &mdash; Take Them For A Spin</h1>
-    <p class="hero-sub" style="margin-left:auto;margin-right:auto;">Nothing here is final &mdash; this page is just for you. Click around the house, then drag around the map. If you like them, we&rsquo;ll drop them onto the real site.</p>
+    <h1>Roast My To-Do List</h1>
+    <p class="hero-sub" style="margin-left:auto;margin-right:auto;">Drop your home to-do list below and we&rsquo;ll roast every last item &mdash; then tell you which ones you can knock out with a cold one in hand, and which ones you should really let us handle. Fair warning: we don&rsquo;t hold back.</p>
   </div>
 </section>
 
 <section class="section">
   <div class="container">
-    <div class="section-head center"><div class="eyebrow" style="justify-content:center;">Explore</div><h2>Click Any Part Of The House</h2><p>See what we do there, the common problems, and how to get started.</p></div>
-    <div class="ch-wrap">
-      <div class="ch-house"><svg viewBox="0 0 640 512" class="ch-svg" xmlns="http://www.w3.org/2000/svg">
-  <rect class="ch-zone" data-zone="yard" x="0" y="462" width="640" height="50"></rect>
-  <g class="ch-static">
-    <path d="M560 462 q-4 -46 -18 -46 q-14 0 -18 46" fill="#3f7d46"></path>
-    <rect x="538" y="462" width="8" height="10" fill="#7a5a3a"></rect>
-  </g>
-  <polygon class="ch-zone" data-zone="roof" points="320,42 138,182 502,182"></polygon>
-  <rect class="ch-zone" data-zone="bathroom" x="176" y="182" width="144" height="120"></rect>
-  <rect class="ch-zone" data-zone="bedroom" x="320" y="182" width="144" height="120"></rect>
-  <rect class="ch-zone" data-zone="kitchen" x="176" y="302" width="144" height="120"></rect>
-  <rect class="ch-zone" data-zone="living" x="320" y="302" width="144" height="120"></rect>
-  <rect class="ch-zone" data-zone="basement" x="176" y="422" width="288" height="40"></rect>
-  <g class="ch-static" pointer-events="none">
-    <rect x="470" y="120" width="20" height="62" fill="#c9d6de"></rect>
-    <line x1="176" y1="302" x2="464" y2="302" stroke="#cdd9e1" stroke-width="2"></line>
-    <line x1="320" y1="182" x2="320" y2="422" stroke="#cdd9e1" stroke-width="2"></line>
-    <line x1="176" y1="422" x2="464" y2="422" stroke="#b7c5cd" stroke-width="2"></line>
-    <text class="ch-label" x="248" y="248">Bathroom</text>
-    <text class="ch-label" x="392" y="248">Bedrooms</text>
-    <text class="ch-label" x="248" y="368">Kitchen</text>
-    <text class="ch-label" x="392" y="368">Living</text>
-    <text class="ch-label" x="320" y="448">Basement</text>
-    <text class="ch-label" x="320" y="150" style="font-size:15px">Roof</text>
-    <text class="ch-label" x="70" y="490">Yard &amp; Exterior</text>
-  </g>
-</svg></div>
-      <div class="ch-panel" id="ch-panel">
-        <div class="ch-empty"><div class="ch-hand">&#128072;</div><p>Click a room, the roof, the basement, or the yard to see how Brandau helps there.</p></div>
+    <div class="rm-wrap">
+      <div class="rm-input">
+        <label class="rm-eye" for="rm-list">Your list &mdash; one task per line</label>
+        <textarea id="rm-list" rows="8" placeholder="Fix the leaky kitchen faucet&#10;Paint the guest room&#10;Clean out the garage (someday)&#10;That deck I&#39;ve been ignoring since 2019&#10;Mount the TV without killing myself"></textarea>
+        <button class="btn btn-primary rm-go" id="rm-go">Roast My List &rarr;</button>
+        <p class="rm-fine">We don&rsquo;t save your list &mdash; the roasting happens right here in your browser.</p>
+      </div>
+      <div class="rm-out" id="rm-out">
+        <div class="rm-empty">
+          <div class="rm-hand">&#128293;</div>
+          <p>Type your list and hit the button. Danny&rsquo;s already warming up.</p>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<section class="section section--gray">
-  <div class="container">
-    <div class="section-head center"><div class="eyebrow" style="justify-content:center;">Near You</div><h2>We&rsquo;re Working In Your Neighborhood</h2><p>Recent Brandau projects across Chicagoland &mdash; drag and zoom, click a pin. <em>(Sample pins for now; we&rsquo;ll swap in your real jobs.)</em></p></div>
-    <div id="bh-map"></div>
-  </div>
-</section>
-
 <style>
-.ch-wrap{display:grid;grid-template-columns:1.05fr .95fr;gap:34px;align-items:start;}
-@media(max-width:820px){.ch-wrap{grid-template-columns:1fr;}}
-.ch-house{background:#fbfdfe;border:1px solid #e6edf1;border-radius:16px;padding:12px;}
-.ch-svg{width:100%;height:auto;display:block;}
-.ch-zone{fill:#eef6fb;stroke:#fff;stroke-width:2.5;cursor:pointer;transition:fill .15s ease;}
-.ch-zone[data-zone="roof"]{fill:#dcebf6;}
-.ch-zone[data-zone="basement"]{fill:#e6edf2;}
-.ch-zone[data-zone="yard"]{fill:#e3efe1;}
-.ch-zone:hover{fill:#c3e6f7;}
-.ch-zone.active{fill:#8fd3ef;stroke:#1B9BD1;stroke-width:3.5;}
-.ch-label{fill:#0C3A52;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:14px;text-anchor:middle;pointer-events:none;}
-.ch-panel{background:#f4f8fb;border:1px solid #e3ebf0;border-radius:16px;padding:26px 28px;min-height:340px;}
-.ch-empty{text-align:center;color:#7a8b93;padding:40px 10px;}
-.ch-hand{font-size:34px;margin-bottom:10px;}
-.ch-panel h3{font-family:'Space Grotesk',sans-serif;color:#0C3A52;font-size:1.35rem;margin:0 0 4px;}
-.ch-panel .ch-eye{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1B9BD1;margin:16px 0 8px;}
-.ch-panel ul{list-style:none;margin:0;padding:0;}
-.ch-panel li{display:flex;gap:9px;align-items:flex-start;font-size:.95rem;color:#33454e;margin-bottom:8px;}
-.ch-panel li svg{flex:none;margin-top:3px;}
-.ch-panel .ch-prob li svg{stroke:#d98c66;}
-.ch-panel .btn{margin-top:20px;}
-#bh-map{height:500px;border-radius:16px;overflow:hidden;border:1px solid #dbe4ea;box-shadow:0 14px 40px rgba(15,58,82,.12);}
-.bh-pin{background:#1B9BD1;width:20px;height:20px;border-radius:50% 50% 50% 0;transform:rotate(-45deg);border:2.5px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.35);}
-.leaflet-popup-content{margin:10px 12px;}
-.bh-pop{display:flex;gap:11px;align-items:center;min-width:200px;}
-.bh-pop img{width:58px;height:58px;object-fit:cover;border-radius:8px;flex:none;}
-.bh-pop strong{display:block;color:#0C3A52;font-size:.95rem;}
-.bh-pop span{color:#6a7a82;font-size:.82rem;}
+.rm-wrap{display:grid;grid-template-columns:.92fr 1.08fr;gap:34px;align-items:start;}
+@media(max-width:860px){.rm-wrap{grid-template-columns:1fr;}}
+.rm-eye{display:block;font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1B9BD1;margin:0 0 10px;}
+#rm-list{width:100%;box-sizing:border-box;border:1px solid #d6e0e7;border-radius:14px;padding:16px 18px;font-family:'Inter',sans-serif;font-size:1rem;line-height:1.55;color:#22333c;resize:vertical;background:#fbfdfe;}
+#rm-list:focus{outline:none;border-color:#1B9BD1;box-shadow:0 0 0 3px rgba(27,155,209,.15);}
+.rm-go{margin-top:16px;width:100%;font-size:1.02rem;padding:14px 20px;}
+.rm-fine{font-size:.8rem;color:#8a99a1;margin:12px 2px 0;}
+.rm-out{background:#f4f8fb;border:1px solid #e3ebf0;border-radius:18px;padding:24px;min-height:360px;}
+.rm-empty{text-align:center;color:#7a8b93;padding:60px 12px;}
+.rm-hand{font-size:38px;margin-bottom:12px;}
+.rm-scorecard{background:linear-gradient(135deg,#0C3A52,#12506e);color:#eaf4fa;border-radius:14px;padding:20px 22px;margin-bottom:18px;}
+.rm-scorecard h3{font-family:'Space Grotesk',sans-serif;margin:0 0 6px;font-size:1.25rem;color:#fff;}
+.rm-scorecard p{margin:0;font-size:.95rem;line-height:1.5;color:#cfe4f0;}
+.rm-tally{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap;}
+.rm-tally span{font-size:.78rem;font-weight:600;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.12);}
+.rm-item{background:#fff;border:1px solid #e6edf1;border-radius:13px;padding:15px 17px;margin-bottom:12px;}
+.rm-item-top{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:7px;}
+.rm-task{font-family:'Space Grotesk',sans-serif;font-weight:700;color:#0C3A52;font-size:1rem;}
+.rm-chip{font-size:.68rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:4px 10px;border-radius:999px;white-space:nowrap;flex:none;}
+.rm-chip.diy{background:#e4f5e9;color:#2f8f4e;}
+.rm-chip.pro{background:#e2f1fa;color:#1477a8;}
+.rm-chip.uhoh{background:#fdeee4;color:#c26a34;}
+.rm-roast{color:#42525b;font-size:.95rem;line-height:1.55;margin:0;}
+.rm-danny{background:#fff7ed;border:1px dashed #e6c79c;border-radius:13px;padding:15px 17px;margin:16px 0 4px;color:#7a5a2e;font-size:.95rem;line-height:1.55;}
+.rm-danny strong{color:#5c4420;}
+.rm-cta{margin-top:20px;border-top:1px solid #e3ebf0;padding-top:20px;}
+.rm-cta h4{font-family:'Space Grotesk',sans-serif;color:#0C3A52;margin:0 0 6px;font-size:1.08rem;}
+.rm-cta p{color:#5a6a72;font-size:.92rem;margin:0 0 14px;line-height:1.5;}
+.rm-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.rm-actions .btn{flex:1;min-width:150px;text-align:center;}
+.rm-copy{background:#fff;border:1px solid #1B9BD1;color:#1477a8;}
+.rm-copy:hover{background:#eef8fd;}
+.rm-share-note{font-size:.82rem;color:#8a99a1;margin:12px 2px 0;text-align:center;}
 </style>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
 (function(){
-  var ZONES={"roof": {"t": "Roof &amp; Gutters", "do": ["Roof leak patching &amp; flashing", "Gutter repair &amp; cleaning", "Storm &amp; wind damage", "Soffit &amp; fascia"], "p": ["Leaks &amp; water stains", "Missing or curling shingles", "Ice dams &amp; clogged gutters"]}, "bathroom": {"t": "Bathroom", "do": ["Vanities, tile &amp; fixtures", "Tub &amp; shower surrounds", "Safety &amp; accessibility (grab bars)", "Full bath remodels"], "p": ["Mold &amp; mildew", "Leaks &amp; water damage", "Dated, worn finishes"]}, "bedroom": {"t": "Bedrooms &amp; Interior", "do": ["Drywall &amp; fresh paint", "Flooring &amp; trim", "Closets &amp; doors", "Windows &amp; weatherproofing"], "p": ["Cracked or damaged drywall", "Worn carpet &amp; scuffed floors", "Drafty windows, sticking doors"]}, "kitchen": {"t": "Kitchen", "do": ["Cabinet installs &amp; refacing", "Countertops &amp; backsplash", "Fixtures &amp; lighting", "Full kitchen remodels"], "p": ["Dated cabinets &amp; layout", "Leaky faucets", "Worn counters &amp; flooring"]}, "living": {"t": "Living Spaces &amp; Electrical", "do": ["Flooring, paint &amp; trim", "Outlets, GFCIs &amp; lighting", "Drywall &amp; finish work", "Handyman fixes"], "p": ["Old or unsafe wiring", "Tired floors &amp; walls", "The endless to-do list"]}, "basement": {"t": "Basement &amp; Waterproofing", "do": ["Water intrusion &amp; waterproofing", "Sump pumps &amp; drainage", "Egress &amp; finishing", "Mold cleanup"], "p": ["Seepage, damp &amp; musty smell", "Flooding &amp; standing water", "Cracks &amp; settling"]}, "yard": {"t": "Exterior &amp; Yard", "do": ["Siding, exterior paint &amp; pressure washing", "Landscaping &amp; cleanups", "Junk-outs &amp; cleanouts", "Decks, porches &amp; handrails"], "p": ["Faded or damaged siding", "Overgrowth &amp; drainage", "Clutter &amp; debris"]}};
-  var panel=document.getElementById('ch-panel');
-  var chk='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1B9BD1" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6L9 17l-5-5"/></svg>';
-  var dot='<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#d98c66" stroke-width="3" stroke-linecap="round"><circle cx="12" cy="12" r="8"/></svg>';
-  function show(z){
-    var d=ZONES[z]; if(!d) return;
-    document.querySelectorAll('.ch-zone').forEach(function(e){e.classList.toggle('active',e.getAttribute('data-zone')===z);});
-    panel.innerHTML='<h3>'+d.t+'</h3>'+
-      '<div class="ch-eye">What we do here</div><ul>'+d.do.map(function(x){return '<li>'+chk+'<span>'+x+'</span></li>';}).join('')+'</ul>'+
-      '<div class="ch-eye">Common problems</div><ul class="ch-prob">'+d.p.map(function(x){return '<li>'+dot+'<span>'+x+'</span></li>';}).join('')+'</ul>'+
-      '<a href="contact.html" class="btn btn-primary">Get a Free Quote &rarr;</a>';
-  }
-  document.querySelectorAll('.ch-zone').forEach(function(e){e.addEventListener('click',function(){show(e.getAttribute('data-zone'));});});
+  // Hand-written roast engine. Keyword match -> roast + verdict.
+  // verdict: 'diy' (you got this), 'pro' (let us), 'uhoh' (do NOT touch this yourself)
+  var RULES = [
+    {k:['leak','drip','faucet','water heater','pipe','plumb'],v:'pro',
+      r:"A drip is your house tapping its foot at you. Twenty bucks in parts — or twenty more months of that sound at 3am. We’ll make it stop."},
+    {k:['toilet','running toilet'],v:'diy',
+      r:"A running toilet: the ghost that lives in every house and haunts your water bill. Usually a ten-minute fix. Usually."},
+    {k:['paint','painting','repaint'],v:'pro',
+      r:"Painting. The job everyone swears they can do, and everyone regrets by the second wall and the first drop cloth mutiny. Tape it, or call us and keep your marriage."},
+    {k:['deck','porch'],v:'pro',
+      r:"The deck you’ve ‘been meaning to get to.’ We both know ‘been meaning to’ is doing Olympic-level heavy lifting in that sentence. That wood isn’t getting younger."},
+    {k:['drywall','patch','hole in','nail hole','crack in the wall'],v:'diy',
+      r:"A hole in the drywall: small enough to ignore, big enough that your guests definitely noticed. It’s fine. We won’t ask how it got there."},
+    {k:['gutter'],v:'pro',
+      r:"Cleaning the gutters — the chore you’ll get to right after you finally buy that ladder you keep almost buying. Spoiler: you won’t. We have the ladder."},
+    {k:['roof','shingle','flashing'],v:'uhoh',
+      r:"Roof stuff. We love a can-do attitude, but the roof is where can-do attitudes go to get humbled. Stay on the ground, champ — we’ll patch the leak."},
+    {k:['outlet','wiring','wire','electric','breaker','gfci','light switch','ceiling fan'],v:'uhoh',
+      r:"Electrical work — where ‘how hard can it be’ and ‘why is the whole house dark now’ are about ninety seconds apart. Please let a pro touch that one."},
+    {k:['floor','tile','laminate','hardwood','vinyl','carpet'],v:'pro',
+      r:"New floors: 10% installation, 90% arguing about which shade of greige. We’ll handle the 10% if you handle the negotiations."},
+    {k:['garage','clean out','cleanout','junk','declutter','clutter','haul','get rid of'],v:'pro',
+      r:"Cleaning out the garage — a task so eternal it deserves its own religion. One truck from us and it’s gone, or keep circling it like a shark for another year."},
+    {k:['yard','lawn','mow','weed','bush','hedge','landscap','leaves','tree','overgrow'],v:'diy',
+      r:"The yard. Nature’s way of reminding you that doing nothing has consequences. We’ll tame it before the neighbors start a group chat about your house."},
+    {k:['door','lock','hinge','handle','sticks','squeak'],v:'diy',
+      r:"A door that sticks, a lock that fights you — tiny stuff that makes you mutter every single day. Fifteen minutes for us. Years of muttering for you."},
+    {k:['basement','sump','flood','foundation','seep'],v:'uhoh',
+      r:"Water in the basement is your house saying ‘pay me now or pay me later — with interest.’ This one is not a maybe. Call before it becomes a swim."},
+    {k:['window','draft'],v:'pro',
+      r:"Drafty windows: you’re basically air-conditioning the whole block for free. Generous of you, honestly. Let’s stop funding the outdoors."},
+    {k:['bathroom','shower','tub','vanity','grout','caulk','re-caulk','recaulk'],v:'pro',
+      r:"The bathroom job that starts as ‘just re-caulk it’ and ends as a full gut and a fresh understanding of your credit limit. We’ll keep it sane."},
+    {k:['kitchen','cabinet','countertop','counter','backsplash'],v:'pro',
+      r:"Kitchen redo. Ambitious. Also the fastest known way to eat takeout for six straight weeks. We’ll make it quick so you can cook again."},
+    {k:['mount','tv','shelf','shelves','hang','picture','curtain','blinds'],v:'diy',
+      r:"Mounting the TV. Famous last words: ‘I found a stud.’ Narrator: he had not found a stud. Measure twice, or hand us the drill."},
+    {k:['fence','gate'],v:'pro',
+      r:"The fence — half leaning, fully judged by everyone who walks past. Let’s stand it back up before it commits fully to the ground."},
+    {k:['honey','wife','husband','spouse','she wants','he wants'],v:'diy',
+      r:"Ah, the classic honey-do item. Nothing says love like a laminated backlog. Let’s clear it before the annual performance review."},
+    {k:['siding','exterior','pressure wash','power wash'],v:'pro',
+      r:"The siding’s got that ‘lived-in’ look — and by lived-in we mean it’s been quietly collecting a decade of Chicago winters. A wash and a patch and it’s reborn."},
+    {k:['stair','railing','handrail','banister'],v:'pro',
+      r:"A wobbly railing is a lawsuit doing stretches. Grandma’s coming for the holidays — let’s bolt that thing down first."}
+  ];
 
-  try{
-    var map=L.map('bh-map',{scrollWheelZoom:false}).setView([41.70,-88.02],10);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:18,attribution:'&copy; OpenStreetMap contributors'}).addTo(map);
-    var pin=L.divIcon({className:'',html:'<div class="bh-pin"></div>',iconSize:[20,20],iconAnchor:[10,18],popupAnchor:[0,-16]});
-    var jobs=[
-      [41.525,-88.083,"Kitchen remodel","Joliet","images/kitchen1-after.jpg"],
-      [41.605,-88.204,"Cleanout &amp; junk-out","Plainfield","images/demo-kitchen.jpg"],
-      [41.785,-88.147,"Bathroom refresh","Naperville","images/bath1-after.jpg"],
-      [41.603,-87.853,"Basement waterproofing","Orland Park","images/foundation-after.jpg"],
-      [41.573,-87.792,"Interior repaint &amp; floors","Tinley Park","images/bedroom1-after.jpg"],
-      [41.760,-88.320,"Deck &amp; exterior","Aurora","images/exteriorsiding-after.jpg"],
-      [41.885,-87.789,"Whole-home rehab","Oak Park","images/wholehouse-1.jpg"],
-      [41.700,-88.068,"Staircase &amp; handrail","Bolingbrook","images/handrail-safety.jpg"],
-      [41.878,-87.629,"Condo kitchen","Chicago (Loop)","images/kitchen3-after.jpg"]
-    ];
-    jobs.forEach(function(j){
-      L.marker([j[0],j[1]],{icon:pin}).addTo(map).bindPopup('<div class="bh-pop"><img src="'+j[4]+'" alt=""><div><strong>'+j[2]+'</strong><span>'+j[3]+'</span></div></div>');
+  var FALLBACK = [
+    {v:'pro', r:"Not totally sure what this one is, but the fact that it made the list means it’s been haunting you a while. We can exorcise it."},
+    {v:'diy', r:"This one’s vague enough that even you forgot what you meant by it. Classic. Point us at it and we’ll figure it out together."},
+    {v:'pro', r:"Bold of you to write this down instead of doing it. Genuinely, respect. We’ll be the ones who actually do it, though."},
+    {v:'diy', r:"Every list has one wildcard, and this is yours. We’re intrigued. Show us the mystery and we’ll handle it."}
+  ];
+
+  var LABEL = {diy:'You got this', pro:'Let us', uhoh:'Do NOT DIY'};
+
+  function roastLine(text, idx){
+    var low = text.toLowerCase();
+    for(var i=0;i<RULES.length;i++){
+      for(var j=0;j<RULES[i].k.length;j++){
+        if(low.indexOf(RULES[i].k[j])!==-1){
+          return {task:text, v:RULES[i].v, r:RULES[i].r};
+        }
+      }
+    }
+    var fb = FALLBACK[idx % FALLBACK.length];
+    return {task:text, v:fb.v, r:fb.r};
+  }
+
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+  var out = document.getElementById('rm-out');
+  var go = document.getElementById('rm-go');
+  var ta = document.getElementById('rm-list');
+
+  function summary(items){
+    var diy=0, pro=0, uh=0;
+    items.forEach(function(it){ if(it.v==='diy')diy++; else if(it.v==='uhoh')uh++; else pro++; });
+    var n = items.length;
+    var line;
+    if(uh>0 && (pro+uh) >= diy){
+      line = "Bit of a rescue mission, this one. A few you can handle on a good Saturday — but "+(pro+uh)+" of these belong to people who own the right ladder and know which wire is which. Lucky for you, that’s us.";
+    } else if(diy >= (pro+uh)){
+      line = "Honestly? You’re handier than this list makes you look. Knock out the easy ones and let us swoop in for the "+(pro+uh)+" that bite back.";
+    } else {
+      line = n+" things standing between you and a house you’re not annoyed at. Point us at the tricky ones and they’re gone by the weekend.";
+    }
+    return {diy:diy, pro:pro, uh:uh, n:n, line:line};
+  }
+
+  function render(){
+    var raw = ta.value.split('\n').map(function(s){return s.trim();}).filter(function(s){return s.length>1;});
+    if(!raw.length){
+      out.innerHTML = '<div class="rm-empty"><div class="rm-hand">&#129300;</div><p>That’s a blank list. Even Danny needs something to work with. Type a few tasks and try again.</p></div>';
+      return;
+    }
+    raw = raw.slice(0,15);
+    var items = raw.map(function(t,i){return roastLine(t,i);});
+    var s = summary(items);
+
+    var html = '';
+    html += '<div class="rm-scorecard"><h3>Alright, let’s see the damage&hellip;</h3><p>'+s.line+'</p>'+
+             '<div class="rm-tally">'+
+               '<span>&#9989; '+s.diy+' you got this</span>'+
+               '<span>&#128295; '+s.pro+' let us</span>'+
+               (s.uh>0?'<span>&#9888;&#65039; '+s.uh+' do NOT DIY</span>':'')+
+             '</div></div>';
+
+    items.forEach(function(it){
+      html += '<div class="rm-item"><div class="rm-item-top">'+
+                '<span class="rm-task">'+esc(it.task)+'</span>'+
+                '<span class="rm-chip '+it.v+'">'+LABEL[it.v]+'</span>'+
+              '</div><p class="rm-roast">'+it.r+'</p></div>';
     });
-  }catch(e){var m=document.getElementById('bh-map');if(m)m.innerHTML='<p style="padding:30px;text-align:center;color:#888;">Map failed to load.</p>';}
+
+    html += '<div class="rm-danny"><strong>Danny’s take:</strong> Danny read your list too. He says he can do all of it, personally, by Tuesday. He cannot do all of it by Tuesday. That’s why the rest of the crew exists — and why the trim comes out straight.</div>';
+
+    html += '<div class="rm-cta"><h4>Want us to just knock these out?</h4>'+
+              '<p>Send us the list, get a real quote, and reclaim your weekends. We serve the whole Chicagoland area.</p>'+
+              '<div class="rm-actions">'+
+                '<a href="contact.html" class="btn btn-primary">Get a Free Quote &rarr;</a>'+
+                '<button class="btn rm-copy" id="rm-copy" type="button">Copy my roast</button>'+
+              '</div>'+
+              '<p class="rm-share-note">Screenshot this and tag us &mdash; or send it to the friend whose list is worse.</p>'+
+            '</div>';
+
+    out.innerHTML = html;
+    out.scrollIntoView({behavior:'smooth', block:'start'});
+
+    var copyBtn = document.getElementById('rm-copy');
+    if(copyBtn){
+      copyBtn.addEventListener('click', function(){
+        var txt = 'My home to-do list, roasted by Brandau Home Services:\n\n';
+        items.forEach(function(it){ txt += '• '+it.task+' — ['+LABEL[it.v]+']\n   '+it.r.replace(/’/g,"'").replace(/‘/g,"'").replace(/—/g,'-')+'\n\n'; });
+        txt += 'Get yours roasted at brandauhomeservices.com';
+        if(navigator.clipboard && navigator.clipboard.writeText){
+          navigator.clipboard.writeText(txt).then(function(){ copyBtn.textContent='Copied!'; setTimeout(function(){copyBtn.textContent='Copy my roast';},1800); });
+        } else {
+          copyBtn.textContent='Press Ctrl+C';
+        }
+      });
+    }
+
+    // Analytics hook (no-op until Google Analytics is connected)
+    if(typeof gtag === 'function'){ gtag('event','list_roasted',{items:items.length}); }
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'list_roasted', items:items.length});
+  }
+
+  go.addEventListener('click', render);
 })();
 </script>
+
 <footer class="site-footer">
   <div class="container">
     <div class="footer-grid">
