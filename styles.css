@@ -1698,3 +1698,49 @@ img { max-width: 100%; display: block; }
 .page-hero.band-dark .trust-badge--light span { color: #aebcc4; }
 .page-hero.band-dark .btn-outline { color: var(--white); border-color: rgba(255,255,255,0.4); }
 .page-hero.band-dark .btn-outline:hover { background: var(--white); color: var(--black); border-color: var(--white); }
+
+
+/* ===== Competitor-inspired additions (July 2026) ===== */
+
+/* Louder speed promise in the dark hero */
+.hero-speed { display: inline-flex; align-items: center; gap: 9px; margin: 2px 0 6px; padding: 9px 15px; border-radius: 999px; background: rgba(41,182,232,0.16); border: 1px solid rgba(41,182,232,0.42); color: #eaf7fd; font-size: 0.95rem; font-weight: 500; line-height: 1.35; }
+.hero-speed strong { color: #fff; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+.hero-speed svg { flex: none; color: #7fd4f2; }
+
+/* How It Works — 3 dead-simple steps */
+.howit-steps { display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; align-items: start; gap: 12px; max-width: 1000px; margin: 0 auto; }
+.howit-step { text-align: center; padding: 8px 14px; }
+.howit-num { width: 56px; height: 56px; margin: 0 auto 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.5rem; color: #fff; background: linear-gradient(135deg, var(--blue), var(--blue-light)); box-shadow: var(--shadow-blue); }
+.howit-step h3 { margin: 0 0 8px; color: #0C3A52; }
+.howit-step p { color: var(--gray-600); margin: 0; font-size: 0.98rem; line-height: 1.6; }
+.howit-arrow { color: #bcd3de; align-self: center; padding-top: 18px; }
+.howit-arrow svg { display: block; }
+.howit-actions { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 40px; }
+@media (max-width: 760px) {
+  .howit-steps { grid-template-columns: 1fr; gap: 30px; }
+  .howit-arrow { transform: rotate(90deg); margin: -10px auto; padding: 0; }
+}
+
+/* "No ___, No ___, No ___" reassurance strip */
+.reassure-band { background: #0C3A52; color: #fff; padding: 20px 0; }
+.reassure-band .container { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 14px 44px; }
+.reassure-item { display: inline-flex; align-items: center; gap: 10px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.08rem; letter-spacing: 0.2px; }
+.reassure-item svg { flex: none; color: #4fc3ef; }
+@media (max-width: 560px) { .reassure-band .container { flex-direction: column; gap: 13px; } .reassure-item { font-size: 1rem; } }
+
+/* Mobile-only sticky Call / Text / Quote bar */
+.mobile-cta-bar { display: none; }
+@media (max-width: 760px) {
+  .mobile-cta-bar {
+    display: flex; position: fixed; left: 0; right: 0; bottom: 0; z-index: 1200;
+    background: #fff; border-top: 1px solid #e4ebef;
+    box-shadow: 0 -6px 22px -10px rgba(10,22,32,0.28);
+    padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px)); gap: 8px;
+  }
+  .mobile-cta-bar .mcb { flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 14px; padding: 12px 6px; border-radius: 11px; text-decoration: none; white-space: nowrap; }
+  .mobile-cta-bar .mcb svg { flex: none; }
+  .mcb-call { background: var(--blue); color: #fff; }
+  .mcb-text { background: #eef8fd; color: #0f5f86; border: 1.5px solid #bfe6f5; }
+  .mcb-quote { background: #0C3A52; color: #fff; }
+  body { padding-bottom: 74px; }
+}
