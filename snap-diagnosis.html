@@ -23,10 +23,10 @@
 .snap2-console{max-width:720px;margin:0 auto;background:radial-gradient(130% 90% at 50% -5%,#143f58 0%,#0c2838 55%,#07161f 100%);border:1px solid rgba(255,255,255,.09);border-radius:24px;padding:22px;box-shadow:0 44px 90px -44px rgba(0,0,0,.75);}
 
 /* Photo viewport / scanner box */
-.snap2-view{position:relative;aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:linear-gradient(150deg,#103046 0%,#0a2030 100%);border:1px solid rgba(255,255,255,.08);}
+.snap2-view{position:relative;aspect-ratio:16/10;margin:0 auto;border-radius:16px;overflow:hidden;background:linear-gradient(150deg,#0d2838 0%,#081a26 100%);border:1px solid rgba(255,255,255,.08);}
 .snap2-view.drag{border-color:#5cc4ec;box-shadow:inset 0 0 0 2px rgba(92,196,236,.5);}
 .s2-grid{position:absolute;inset:0;background:linear-gradient(rgba(92,196,236,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(92,196,236,.06) 1px,transparent 1px);background-size:30px 30px;opacity:.6;}
-#s2-img{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+#s2-img{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center;z-index:1;}
 .snap2-view.has-photo #s2-img{display:block;}
 .snap2-view.has-photo .s2-ph{display:none;}
 .s2-ph{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;color:#9fbccb;}
@@ -223,7 +223,7 @@
   var upload=document.getElementById('s2-upload');
   var snap=document.getElementById('s2-snap');
   var result=document.getElementById('s2-result');
-  var state={photo:null,file:null};
+  var state={photo:null,file:null,iw:null,ih:null};
   var FORMSPREE="https://formspree.io/f/mykrdpyb";
 
   function esc(s){s=(s==null?'':String(s));return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -232,11 +232,25 @@
     if(!file||!/^image\//.test(file.type)) return;
     var url=URL.createObjectURL(file);
     state.photo=url; state.file=file;
+    img.onload=function(){ state.iw=img.naturalWidth; state.ih=img.naturalHeight; fitView(); };
     img.src=url; view.classList.add('has-photo'); removeBtn.hidden=false;
     view.classList.remove('drag');
     analyze();
   }
-  function clearPhoto(){ state.photo=null; state.file=null; view.classList.remove('has-photo'); img.removeAttribute('src'); removeBtn.hidden=true; result.classList.remove('show'); result.innerHTML=''; }
+  function fitView(){
+    if(!state.iw||!state.ih) return;
+    var r=state.iw/state.ih;
+    view.style.width=''; view.style.height=''; view.style.aspectRatio='';
+    var availW=view.clientWidth;
+    var maxH=Math.min(window.innerHeight*0.60, 520);
+    var w=Math.min(availW, maxH*r);
+    var h=w/r;
+    view.style.width=Math.round(w)+'px';
+    view.style.height=Math.round(h)+'px';
+  }
+  window.addEventListener('resize',function(){ if(state.iw) fitView(); });
+
+  function clearPhoto(){ state.photo=null; state.file=null; state.iw=null; state.ih=null; view.classList.remove('has-photo'); view.style.width=''; view.style.height=''; view.style.aspectRatio=''; img.removeAttribute('src'); removeBtn.hidden=true; result.classList.remove('show'); result.innerHTML=''; }
 
   document.getElementById('s2-btn-upload').addEventListener('click',function(){ upload.click(); });
   document.getElementById('s2-btn-snap').addEventListener('click',function(){ snap.click(); });
