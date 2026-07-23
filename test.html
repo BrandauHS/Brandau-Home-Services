@@ -99,12 +99,222 @@
 <section class="page-hero">
   <div class="container" style="text-align:center;">
     <div class="eyebrow" style="justify-content:center;">Preview &middot; Sandbox</div>
-    <h1>Roast My To-Do List</h1>
-    <p class="hero-sub" style="margin-left:auto;margin-right:auto;">Drop your home to-do list below and we&rsquo;ll roast every last item &mdash; then tell you which ones you can knock out with a cold one in hand, and which ones you should really let us handle. Fair warning: we don&rsquo;t hold back.</p>
+    <h1>Two Tools To Try</h1>
+    <p class="hero-sub" style="margin-left:auto;margin-right:auto;">Both of these are just for you right now &mdash; nothing&rsquo;s on the real site yet. Play with them, and if you like one, we&rsquo;ll make it official.</p>
   </div>
 </section>
 
 <section class="section">
+  <div class="container">
+    <div class="section-head center"><div class="eyebrow" style="justify-content:center;">Snap &amp; Diagnose</div><h2>What&rsquo;s Going On Here?</h2><p>Upload a photo of the problem, tell us what you&rsquo;re seeing, and we&rsquo;ll give you a likely read &mdash; how urgent it is, and what we&rsquo;d do about it.</p></div>
+    <div class="dx-wrap">
+      <div class="dx-input">
+        <label class="dx-drop" id="dx-drop" for="dx-file">
+          <input type="file" id="dx-file" accept="image/*" hidden>
+          <div class="dx-drop-inner" id="dx-drop-inner">
+            <div class="dx-cam">&#128247;</div>
+            <strong>Tap to add a photo</strong>
+            <span>or drag one here &mdash; it stays on your device</span>
+          </div>
+        </label>
+
+        <div class="dx-q">
+          <div class="dx-eye">Where is it?</div>
+          <div class="dx-chips" id="dx-loc">
+            <button type="button" data-v="bathroom">Bathroom</button>
+            <button type="button" data-v="kitchen">Kitchen</button>
+            <button type="button" data-v="basement">Basement</button>
+            <button type="button" data-v="roof">Roof / Ceiling</button>
+            <button type="button" data-v="exterior">Outside / Siding</button>
+            <button type="button" data-v="living">Bedroom / Living</button>
+            <button type="button" data-v="other">Not sure</button>
+          </div>
+        </div>
+
+        <div class="dx-q">
+          <div class="dx-eye">What are you seeing?</div>
+          <div class="dx-chips" id="dx-sym">
+            <button type="button" data-v="stain">Water stain</button>
+            <button type="button" data-v="crack">Crack</button>
+            <button type="button" data-v="leak">Active leak / drip</button>
+            <button type="button" data-v="mold">Mold / musty spots</button>
+            <button type="button" data-v="peel">Peeling / bubbling paint</button>
+            <button type="button" data-v="sag">Sagging</button>
+            <button type="button" data-v="burn">Burn mark / hot outlet</button>
+            <button type="button" data-v="rust">Rust / corrosion</button>
+            <button type="button" data-v="flood">Standing water</button>
+            <button type="button" data-v="broken">Broken / missing piece</button>
+            <button type="button" data-v="unsure">Not sure &mdash; just look</button>
+          </div>
+        </div>
+
+        <button class="btn btn-primary dx-go" id="dx-go">What&rsquo;s Likely Going On? &rarr;</button>
+      </div>
+
+      <div class="dx-out" id="dx-out">
+        <div class="dx-empty">
+          <div class="dx-hand">&#128270;</div>
+          <p>Add a photo and tap what you&rsquo;re seeing. We&rsquo;ll give you our best read.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+.dx-wrap{display:grid;grid-template-columns:.95fr 1.05fr;gap:34px;align-items:start;}
+@media(max-width:860px){.dx-wrap{grid-template-columns:1fr;}}
+.dx-eye{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1B9BD1;margin:0 0 10px;}
+.dx-drop{display:block;border:2px dashed #bcd3e2;border-radius:16px;background:#fbfdfe;padding:26px 20px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s;}
+.dx-drop:hover,.dx-drop.drag{border-color:#1B9BD1;background:#eef8fd;}
+.dx-drop-inner .dx-cam{font-size:34px;margin-bottom:8px;}
+.dx-drop-inner strong{display:block;color:#0C3A52;font-family:'Space Grotesk',sans-serif;font-size:1.05rem;}
+.dx-drop-inner span{display:block;color:#8a99a1;font-size:.86rem;margin-top:4px;}
+.dx-preview{position:relative;}
+.dx-preview img{width:100%;max-height:260px;object-fit:cover;border-radius:14px;display:block;}
+.dx-preview .dx-x{position:absolute;top:8px;right:8px;background:rgba(12,58,82,.85);color:#fff;border:none;width:30px;height:30px;border-radius:50%;font-size:1rem;cursor:pointer;line-height:1;}
+.dx-q{margin-top:22px;}
+.dx-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.dx-chips button{border:1px solid #d6e0e7;background:#fff;color:#33454e;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:500;padding:8px 14px;border-radius:999px;cursor:pointer;transition:all .13s;}
+.dx-chips button:hover{border-color:#1B9BD1;color:#1477a8;}
+.dx-chips button.on{background:#1B9BD1;border-color:#1B9BD1;color:#fff;}
+.dx-go{margin-top:24px;width:100%;font-size:1.02rem;padding:14px 20px;}
+.dx-out{background:#f4f8fb;border:1px solid #e3ebf0;border-radius:18px;padding:24px;min-height:360px;}
+.dx-empty{text-align:center;color:#7a8b93;padding:60px 12px;}
+.dx-hand{font-size:38px;margin-bottom:12px;}
+.dx-res-photo{width:100%;max-height:220px;object-fit:cover;border-radius:14px;margin-bottom:16px;display:block;}
+.dx-urg{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:6px 13px;border-radius:999px;margin-bottom:14px;}
+.dx-urg.lo{background:#e4f5e9;color:#2f8f4e;}
+.dx-urg.md{background:#e2f1fa;color:#1477a8;}
+.dx-urg.hi{background:#fdeee4;color:#c26a34;}
+.dx-res h3{font-family:'Space Grotesk',sans-serif;color:#0C3A52;font-size:1.2rem;margin:0 0 8px;}
+.dx-res p{color:#42525b;font-size:.96rem;line-height:1.6;margin:0 0 14px;}
+.dx-res .dx-do{background:#fff;border:1px solid #e6edf1;border-radius:13px;padding:14px 16px;margin-bottom:14px;}
+.dx-res .dx-do b{display:block;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:#1B9BD1;margin-bottom:5px;}
+.dx-res .dx-do span{color:#42525b;font-size:.93rem;line-height:1.55;}
+.dx-disc{font-size:.82rem;color:#8a99a1;font-style:italic;line-height:1.5;margin:0 0 16px;}
+.dx-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.dx-actions .btn{flex:1;min-width:150px;text-align:center;}
+.dx-text{background:#fff;border:1px solid #1B9BD1;color:#1477a8;}
+.dx-text:hover{background:#eef8fd;}
+</style>
+
+<script>
+(function(){
+  var UT = {1:{l:'Keep an eye on it',c:'lo'},2:{l:'Worth handling soon',c:'md'},3:{l:'Don’t wait on this',c:'hi'}};
+  // Symptom-driven reads, with optional location-specific extra line.
+  var DX = {
+    stain:{t:'Most likely: water finding its way in',u:2,
+      p:"A water stain almost always means water is getting somewhere it shouldn’t — even if it looks dry right now. The stain is the evidence; the real culprit is a leak nearby, usually above it.",
+      d:"We’d trace it back to the source — a pipe, roof flashing, or a gap around a window — fix that, then repair the stained drywall or ceiling so it looks new again.",
+      loc:{roof:"On a ceiling, this usually points to the roof or a pipe in the floor above.",bathroom:"In a bathroom, it’s often a supply line, the wax ring under the toilet, or grout letting shower water through."}},
+    crack:{t:'Most likely: settling — but let’s make sure',u:2,
+      p:"Not all cracks are equal. Thin hairline cracks in drywall are usually just the house settling and are cosmetic. Wide ones, stair-step cracks in block or brick, or cracks that keep growing can mean something structural.",
+      d:"We’d check whether it’s cosmetic or actually moving, patch and repaint the harmless ones, and flag anything structural before it gets worse.",
+      loc:{basement:"In a basement, horizontal or stair-step cracks are worth taking seriously — that’s the wall talking to you."}},
+    leak:{t:'Most likely: an active leak doing quiet damage',u:3,
+      p:"An active drip wastes water and quietly wrecks everything around it — wood, drywall, subfloor — long before you see a big stain. The drip is cheap. The water damage it’s causing is not.",
+      d:"We’d find the source, shut it down, and repair anything the water has already gotten into."},
+    mold:{t:'Most likely: moisture plus time',u:3,
+      p:"Dark speckled spots and a musty smell usually mean moisture that’s been sitting a while. Surface mildew wipes away — but if it keeps coming back, there’s a moisture source feeding it that has to be fixed, not just cleaned.",
+      d:"We’d clean it up and, more importantly, find and fix whatever’s keeping the area damp — ventilation, a hidden leak, or grading — so it doesn’t just grow back."},
+    peel:{t:'Most likely: moisture behind the paint',u:1,
+      p:"Peeling or bubbling paint is usually a moisture problem underneath — the paint is losing its grip because water is getting behind it. Sometimes it’s just old paint or a rushed prep job.",
+      d:"We’d figure out whether it’s moisture or just age, fix the cause, then scrape, prime, and repaint it properly so it actually stays put."},
+    sag:{t:'Most likely: weight or water it shouldn’t be holding',u:3,
+      p:"Sagging means something is carrying more weight or water than it was built to. A sagging ceiling can mean water pooling above it; a sagging floor can mean a support issue below.",
+      d:"We’d find out what’s behind it before anything gives way, then repair both the cause and the surface."},
+    burn:{t:'Take this one seriously — possible fire risk',u:3,
+      p:"We don’t sugarcoat this one: scorch marks, a warm outlet, or a burning smell around anything electrical is a genuine fire risk. Stop using that outlet or circuit.",
+      d:"This needs eyes on it right away and a safe repair. Please don’t poke at electrical yourself — this is exactly the kind we handle so you don’t have to risk it."},
+    rust:{t:'Most likely: water meeting metal over time',u:2,
+      p:"Rust means water has been meeting metal for a while — on a pipe, a water heater, a railing, or a fixture. It’s a slow problem right up until the day a rusted pipe or tank lets go.",
+      d:"We’d check whether it’s just surface rust or eating through, and replace or protect it before it fails.",
+      loc:{basement:"Rust at the base of a water heater usually means the tank is on its way out."}},
+    flood:{t:'Move on this one fast',u:3,
+      p:"Standing water is the one to jump on quickest — it damages everything it touches and can invite mold within a day or two. In a basement it usually points to drainage, a sump problem, or grading pushing water toward the house.",
+      d:"We’d get the water out, find why it came in, and fix the path — sump, drainage, sealing, or grading — so the next storm doesn’t repeat it."},
+    broken:{t:'Most likely: small now, costly if ignored',u:2,
+      p:"A missing or damaged piece — a shingle, some siding, a cracked tile — is usually cheap to fix now and expensive to ignore, because it’s the opening that lets water start working on everything behind it.",
+      d:"We’d repair or replace the damaged piece and check that water hasn’t already snuck in behind it."},
+    unsure:{t:'That’s exactly what we’re for',u:2,
+      p:"No problem — you don’t have to know what it is. A clear photo tells us a lot on its own, and the fact that it caught your eye usually means it’s worth a look.",
+      d:"Send it over and we’ll tell you what we’re seeing and what it would take to make it right."}
+  };
+
+  var drop = document.getElementById('dx-drop');
+  var dropInner = document.getElementById('dx-drop-inner');
+  var fileEl = document.getElementById('dx-file');
+  var out = document.getElementById('dx-out');
+  var go = document.getElementById('dx-go');
+  var locBox = document.getElementById('dx-loc');
+  var symBox = document.getElementById('dx-sym');
+  var state = {photo:null, loc:null, sym:null};
+
+  function pickGroup(box, key){
+    box.addEventListener('click', function(e){
+      var b = e.target.closest('button'); if(!b) return;
+      Array.prototype.forEach.call(box.querySelectorAll('button'), function(x){x.classList.remove('on');});
+      b.classList.add('on');
+      state[key] = b.getAttribute('data-v');
+    });
+  }
+  pickGroup(locBox,'loc'); pickGroup(symBox,'sym');
+
+  function showPhoto(file){
+    if(!file || !/^image\//.test(file.type)) return;
+    var url = URL.createObjectURL(file);
+    state.photo = url;
+    drop.classList.remove('drag');
+    dropInner.style.display='none';
+    var wrap = document.createElement('div');
+    wrap.className='dx-preview';
+    wrap.innerHTML = '<img src="'+url+'" alt="your photo"><button type="button" class="dx-x" title="remove">&times;</button>';
+    var old = drop.querySelector('.dx-preview'); if(old) old.remove();
+    drop.appendChild(wrap);
+    wrap.querySelector('.dx-x').addEventListener('click', function(ev){
+      ev.preventDefault(); ev.stopPropagation();
+      state.photo=null; wrap.remove(); dropInner.style.display='';
+    });
+  }
+
+  fileEl.addEventListener('change', function(){ if(fileEl.files[0]) showPhoto(fileEl.files[0]); });
+  ['dragover','dragenter'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('drag');});});
+  ['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('drag');});});
+  drop.addEventListener('drop', function(e){ if(e.dataTransfer.files[0]) showPhoto(e.dataTransfer.files[0]); });
+
+  go.addEventListener('click', function(){
+    if(!state.sym){
+      out.innerHTML = '<div class="dx-empty"><div class="dx-hand">&#128072;</div><p>Tap <strong>what you’re seeing</strong> first — even a rough guess. A photo helps too, but the symptom is what we read.</p></div>';
+      return;
+    }
+    var dx = DX[state.sym];
+    var urg = UT[dx.u];
+    var body = dx.p;
+    if(dx.loc && state.loc && dx.loc[state.loc]){ body += ' ' + dx.loc[state.loc]; }
+
+    var smsBody = encodeURIComponent("Hi Brandau — here's a photo of something at my place. What would it cost to fix?");
+    var html = '';
+    if(state.photo){ html += '<img class="dx-res-photo" src="'+state.photo+'" alt="your photo">'; }
+    html += '<span class="dx-urg '+urg.c+'">'+urg.l+'</span>';
+    html += '<div class="dx-res"><h3>'+dx.t+'</h3><p>'+body+'</p>';
+    html += '<div class="dx-do"><b>What we’d do</b><span>'+dx.d+'</span></div>';
+    html += '<p class="dx-disc">This is a likely read from what you told us — not a final diagnosis. The real answer comes from eyes on it, and we’re happy to take a look for free.</p>';
+    html += '<div class="dx-actions">'+
+              '<a href="contact.html" class="btn btn-primary">Get a Free Quote &rarr;</a>'+
+              '<a href="sms:+18158002557?&body='+smsBody+'" class="btn dx-text">Text us this photo</a>'+
+            '</div></div>';
+    out.innerHTML = html;
+    out.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+    if(typeof gtag === 'function'){ gtag('event','photo_diagnosed',{symptom:state.sym, location:state.loc||'na'}); }
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({event:'photo_diagnosed', symptom:state.sym, location:state.loc||'na'});
+  });
+})();
+</script>
+
+<section class="section section--gray">
   <div class="container">
     <div class="rm-wrap">
       <div class="rm-input">
