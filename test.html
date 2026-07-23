@@ -331,14 +331,32 @@
 
   var FORMSPREE = "https://formspree.io/f/mykrdpyb";
 
+  // Always refer to the company as "our Brandau Home Services team" (word-for-word).
+  function brandFix(s){
+    if(!s) return s;
+    var TOK = '';
+    s = s.replace(/\b(?:our|the)\s+Brandau(?:\s+Home\s+Services)?\s+team\b/gi, TOK);
+    s = s.replace(/\bBrandau(?:\s+Home\s+Services)?['’]s\s+team\b/gi, TOK);
+    s = s.replace(/\bBrandau\s+Home\s+Services\b/gi, TOK);
+    s = s.replace(/\bBrandau\b/gi, TOK);
+    s = s.split(TOK).join('our Brandau Home Services team');
+    s = s.replace(/\bour\s+our\b/gi, 'our');
+    s = s.replace(/\bthe\s+our\b/gi, 'our');
+    s = s.replace(/\ba\s+our\b/gi, 'our');
+    s = s.replace(/([.!?]["'\)\]]?\s+)our Brandau Home Services team/g, '$1Our Brandau Home Services team');
+    s = s.charAt(0).toUpperCase() + s.slice(1);
+    return s;
+  }
+
   function renderCard(o){
     var smsBody = encodeURIComponent("Hi Brandau — here's a photo of something at my place. What would it cost to fix?");
-    var problem = o.title + "\n\n" + o.body;
+    var T = brandFix(o.title), B = brandFix(o.body), D = brandFix(o.doText);
+    var problem = T + "\n\n" + B;
     var html='';
     if(state.photo){ html += '<img class="dx-res-photo" src="'+state.photo+'" alt="your photo">'; }
     html += badge(o.urgency);
-    html += '<div class="dx-res"><h3>'+esc(o.title)+'</h3><p>'+esc(o.body)+'</p>';
-    html += '<div class="dx-do"><b>What we’d do</b><span>'+esc(o.doText)+'</span></div>';
+    html += '<div class="dx-res"><h3>'+esc(T)+'</h3><p>'+esc(B)+'</p>';
+    html += '<div class="dx-do"><b>What we’d do</b><span>'+esc(D)+'</span></div>';
     html += '<p class="dx-disc">This is a likely read, not a final diagnosis — the real answer comes from eyes on it. Brandau Home Services can come out and take a look for free.</p>';
     html += '<div class="dx-actions">'+
               '<button type="button" class="btn btn-primary" id="dx-quote-open">Get a Free Quote &rarr;</button>'+
@@ -354,7 +372,7 @@
               '<input name="email" type="email" placeholder="Email" required>'+
               '<input type="hidden" name="_subject" value="New photo quote request — website">'+
               '<input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">'+
-              '<button type="submit" class="btn btn-primary dx-send">Send to Brandau &rarr;</button>'+
+              '<button type="submit" class="btn btn-primary dx-send">Send</button>'+
               '<p class="dx-fine" id="dx-q-msg">Goes straight to Brandau Home Services.</p>'+
             '</form>';
     html += '</div>';
