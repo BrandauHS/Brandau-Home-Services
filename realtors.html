@@ -173,7 +173,7 @@
     <div class="section-head center">
       <div class="eyebrow" style="justify-content:center;">Brandau Agent Tool &middot; Only Here</div>
       <h2>The 60-Second Listing Prep Report</h2>
-      <p>Enter a home&rsquo;s ZIP, age, and condition &mdash; get the fixes that help it sell faster <em>and</em> the deal-killers most likely to flag at inspection. Print it and hand it to your seller.</p>
+      <p>Enter a home&rsquo;s ZIP, age, and condition &mdash; get the fixes that help it sell faster <em>and</em> the deal-killers most likely to flag at inspection. Then print a clean, branded report to hand your seller.</p>
     </div>
 
     <div id="seller-radar">
@@ -182,9 +182,9 @@
         <label class="sr-field"><span>Home age</span>
           <select id="sr-age">
             <option value="pre1950">Before 1950</option>
-            <option value="1950">1950 – 1979</option>
-            <option value="1980">1980 – 1999</option>
-            <option value="2000">2000 – 2015</option>
+            <option value="1950">1950 &ndash; 1979</option>
+            <option value="1980">1980 &ndash; 1999</option>
+            <option value="2000">2000 &ndash; 2015</option>
             <option value="2016">2016 or newer</option>
           </select>
         </label>
@@ -201,6 +201,13 @@
       <p id="sr-hint" class="sr-hint">Enter a 5-digit ZIP to build the report.</p>
       <div class="sr-results" id="sr-results" hidden></div>
 
+      <div class="sr-personalize" id="sr-personalize" hidden>
+        <span class="sr-plabel">Make it client-ready (optional):</span>
+        <input id="sr-address" type="text" placeholder="Property address" autocomplete="off">
+        <input id="sr-agent" type="text" placeholder="Your name &amp; brokerage" autocomplete="off">
+        <button class="sr-print" type="button" onclick="window.print()">&#128424;&nbsp; Print / Save Branded PDF</button>
+      </div>
+
       <div class="sr-cta" id="sr-cta" hidden>
         <div>
           <strong>Want it handled before you list?</strong>
@@ -212,6 +219,8 @@
     </div>
   </div>
 </section>
+
+<div id="sr-print-doc" aria-hidden="true"></div>
 
 <style>
 #seller-radar{max-width:960px;margin:8px auto 0;}
@@ -227,7 +236,7 @@
 @media(max-width:760px){#seller-radar .sr-results{grid-template-columns:1fr;}}
 #seller-radar .sr-panel{border:1px solid #e3ebf0;border-radius:14px;padding:22px 24px;background:#f4f8fb;}
 #seller-radar .sr-panel.kill{background:#fdf6f4;border-color:#f2ddd6;}
-#seller-radar .sr-panel h3{font-size:1.05rem;color:#0C3A52;margin:0 0 3px;display:flex;align-items:center;gap:8px;}
+#seller-radar .sr-panel h3{font-size:1.05rem;color:#0C3A52;margin:0 0 3px;}
 #seller-radar .sr-panel.kill h3{color:#a23b23;}
 #seller-radar .sr-panel .sr-sub{font-size:.85rem;color:#5a6b74;margin:0 0 15px;line-height:1.5;}
 #seller-radar ol.sr-list{list-style:none;margin:0;padding:0;counter-reset:sr;}
@@ -239,12 +248,62 @@
 #seller-radar .sr-why{font-size:.85rem;color:#54646d;margin-top:3px;line-height:1.5;}
 #seller-radar .sr-tag{font-size:.64rem;font-weight:700;letter-spacing:.03em;text-transform:uppercase;padding:2px 8px;border-radius:999px;background:#e2f2fa;color:#0d6ea0;white-space:nowrap;}
 #seller-radar .sr-market{margin-top:18px;background:#eef6fb;border-left:3px solid #1B9BD1;border-radius:8px;padding:12px 16px;font-size:.9rem;color:#33454e;line-height:1.5;}
-#seller-radar .sr-print{display:block;margin:16px auto 0;background:none;border:1.5px solid #d5e2ea;color:#0C3A52;font-weight:600;font-size:.85rem;padding:9px 16px;border-radius:9px;cursor:pointer;}
-#seller-radar .sr-cta{margin-top:24px;background:#0C3A52;border-radius:14px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+#seller-radar .sr-personalize{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;margin-top:20px;padding-top:18px;border-top:1px dashed #d5e2ea;}
+#seller-radar .sr-plabel{font-size:.85rem;font-weight:600;color:#0C3A52;}
+#seller-radar .sr-personalize input{flex:1 1 200px;max-width:240px;padding:10px 13px;font-size:.92rem;}
+#seller-radar .sr-print{flex:0 0 auto;background:#0C3A52;color:#fff;border:0;font-weight:700;font-size:.9rem;padding:11px 20px;border-radius:10px;cursor:pointer;letter-spacing:.01em;}
+#seller-radar .sr-print:hover{background:#0a2e42;}
+#seller-radar .sr-cta{margin-top:22px;background:#0C3A52;border-radius:14px;padding:22px 26px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;}
 #seller-radar .sr-cta strong{color:#fff;display:block;font-size:1.05rem;margin-bottom:3px;}
 #seller-radar .sr-cta span{color:#bcd6e5;font-size:.88rem;line-height:1.5;max-width:520px;display:block;}
 #seller-radar .sr-note{font-size:.75rem;color:#8a9aa2;text-align:center;margin:16px auto 0;max-width:660px;line-height:1.5;}
-@media print{body *{visibility:hidden;}#seller-radar-section,#seller-radar-section *{visibility:visible;}#seller-radar-section{position:absolute;left:0;top:0;width:100%;}#seller-radar .sr-controls,#seller-radar .sr-print,#seller-radar .sr-cta,#seller-radar .sr-hint{display:none!important;}}
+
+/* ---------- Premium print document ---------- */
+#sr-print-doc{display:none;}
+@media print{
+  html,body{background:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact;}
+  body > *{display:none!important;}
+  #sr-print-doc{display:block!important;}
+  @page{size:letter;margin:0.5in 0.55in;}
+}
+#sr-print-doc *{-webkit-print-color-adjust:exact;print-color-adjust:exact;box-sizing:border-box;}
+.pd-page{font-family:'Inter',Arial,sans-serif;color:#1c2b33;font-size:11.5px;line-height:1.5;}
+.pd-top{display:flex;justify-content:space-between;align-items:flex-end;}
+.pd-logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;letter-spacing:.5px;color:#0C3A52;line-height:1;}
+.pd-logo b{color:#1B9BD1;}
+.pd-tagline{font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:#8a9aa2;margin-top:5px;font-weight:600;}
+.pd-rt{text-align:right;}
+.pd-kicker{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;color:#0C3A52;}
+.pd-date{font-size:10px;color:#8a9aa2;margin-top:3px;letter-spacing:.02em;}
+.pd-rule{height:2.5px;background:#0C3A52;margin:11px 0 0;border-radius:2px;}
+.pd-rule-gold{height:2px;width:64px;background:#B8862F;margin:3px 0 0;border-radius:2px;}
+.pd-meta{display:flex;gap:34px;margin:16px 0 0;}
+.pd-meta div span{display:block;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:#9aa8b0;font-weight:700;}
+.pd-meta div strong{font-size:12px;color:#12222b;font-weight:600;}
+.pd-snapshot{display:flex;gap:0;margin:16px 0 22px;border:1px solid #e0e7ec;border-radius:10px;overflow:hidden;}
+.pd-stat{flex:1;padding:12px 16px;border-right:1px solid #e0e7ec;}
+.pd-stat:last-child{border-right:0;}
+.pd-stat span{display:block;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:#9aa8b0;font-weight:700;margin-bottom:3px;}
+.pd-stat strong{font-family:'Space Grotesk',sans-serif;font-size:14px;color:#0C3A52;}
+.pd-section{margin-bottom:20px;break-inside:avoid;}
+.pd-sec-h{display:flex;align-items:center;gap:11px;margin-bottom:11px;}
+.pd-sec-num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;color:#1B9BD1;line-height:1;}
+.pd-sec-h.alt .pd-sec-num{color:#c65a3d;}
+.pd-sec-h h2{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:#0C3A52;margin:0;}
+.pd-sec-h.alt h2{color:#a23b23;}
+.pd-list{list-style:none;margin:0;padding:0;}
+.pd-list li{padding:9px 0;border-bottom:1px solid #edf1f4;break-inside:avoid;}
+.pd-list li:last-child{border-bottom:0;}
+.pd-it{display:flex;justify-content:space-between;align-items:baseline;gap:12px;}
+.pd-it b{font-size:12px;color:#12222b;font-weight:700;}
+.pd-chip{flex:none;font-size:8px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:#0d6ea0;background:#e6f3fa;border-radius:999px;padding:2px 8px;}
+.pd-sec-h.alt ~ .pd-list .pd-chip{color:#a23b23;background:#f8e6df;}
+.pd-why{font-size:10.5px;color:#5a6b74;margin:2px 0 0;line-height:1.45;}
+.pd-market{margin:4px 0 20px;background:#f2f8fc;border-left:3px solid #1B9BD1;border-radius:6px;padding:11px 15px;font-size:11px;color:#33454e;line-height:1.5;break-inside:avoid;}
+.pd-footer{margin-top:22px;padding-top:14px;border-top:2px solid #0C3A52;}
+.pd-foot-brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:13px;color:#0C3A52;}
+.pd-foot-contact{font-size:11px;color:#33454e;margin-top:3px;font-weight:600;}
+.pd-foot-note{font-size:9px;color:#9aa8b0;margin-top:8px;line-height:1.5;}
 </style>
 
 <script>
@@ -292,40 +351,76 @@
   var REGION=[["Basement water intrusion","Seepage, stains, and a questionable sump pump are top Chicago deal-killers — dry it out and document it.","Waterproofing"],
               ["Radon","Common in Illinois soil and a routine test in the sale; a mitigation system is a clean fix.","Test it"],
               ["Sewer line (older homes)","Clay lines and root intrusion surprise buyers on a camera scope — worth knowing before you list.","Scope it"]];
+  var AGE_LABEL={pre1950:"Before 1950","1950":"1950–1979","1980":"1980–1999","2000":"2000–2015","2016":"2016 or newer"};
+  var COND_LABEL={dated:"Dated / original",partly:"Partly updated",ready:"Move-in ready"};
 
-  var zipEl=document.getElementById('sr-zip'), ageEl=document.getElementById('sr-age'), condEl=document.getElementById('sr-cond');
-  var go=document.getElementById('sr-go'), res=document.getElementById('sr-results'), hint=document.getElementById('sr-hint'), cta=document.getElementById('sr-cta');
+  var zipEl=document.getElementById('sr-zip'),ageEl=document.getElementById('sr-age'),condEl=document.getElementById('sr-cond');
+  var go=document.getElementById('sr-go'),res=document.getElementById('sr-results'),hint=document.getElementById('sr-hint'),cta=document.getElementById('sr-cta'),pers=document.getElementById('sr-personalize'),pdoc=document.getElementById('sr-print-doc');
+  var addrEl=document.getElementById('sr-address'),agentEl=document.getElementById('sr-agent');
   if(!zipEl) return;
-  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+  function esc(s){return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   function tag(x){return '<span class="sr-tag">'+esc(x)+'</span>';}
   function num(list){return '<ol class="sr-list">'+list.map(function(r){return '<li><div class="sr-t">'+esc(r[0])+' '+tag(r[2])+'</div><div class="sr-why">'+esc(r[1])+'</div></li>';}).join('')+'</ol>';}
 
+  function pdList(list){return '<ul class="pd-list">'+list.map(function(r){return '<li><div class="pd-it"><b>'+esc(r[0])+'</b><span class="pd-chip">'+esc(r[2])+'</span></div><p class="pd-why">'+esc(r[1])+'</p></li>';}).join('')+'</ul>';}
+
+  function buildPrintDoc(zip,age,cond,fix,kills,market){
+    var d=new Date();
+    var dateStr=d.toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});
+    var addr=(addrEl.value||'').trim(), agent=(agentEl.value||'').trim();
+    var meta='';
+    if(addr||agent){
+      meta='<div class="pd-meta">'+
+        (addr?'<div><span>Prepared for</span><strong>'+esc(addr)+'</strong></div>':'')+
+        (agent?'<div><span>Prepared by</span><strong>'+esc(agent)+'</strong></div>':'')+
+        '</div>';
+    }
+    pdoc.innerHTML='<div class="pd-page">'+
+      '<div class="pd-top"><div><div class="pd-logo">Brandau <b>Home Services</b></div><div class="pd-tagline">Chicagoland’s Go-To Home Service Company</div></div>'+
+        '<div class="pd-rt"><div class="pd-kicker">Listing Prep Report</div><div class="pd-date">'+dateStr+'</div></div></div>'+
+      '<div class="pd-rule"></div><div class="pd-rule-gold"></div>'+
+      meta+
+      '<div class="pd-snapshot"><div class="pd-stat"><span>Location</span><strong>ZIP '+esc(zip)+'</strong></div>'+
+        '<div class="pd-stat"><span>Home Era</span><strong>'+AGE_LABEL[age]+'</strong></div>'+
+        '<div class="pd-stat"><span>Condition</span><strong>'+COND_LABEL[cond]+'</strong></div></div>'+
+      '<div class="pd-section"><div class="pd-sec-h"><span class="pd-sec-num">01</span><h2>Sell-Ready &mdash; do these before you list</h2></div>'+pdList(fix)+'</div>'+
+      '<div class="pd-section"><div class="pd-sec-h alt"><span class="pd-sec-num">02</span><h2>Deal-Killer Radar &mdash; head these off before inspection</h2></div>'+pdList(kills)+'</div>'+
+      '<div class="pd-market"><strong>Your market &mdash;</strong> '+market+'</div>'+
+      '<div class="pd-footer"><div class="pd-foot-brand">Brandau Home Services</div>'+
+        '<div class="pd-foot-contact">(815) 800-2557 &nbsp;&middot;&nbsp; office@brandauhomeservices.com &nbsp;&middot;&nbsp; brandauhomeservices.com</div>'+
+        '<div class="pd-foot-note">Prepared as a courtesy &mdash; Brandau Home Services handles every repair on this list, on your closing timeline. A starting point built from home-age patterns and Chicago-area inspection trends; not a substitute for a licensed home inspection.</div></div>'+
+      '</div>';
+  }
+
   function build(){
     var zip=(zipEl.value||'').trim();
-    if(!/^\d{5}$/.test(zip)){hint.textContent='Please enter a valid 5-digit ZIP to build the report.';hint.style.color='#c0392b';res.hidden=true;cta.hidden=true;return;}
-    var age=ageEl.value, cond=condEl.value;
-    var chi=zip.charAt(0)+zip.charAt(1)==='60';
+    if(!/^\d{5}$/.test(zip)){hint.textContent='Please enter a valid 5-digit ZIP to build the report.';hint.style.color='#c0392b';res.hidden=true;cta.hidden=true;pers.hidden=true;return;}
+    var age=ageEl.value,cond=condEl.value;
+    var chi=(zip.charAt(0)+zip.charAt(1))==='60';
     var city=zip.indexOf('606')===0;
     var kills=KILL[age].slice();
     if(chi){kills=kills.concat(REGION);}
+    var fix=FIX[cond];
     var market = !chi ? "Buyers reward move-in-ready and punish deferred maintenance — get ahead of both, and price with confidence."
-      : city ? "In the city&rsquo;s older housing stock, buyers scrutinize systems, water, and condition — pre-empting the big-ticket inspection items protects your price and your timeline."
+      : city ? "In the city’s older housing stock, buyers scrutinize systems, water, and condition — pre-empting the big-ticket inspection items protects your price and your timeline."
              : "Chicagoland suburban buyers reward move-in-ready — updated kitchens and baths plus clean, documented systems sell faster and appraise better.";
 
-    res.innerHTML =
-      '<div class="sr-panel"><h3>Sell-Ready &mdash; do these before you list</h3><p class="sr-sub">The highest-impact prep for a '+esc({dated:"dated / original",partly:"partly updated",ready:"move-in ready"}[cond])+' home.</p>'+num(FIX[cond])+'</div>'+
+    res.innerHTML=
+      '<div class="sr-panel"><h3>Sell-Ready &mdash; do these before you list</h3><p class="sr-sub">The highest-impact prep for a '+esc(COND_LABEL[cond].toLowerCase())+' home.</p>'+num(fix)+'</div>'+
       '<div class="sr-panel kill"><h3>Deal-Killer Radar</h3><p class="sr-sub">What&rsquo;s most likely to flag on inspection for this home&rsquo;s age'+(chi?' in the Chicago area':'')+' &mdash; head it off first.</p>'+num(kills)+'</div>';
     res.insertAdjacentHTML('beforeend','<div class="sr-market" style="grid-column:1/-1;"><strong>Your market:</strong> '+market+'</div>');
-    res.insertAdjacentHTML('beforeend','<button class="sr-print" type="button" onclick="window.print()" style="grid-column:1/-1;">Print / Save this report as a PDF</button>');
-    res.hidden=false; cta.hidden=false;
-    hint.textContent='Report for ZIP '+zip+' — change any field and rebuild.'; hint.style.color='#7a8b93';
+    res.hidden=false;cta.hidden=false;pers.hidden=false;
+    hint.textContent='Report for ZIP '+zip+' — change any field and rebuild, or personalize and print below.';hint.style.color='#7a8b93';
 
-    // capture: ZIP + profile as an analytics event (fires only if Google Analytics is connected)
-    var payload={zip:zip, home_age:age, condition:cond, region:(chi?(city?'chicago_city':'chicago_suburb'):'other')};
-    try{ if(typeof gtag==='function'){gtag('event','listing_prep_report',payload);} window.dataLayer=window.dataLayer||[]; window.dataLayer.push(Object.assign({event:'listing_prep_report'},payload)); }catch(e){}
+    buildPrintDoc(zip,age,cond,fix,kills,market);
+
+    var payload={zip:zip,home_age:age,condition:cond,region:(chi?(city?'chicago_city':'chicago_suburb'):'other')};
+    try{if(typeof gtag==='function'){gtag('event','listing_prep_report',payload);}window.dataLayer=window.dataLayer||[];window.dataLayer.push(Object.assign({event:'listing_prep_report'},payload));}catch(e){}
   }
   go.addEventListener('click',build);
   zipEl.addEventListener('keydown',function(e){if(e.key==='Enter'){e.preventDefault();build();}});
+  addrEl.addEventListener('input',function(){if(!res.hidden)build();});
+  agentEl.addEventListener('input',function(){if(!res.hidden)build();});
 })();
 </script>
 
