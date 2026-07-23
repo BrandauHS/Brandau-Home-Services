@@ -3,138 +3,170 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Snap Diagnosis | Free AI Photo Repair Check | Brandau Home Services</title>
-<meta name="description" content="Reliable repairs, upgrades, maintenance, and junk removal for Chicagoland homeowners — everything on your list, handled.">
+<title>Snap Diagnosis | Brandau Home Services</title>
+<meta name="description" content="Add a photo of a home problem and get an instant read on how urgent it is and what it would take to fix — free and private.">
 <link rel="icon" href="images/favicon.ico" sizes="any">
 <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-<link rel="canonical" href="https://brandauhomeservices.com/homeowners.html">
-
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="Brandau Home Services">
-<meta property="og:title" content="Handyman Services for Homeowners | Brandau Home Services">
-<meta property="og:description" content="Reliable repairs, upgrades, maintenance, and junk removal for Chicagoland homeowners — everything on your list, handled.">
-<meta property="og:image" content="https://brandauhomeservices.com/images/kitchen2-after.jpg">
-<meta property="og:url" content="https://brandauhomeservices.com/homeowners.html">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Handyman Services for Homeowners | Brandau Home Services">
-<meta name="twitter:description" content="Reliable repairs, upgrades, maintenance, and junk removal for Chicagoland homeowners — everything on your list, handled.">
-<meta name="twitter:image" content="https://brandauhomeservices.com/images/kitchen2-after.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
-<!--
-  GOOGLE ANALYTICS (GA4) / GOOGLE ADS TAG — not active yet.
-  Once you have a GA4 Measurement ID (starts with "G-") or a Google Tag
-  Manager container ID (starts with "GTM-"), uncomment one of the blocks
-  below and drop your ID in. This page's address-checker already fires a
-  gtag()/dataLayer "address_checked" event on every submission (with the
-  address, whether it was in range, and distance) — once this tag is live,
-  that event shows up in GA4 and can be turned into a Google Ads conversion.
-  If you want this on every page (not just Homeowners), copy the same
-  snippet into the other pages' <head> too.
+<style>
+*{box-sizing:border-box;}
+:root{--blue:#0091c9;--blue-light:#29b6e8;--ease:cubic-bezier(.22,1,.36,1);}
+html,body{margin:0;padding:0;}
+body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#16222c;background:linear-gradient(180deg,#e9f2f7 0%,#f6fafc 360px,#f6fafc 100%);-webkit-font-smoothing:antialiased;min-height:100vh;}
+.sd-wrap{max-width:760px;margin:0 auto;padding:44px 20px 60px;}
+.sd-head{text-align:center;margin-bottom:26px;}
+.sd-eyebrow{display:inline-block;font-family:'Space Grotesk',sans-serif;font-size:.72rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:#1477a8;margin-bottom:12px;}
+.sd-head h1{font-family:'Space Grotesk',sans-serif;font-size:2.05rem;line-height:1.15;color:#0C3A52;margin:0 0 12px;}
+.sd-head p{color:#526069;font-size:1.02rem;line-height:1.6;max-width:540px;margin:0 auto;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 20px;border-radius:12px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:.98rem;text-decoration:none;cursor:pointer;border:none;line-height:1;}
+@media(max-width:560px){.sd-head h1{font-size:1.7rem;}}
+</style>
+<style>
+/* ===== Snap Diagnosis — premium scanner console (self-contained, no backend) ===== */
+.snap2-console{max-width:720px;margin:0 auto;background:radial-gradient(130% 90% at 50% -5%,#143f58 0%,#0c2838 55%,#07161f 100%);border:1px solid rgba(255,255,255,.09);border-radius:24px;padding:22px;box-shadow:0 44px 90px -44px rgba(0,0,0,.75);}
 
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXX"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-XXXXXXX');
-  </script>
--->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "HomeAndConstructionBusiness",
-  "name": "Brandau Home Services",
-  "image": "https://brandauhomeservices.com/images/exteriorsiding-after.jpg",
-  "url": "https://brandauhomeservices.com/",
-  "telephone": "+18158002557",
-  "email": "office@brandauhomeservices.com",
-  "areaServed": {
-    "@type": "Place",
-    "name": "Chicagoland, Illinois"
-  },
-  "address": {
-    "@type": "PostalAddress",
-    "addressRegion": "IL",
-    "addressCountry": "US"
-  },
-  "priceRange": "$$"
-}
-</script>
+/* Photo viewport / scanner box */
+.snap2-view{position:relative;aspect-ratio:16/10;border-radius:16px;overflow:hidden;background:linear-gradient(150deg,#103046 0%,#0a2030 100%);border:1px solid rgba(255,255,255,.08);}
+.snap2-view.drag{border-color:#5cc4ec;box-shadow:inset 0 0 0 2px rgba(92,196,236,.5);}
+.s2-grid{position:absolute;inset:0;background:linear-gradient(rgba(92,196,236,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(92,196,236,.06) 1px,transparent 1px);background-size:30px 30px;opacity:.6;}
+#s2-img{display:none;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+.snap2-view.has-photo #s2-img{display:block;}
+.snap2-view.has-photo .s2-ph{display:none;}
+.s2-ph{position:absolute;inset:0;z-index:2;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:22px;color:#9fbccb;}
+.s2-cam{color:#5cc4ec;margin-bottom:10px;filter:drop-shadow(0 0 12px rgba(92,196,236,.4));}
+.s2-ph strong{color:#eaf4f9;font-family:'Space Grotesk',sans-serif;font-size:1.12rem;}
+.s2-ph span{font-size:.86rem;margin-top:5px;max-width:280px;color:#8fb0c2;}
+.s2-corner{position:absolute;width:26px;height:26px;border:2.5px solid #5cc4ec;z-index:4;pointer-events:none;filter:drop-shadow(0 0 4px rgba(92,196,236,.5));}
+.s2-tl{top:12px;left:12px;border-right:none;border-bottom:none;border-radius:6px 0 0 0;}
+.s2-tr{top:12px;right:12px;border-left:none;border-bottom:none;border-radius:0 6px 0 0;}
+.s2-bl{bottom:12px;left:12px;border-right:none;border-top:none;border-radius:0 0 0 6px;}
+.s2-br{bottom:12px;right:12px;border-left:none;border-top:none;border-radius:0 0 6px 0;}
+
+/* The blue scanner that sweeps up and down */
+.s2-scanline{position:absolute;left:0;right:0;top:-70px;height:70px;z-index:5;opacity:0;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(41,182,232,0) 0%,rgba(41,182,232,.16) 55%,rgba(41,182,232,.34) 90%,rgba(140,224,255,.95) 100%);
+  border-bottom:2px solid #9fe3ff;box-shadow:0 0 30px 8px rgba(41,182,232,.5);}
+.snap2-view.scanning .s2-scanline{opacity:1;animation:s2sweep 1.15s cubic-bezier(.45,0,.55,1) infinite alternate;}
+@keyframes s2sweep{0%{top:-70px}100%{top:100%}}
+.snap2-view.scanning .s2-grid{opacity:1;animation:s2gridpulse 1.15s ease-in-out infinite;}
+@keyframes s2gridpulse{0%,100%{opacity:.35}50%{opacity:.8}}
+.s2-status{position:absolute;left:0;right:0;bottom:14px;z-index:6;text-align:center;font-family:'Space Grotesk',sans-serif;font-weight:700;letter-spacing:.22em;font-size:.82rem;color:#bfe4f4;opacity:0;transition:opacity .2s;text-shadow:0 0 10px rgba(41,182,232,.6);}
+.snap2-view.scanning .s2-status{opacity:1;}
+.s2-dots i{animation:s2blink 1s infinite;opacity:.3;}
+.s2-dots i:nth-child(2){animation-delay:.2s;}
+.s2-dots i:nth-child(3){animation-delay:.4s;}
+@keyframes s2blink{0%,100%{opacity:.3}50%{opacity:1}}
+.s2-remove{position:absolute;top:14px;right:14px;z-index:7;width:32px;height:32px;border-radius:50%;border:none;background:rgba(6,20,29,.72);color:#fff;font-size:1.15rem;line-height:1;cursor:pointer;backdrop-filter:blur(4px);}
+.s2-remove:hover{background:rgba(6,20,29,.92);}
+
+/* Upload / Snap buttons */
+.snap2-controls{display:flex;gap:12px;margin-top:16px;}
+.s2-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;padding:14px 12px;border-radius:13px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:transform .14s,background .14s,box-shadow .14s;}
+.s2-btn svg{flex:none;}
+.s2-btn-ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);color:#eaf4f9;}
+.s2-btn-ghost:hover{background:rgba(255,255,255,.13);transform:translateY(-1px);}
+.s2-btn-primary{background:linear-gradient(100deg,var(--blue),var(--blue-light));border:none;color:#fff;box-shadow:0 14px 28px -12px rgba(0,145,201,.75);}
+.s2-btn-primary:hover{transform:translateY(-1px);box-shadow:0 20px 36px -12px rgba(0,145,201,.8);}
+@media(max-width:480px){.snap2-controls{flex-direction:column;}}
+
+/* Refine chips */
+.snap2-refine{margin-top:22px;}
+.s2-eye{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:#5cc4ec;margin:0 0 11px;}
+.s2-chips{display:flex;flex-wrap:wrap;gap:8px;}
+.s2-chips button{border:1px solid rgba(255,255,255,.17);background:rgba(255,255,255,.05);color:#cfe0ea;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:500;padding:8px 14px;border-radius:999px;cursor:pointer;transition:all .13s;}
+.s2-chips button:hover{border-color:#5cc4ec;color:#fff;}
+.s2-chips button.on{background:#1B9BD1;border-color:#1B9BD1;color:#fff;box-shadow:0 6px 16px -6px rgba(27,155,209,.8);}
+.s2-hint{font-size:.82rem;color:#8fb0c2;margin:12px 2px 0;transition:color .2s;}
+.s2-hint.warn{color:#ffd27a;}
+
+.snap2-go{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;margin-top:22px;padding:16px 20px;border:none;border-radius:14px;cursor:pointer;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.08rem;color:#fff;background:linear-gradient(100deg,#0091c9,#29b6e8);box-shadow:0 18px 34px -14px rgba(0,145,201,.75);transition:transform .15s,box-shadow .15s,opacity .15s;}
+.snap2-go:hover{transform:translateY(-2px);box-shadow:0 24px 46px -14px rgba(0,145,201,.8);}
+.snap2-go svg{transition:transform .15s;}
+.snap2-go:hover svg{transform:translateX(3px);}
+.snap2-go.busy{opacity:.7;pointer-events:none;}
+
+/* Result card (matches console) */
+.snap2-result{display:none;max-width:720px;margin:22px auto 0;background:radial-gradient(130% 90% at 50% 0%,#143f58 0%,#0c2838 58%,#07161f 100%);border:1px solid rgba(255,255,255,.09);border-radius:24px;padding:26px;color:#e8f1f6;box-shadow:0 44px 90px -44px rgba(0,0,0,.75);}
+.snap2-result.show{display:block;}
+.snap2-result>*{opacity:0;transform:translateY(10px);animation:s2in .55s var(--ease,cubic-bezier(.22,1,.36,1)) forwards;}
+.snap2-result>*:nth-child(1){animation-delay:.05s;}
+.snap2-result>*:nth-child(2){animation-delay:.13s;}
+.snap2-result>*:nth-child(3){animation-delay:.21s;}
+.snap2-result>*:nth-child(4){animation-delay:.29s;}
+.snap2-result>*:nth-child(5){animation-delay:.37s;}
+.snap2-result>*:nth-child(6){animation-delay:.45s;}
+@keyframes s2in{to{opacity:1;transform:none;}}
+
+.s2-gauge-wrap{position:relative;display:flex;flex-direction:column;align-items:center;background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);border-radius:16px;padding:16px 14px 12px;margin-bottom:20px;backdrop-filter:blur(6px);}
+.s2-gauge{width:250px;max-width:100%;height:auto;display:block;}
+.s2-seg{fill:none;stroke-width:15;stroke-linecap:round;transition:opacity .4s ease;}
+.s2-needle{transform-box:view-box;transform-origin:100px 100px;transition:transform 1.15s cubic-bezier(.34,1.4,.5,1);}
+.s2-gauge-read{text-align:center;margin-top:-6px;}
+.s2-gauge-word{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.2rem;line-height:1.2;}
+.s2-gauge-sub{font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:#8fb0c2;margin-top:3px;}
+.snap2-result h3{font-family:'Space Grotesk',sans-serif;color:#fff;font-size:1.26rem;line-height:1.3;margin:0 0 10px;}
+.snap2-result p.s2-body{color:#c4d6e0;font-size:.99rem;line-height:1.62;margin:0 0 16px;}
+.s2-do{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:13px;padding:14px 16px;margin-bottom:14px;}
+.s2-do b{display:block;font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:#5cc4ec;margin-bottom:6px;}
+.s2-do span{color:#cfdee7;font-size:.95rem;line-height:1.55;}
+.s2-disc{font-size:.82rem;color:#88a6b6;font-style:italic;line-height:1.5;margin:0 0 16px;}
+.s2-actions{display:flex;gap:10px;flex-wrap:wrap;}
+.s2-actions .btn{flex:1;min-width:150px;text-align:center;}
+.s2-bp{background:linear-gradient(100deg,var(--blue),var(--blue-light));color:#fff;border:none;box-shadow:0 12px 24px -12px rgba(0,145,201,.7);}
+.s2-bp:hover{filter:brightness(1.06);color:#fff;}
+.s2-bt{background:rgba(255,255,255,.08);border:1px solid rgba(92,196,236,.5);color:#bfe4f4;}
+.s2-bt:hover{background:rgba(92,196,236,.16);color:#fff;}
+.s2-quote{margin-top:18px;border-top:1px solid rgba(255,255,255,.12);padding-top:16px;}
+.s2-quote textarea,.s2-quote input{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:11px 13px;font-family:'Inter',sans-serif;font-size:.93rem;color:#eef6fa;background:rgba(255,255,255,.06);margin-bottom:10px;}
+.s2-quote textarea::placeholder,.s2-quote input::placeholder{color:#8aa7b7;}
+.s2-quote textarea{resize:vertical;line-height:1.5;}
+.s2-quote textarea:focus,.s2-quote input:focus{outline:none;border-color:#5cc4ec;box-shadow:0 0 0 3px rgba(41,182,232,.2);}
+.s2-q-row{display:flex;gap:10px;}
+.s2-q-row input{flex:1;}
+@media(max-width:520px){.s2-q-row{flex-direction:column;gap:0;}}
+.s2-send{width:100%;margin-top:2px;}
+.s2-fine{font-size:.82rem;color:#8aa7b7;margin:10px 2px 0;text-align:center;}
+.s2-thanks{text-align:center;padding:20px 8px;}
+.s2-thanks h3{font-family:'Space Grotesk',sans-serif;color:#fff;margin:0 0 8px;}
+.s2-thanks p{color:#c4d6e0;font-size:.95rem;line-height:1.55;margin:0;}
+</style>
 </head>
 <body>
-
-<div class="topbar">
-  <div class="container">
-    <span class="topbar-note">Need help? Call today!</span>
-    <a href="tel:8158002557" class="topbar-phone"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>(815) 800-2557</a>
-    <a href="mailto:office@brandauhomeservices.com" class="topbar-mail"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/></svg>office@brandauhomeservices.com</a>
-    <span class="topbar-area">Serving the Chicagoland area</span>
-  </div>
-</div>
-<header class="site-header">
-  <div class="container">
-    <a href="index.html" class="brand">
-      <img src="https://images.squarespace-cdn.com/content/v1/68ae61301c68f653941afa50/17b04d4c-f9a6-4a3e-90db-281ad67f8ed3/BrandauHS_logo-02.jpg?format=1500w" alt="Brandau Home Services logo">
-    </a>
-    <nav class="nav">
-      <a href="index.html">Home</a>
-      <a href="homeowners.html">Homeowners</a>
-      <a href="realtors.html">Realtors</a>
-      <a href="landlords.html">Landlords</a>
-      <a href="community.html">Neighbor Care</a>
-      <a href="contact.html">Contact</a>
-    </nav>
-    <div class="header-cta">
-      <a href="tel:8158002557" class="header-phone"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg> <span>(815) 800-2557</span></a>
-      <a href="snap-diagnosis.html" class="header-snap" aria-label="Snap Diagnosis — free AI photo check"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg><span>Snap Diagnosis</span></a>
-      <a href="contact.html" class="btn btn-primary btn-sm">Get Free Quote</a>
-    </div>
-    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
-  </div>
-</header>
-<section class="page-hero">
-  <div class="container" style="text-align:center;">
-    <div class="eyebrow" style="justify-content:center;">Free &middot; Instant</div>
+<div class="sd-wrap">
+  <div class="sd-head">
+    <div class="sd-eyebrow">Free &middot; Instant &middot; Private</div>
     <h1>Snap Diagnosis</h1>
-    <p class="hero-sub" style="margin-left:auto;margin-right:auto;">Got something in your home that doesn&rsquo;t look right? Snap a photo and our tool tells you what it most likely is, how urgent it is, and what it&rsquo;d take to fix &mdash; in seconds.</p>
+    <p>Add a photo of the problem and run the scan &mdash; you&rsquo;ll get an instant read on how urgent it is and what we&rsquo;d do about it.</p>
   </div>
-</section>
 
-<section class="section">
-  <div class="container">
-    <div class="section-head center"><div class="eyebrow" style="justify-content:center;">Snap &amp; Diagnose</div><h2>What&rsquo;s Going On Here?</h2><p>Upload a photo of the problem, tell us what you&rsquo;re seeing, and we&rsquo;ll give you a likely read &mdash; how urgent it is, and what we&rsquo;d do about it.</p></div>
-    <div class="dx-wrap">
-      <div class="dx-input">
-        <label class="dx-drop" id="dx-drop" for="dx-file">
-          <input type="file" id="dx-file" accept="image/*" hidden>
-          <div class="dx-drop-inner" id="dx-drop-inner">
-            <div class="dx-cam">&#128247;</div>
-            <strong>Tap to add a photo</strong>
-            <span>or drag one here &mdash; it stays on your device</span>
+  <div class="snap2">
+      <div class="snap2-console">
+        <div class="snap2-view" id="s2-view">
+          <div class="s2-grid"></div>
+          <span class="s2-corner s2-tl"></span><span class="s2-corner s2-tr"></span>
+          <span class="s2-corner s2-bl"></span><span class="s2-corner s2-br"></span>
+          <div class="s2-ph" id="s2-ph">
+            <div class="s2-cam"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+            <strong>Add a photo of the problem</strong>
+            <span>Upload one or snap a new photo &mdash; it never leaves your device</span>
           </div>
-        </label>
-
-        <div class="dx-q">
-          <div class="dx-eye">Where is it?</div>
-          <div class="dx-chips" id="dx-loc">
-            <button type="button" data-v="bathroom">Bathroom</button>
-            <button type="button" data-v="kitchen">Kitchen</button>
-            <button type="button" data-v="basement">Basement</button>
-            <button type="button" data-v="roof">Roof / Ceiling</button>
-            <button type="button" data-v="exterior">Outside / Siding</button>
-            <button type="button" data-v="living">Bedroom / Living</button>
-            <button type="button" data-v="other">Not sure</button>
-          </div>
+          <img id="s2-img" alt="your photo">
+          <div class="s2-scanline" id="s2-scanline"></div>
+          <div class="s2-status" id="s2-status">ANALYZING<span class="s2-dots"><i>.</i><i>.</i><i>.</i></span></div>
+          <button type="button" class="s2-remove" id="s2-remove" title="Remove photo" hidden>&times;</button>
         </div>
 
-        <div class="dx-q">
-          <div class="dx-eye">What are you seeing?</div>
-          <div class="dx-chips" id="dx-sym">
+        <input type="file" id="s2-upload" accept="image/*" hidden>
+        <input type="file" id="s2-snap" accept="image/*" capture="environment" hidden>
+        <div class="snap2-controls">
+          <button type="button" class="s2-btn s2-btn-ghost" id="s2-btn-upload"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M12 3v13M7 8l5-5 5 5"/></svg>Upload Photo</button>
+          <button type="button" class="s2-btn s2-btn-primary" id="s2-btn-snap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Snap a Photo</button>
+        </div>
+
+        <div class="snap2-refine">
+          <div class="s2-eye">What are you seeing?</div>
+          <div class="s2-chips" id="s2-sym">
             <button type="button" data-v="stain">Water stain</button>
             <button type="button" data-v="crack">Crack</button>
             <button type="button" data-v="leak">Active leak / drip</button>
@@ -147,92 +179,31 @@
             <button type="button" data-v="broken">Broken / missing piece</button>
             <button type="button" data-v="unsure">Not sure &mdash; just look</button>
           </div>
+          <p class="s2-hint" id="s2-hint">Tap what you&rsquo;re seeing so we can give you the right read.</p>
         </div>
 
-        <button class="btn btn-primary dx-go" id="dx-go">What&rsquo;s Likely Going On? &rarr;</button>
+        <button type="button" class="snap2-go" id="s2-go"><span>Run Snap Diagnosis</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
       </div>
 
-      <div class="dx-out" id="dx-out">
-        <div class="dx-empty">
-          <div class="dx-hand">&#128270;</div>
-          <p>Add a photo and tap what you&rsquo;re seeing. We&rsquo;ll give you our best read.</p>
-        </div>
-      </div>
+      <div class="snap2-result" id="s2-result"></div>
     </div>
-  </div>
-</section>
-
-<style>
-.dx-wrap{display:grid;grid-template-columns:.95fr 1.05fr;gap:34px;align-items:start;}
-@media(max-width:860px){.dx-wrap{grid-template-columns:1fr;}}
-.dx-eye{font-size:.72rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:#1B9BD1;margin:0 0 10px;}
-.dx-drop{display:block;border:2px dashed #bcd3e2;border-radius:16px;background:#fbfdfe;padding:26px 20px;text-align:center;cursor:pointer;transition:border-color .15s,background .15s;}
-.dx-drop:hover,.dx-drop.drag{border-color:#1B9BD1;background:#eef8fd;}
-.dx-drop-inner .dx-cam{font-size:34px;margin-bottom:8px;}
-.dx-drop-inner strong{display:block;color:#0C3A52;font-family:'Space Grotesk',sans-serif;font-size:1.05rem;}
-.dx-drop-inner span{display:block;color:#8a99a1;font-size:.86rem;margin-top:4px;}
-.dx-preview{position:relative;}
-.dx-preview img{width:100%;max-height:260px;object-fit:cover;border-radius:14px;display:block;}
-.dx-preview .dx-x{position:absolute;top:8px;right:8px;background:rgba(12,58,82,.85);color:#fff;border:none;width:30px;height:30px;border-radius:50%;font-size:1rem;cursor:pointer;line-height:1;}
-.dx-q{margin-top:22px;}
-.dx-chips{display:flex;flex-wrap:wrap;gap:8px;}
-.dx-chips button{border:1px solid #d6e0e7;background:#fff;color:#33454e;font-family:'Inter',sans-serif;font-size:.9rem;font-weight:500;padding:8px 14px;border-radius:999px;cursor:pointer;transition:all .13s;}
-.dx-chips button:hover{border-color:#1B9BD1;color:#1477a8;}
-.dx-chips button.on{background:#1B9BD1;border-color:#1B9BD1;color:#fff;}
-.dx-go{margin-top:24px;width:100%;font-size:1.02rem;padding:14px 20px;}
-.dx-out{background:#f4f8fb;border:1px solid #e3ebf0;border-radius:18px;padding:24px;min-height:360px;}
-.dx-empty{text-align:center;color:#7a8b93;padding:60px 12px;}
-.dx-hand{font-size:38px;margin-bottom:12px;}
-.dx-res-photo{width:100%;max-height:220px;object-fit:cover;border-radius:14px;margin-bottom:16px;display:block;}
-.dx-urg{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.04em;text-transform:uppercase;padding:6px 13px;border-radius:999px;margin-bottom:14px;}
-.dx-urg.lo{background:#e4f5e9;color:#2f8f4e;}
-.dx-urg.md{background:#e2f1fa;color:#1477a8;}
-.dx-urg.hi{background:#fdeee4;color:#c26a34;}
-.dx-res h3{font-family:'Space Grotesk',sans-serif;color:#0C3A52;font-size:1.2rem;margin:0 0 8px;}
-.dx-res p{color:#42525b;font-size:.96rem;line-height:1.6;margin:0 0 14px;}
-.dx-res .dx-do{background:#fff;border:1px solid #e6edf1;border-radius:13px;padding:14px 16px;margin-bottom:14px;}
-.dx-res .dx-do b{display:block;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:#1B9BD1;margin-bottom:5px;}
-.dx-res .dx-do span{color:#42525b;font-size:.93rem;line-height:1.55;}
-.dx-disc{font-size:.82rem;color:#8a99a1;font-style:italic;line-height:1.5;margin:0 0 16px;}
-.dx-actions{display:flex;gap:10px;flex-wrap:wrap;}
-.dx-actions .btn{flex:1;min-width:150px;text-align:center;}
-.dx-text{background:#fff;border:1px solid #1B9BD1;color:#1477a8;}
-.dx-text:hover{background:#eef8fd;}
-.dx-quote{margin-top:18px;border-top:1px solid #e3ebf0;padding-top:16px;}
-.dx-quote textarea,.dx-quote input{width:100%;box-sizing:border-box;border:1px solid #d6e0e7;border-radius:10px;padding:11px 13px;font-family:'Inter',sans-serif;font-size:.93rem;color:#22333c;background:#fff;margin-bottom:10px;}
-.dx-quote textarea{resize:vertical;line-height:1.5;}
-.dx-quote textarea:focus,.dx-quote input:focus{outline:none;border-color:#1B9BD1;box-shadow:0 0 0 3px rgba(27,155,209,.15);}
-.dx-q-row{display:flex;gap:10px;}
-.dx-q-row input{flex:1;}
-@media(max-width:520px){.dx-q-row{flex-direction:column;gap:0;}}
-.dx-send{width:100%;margin-top:2px;}
-.dx-fine{font-size:.82rem;color:#8a99a1;margin:10px 2px 0;text-align:center;}
-.dx-thanks{text-align:center;padding:20px 8px;}
-.dx-thanks h3{font-family:'Space Grotesk',sans-serif;color:#0C3A52;margin:0 0 8px;}
-.dx-thanks p{color:#42525b;font-size:.95rem;line-height:1.55;margin:0;}
-</style>
+</div>
 
 <script>
 (function(){
   // ============================================================
-  //  AI PHOTO READING  (true computer-vision diagnosis)
-  //  Paste your Cloudflare Worker URL between the quotes below to
-  //  turn it on. Leave it empty ("") and the tool falls back to the
-  //  built-in guided read, so it always works either way.
-  var AI_ENDPOINT = "https://brandau-photo-ai.office-4fb.workers.dev";
+  //  Snap Diagnosis runs ENTIRELY in the browser — no server,
+  //  no API, no cost. Add a photo, we play the scan, then read
+  //  the symptom you pick and give an instant, honest result.
   // ============================================================
-
-  var UT = {1:{l:'Keep an eye on it',c:'lo'},2:{l:'Worth handling soon',c:'md'},3:{l:'Don’t wait on this',c:'hi'}};
-  var UMAP = {low:1, medium:2, high:3};
-  var DX = {
+  var UT={1:{l:'Keep an eye on it',c:'lo',col:'#57d08a',ang:-58},2:{l:'Worth handling soon',c:'md',col:'#f2b64a',ang:0},3:{l:'Don’t wait on this',c:'hi',col:'#f0603c',ang:58}};
+  var DX={
     stain:{t:'Most likely: water finding its way in',u:2,
       p:"A water stain almost always means water is getting somewhere it shouldn’t — even if it looks dry right now. The stain is the evidence; the real culprit is a leak nearby, usually above it.",
-      d:"We’d trace it back to the source — a pipe, roof flashing, or a gap around a window — fix that, then repair the stained drywall or ceiling so it looks new again.",
-      loc:{roof:"On a ceiling, this usually points to the roof or a pipe in the floor above.",bathroom:"In a bathroom, it’s often a supply line, the wax ring under the toilet, or grout letting shower water through."}},
+      d:"We’d trace it back to the source — a pipe, roof flashing, or a gap around a window — fix that, then repair the stained drywall or ceiling so it looks new again."},
     crack:{t:'Most likely: settling — but let’s make sure',u:2,
       p:"Not all cracks are equal. Thin hairline cracks in drywall are usually just the house settling and are cosmetic. Wide ones, stair-step cracks in block or brick, or cracks that keep growing can mean something structural.",
-      d:"We’d check whether it’s cosmetic or actually moving, patch and repaint the harmless ones, and flag anything structural before it gets worse.",
-      loc:{basement:"In a basement, horizontal or stair-step cracks are worth taking seriously — that’s the wall talking to you."}},
+      d:"We’d check whether it’s cosmetic or actually moving, patch and repaint the harmless ones, and flag anything structural before it gets worse."},
     leak:{t:'Most likely: an active leak doing quiet damage',u:3,
       p:"An active drip wastes water and quietly wrecks everything around it — wood, drywall, subfloor — long before you see a big stain. The drip is cheap. The water damage it’s causing is not.",
       d:"We’d find the source, shut it down, and repair anything the water has already gotten into."},
@@ -250,8 +221,7 @@
       d:"This needs eyes on it right away and a safe repair. Please don’t poke at electrical yourself — this is exactly the kind we handle so you don’t have to risk it."},
     rust:{t:'Most likely: water meeting metal over time',u:2,
       p:"Rust means water has been meeting metal for a while — on a pipe, a water heater, a railing, or a fixture. It’s a slow problem right up until the day a rusted pipe or tank lets go.",
-      d:"We’d check whether it’s just surface rust or eating through, and replace or protect it before it fails.",
-      loc:{basement:"Rust at the base of a water heater usually means the tank is on its way out."}},
+      d:"We’d check whether it’s just surface rust or eating through, and replace or protect it before it fails."},
     flood:{t:'Move on this one fast',u:3,
       p:"Standing water is the one to jump on quickest — it damages everything it touches and can invite mold within a day or two. In a basement it usually points to drainage, a sump problem, or grading pushing water toward the house.",
       d:"We’d get the water out, find why it came in, and fix the path — sump, drainage, sealing, or grading — so the next storm doesn’t repeat it."},
@@ -262,253 +232,137 @@
       p:"No problem — you don’t have to know what it is. A clear photo tells us a lot on its own, and the fact that it caught your eye usually means it’s worth a look.",
       d:"Send it over and we’ll tell you what we’re seeing and what it would take to make it right."}
   };
+  var SYMLABEL={stain:'a water stain',crack:'a crack',leak:'an active leak or drip',mold:'mold or musty spots',peel:'peeling or bubbling paint',sag:'sagging',burn:'a burn mark or hot outlet',rust:'rust or corrosion',flood:'standing water',broken:'a broken or missing piece',unsure:''};
 
-  var LOCLABEL = {bathroom:'bathroom',kitchen:'kitchen',basement:'basement',roof:'roof or ceiling',exterior:'outside/siding area',living:'bedroom or living area',other:''};
-  var SYMLABEL = {stain:'a water stain',crack:'a crack',leak:'an active leak or drip',mold:'mold or musty spots',peel:'peeling or bubbling paint',sag:'sagging',burn:'a burn mark or hot outlet',rust:'rust or corrosion',flood:'standing water',broken:'a broken or missing piece',unsure:''};
+  var view=document.getElementById('s2-view');
+  var ph=document.getElementById('s2-ph');
+  var img=document.getElementById('s2-img');
+  var removeBtn=document.getElementById('s2-remove');
+  var upload=document.getElementById('s2-upload');
+  var snap=document.getElementById('s2-snap');
+  var symBox=document.getElementById('s2-sym');
+  var hint=document.getElementById('s2-hint');
+  var go=document.getElementById('s2-go');
+  var result=document.getElementById('s2-result');
+  var state={photo:null,file:null,sym:null};
+  var FORMSPREE="https://formspree.io/f/mykrdpyb";
 
-  var drop = document.getElementById('dx-drop');
-  var dropInner = document.getElementById('dx-drop-inner');
-  var fileEl = document.getElementById('dx-file');
-  var out = document.getElementById('dx-out');
-  var go = document.getElementById('dx-go');
-  var locBox = document.getElementById('dx-loc');
-  var symBox = document.getElementById('dx-sym');
-  var state = {photo:null, file:null, loc:null, sym:null};
+  function esc(s){s=(s==null?'':String(s));return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
 
-  function esc(s){ s=(s==null?'':String(s)); return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+  symBox.addEventListener('click',function(e){
+    var b=e.target.closest('button'); if(!b) return;
+    Array.prototype.forEach.call(symBox.querySelectorAll('button'),function(x){x.classList.remove('on');});
+    b.classList.add('on'); state.sym=b.getAttribute('data-v');
+    hint.classList.remove('warn'); hint.textContent='Ready when you are — hit Run Snap Diagnosis.';
+  });
 
-  function pickGroup(box, key){
-    box.addEventListener('click', function(e){
-      var b = e.target.closest('button'); if(!b) return;
-      Array.prototype.forEach.call(box.querySelectorAll('button'), function(x){x.classList.remove('on');});
-      b.classList.add('on');
-      state[key] = b.getAttribute('data-v');
-    });
-  }
-  pickGroup(locBox,'loc'); pickGroup(symBox,'sym');
+  function scanPulse(ms){ view.classList.add('scanning'); setTimeout(function(){ view.classList.remove('scanning'); }, ms); }
 
   function showPhoto(file){
-    if(!file || !/^image\//.test(file.type)) return;
-    var url = URL.createObjectURL(file);
-    state.photo = url; state.file = file;
-    drop.classList.remove('drag');
-    dropInner.style.display='none';
-    var wrap = document.createElement('div');
-    wrap.className='dx-preview';
-    wrap.innerHTML = '<img src="'+url+'" alt="your photo"><button type="button" class="dx-x" title="remove">&times;</button>';
-    var old = drop.querySelector('.dx-preview'); if(old) old.remove();
-    drop.appendChild(wrap);
-    wrap.querySelector('.dx-x').addEventListener('click', function(ev){
-      ev.preventDefault(); ev.stopPropagation();
-      state.photo=null; state.file=null; wrap.remove(); dropInner.style.display='';
-    });
+    if(!file||!/^image\//.test(file.type)) return;
+    var url=URL.createObjectURL(file);
+    state.photo=url; state.file=file;
+    img.src=url; view.classList.add('has-photo'); removeBtn.hidden=false;
+    view.classList.remove('drag');
+    scanPulse(1200); // quick confirmation sweep
   }
+  function clearPhoto(){ state.photo=null; state.file=null; view.classList.remove('has-photo'); img.removeAttribute('src'); removeBtn.hidden=true; }
 
-  fileEl.addEventListener('change', function(){ if(fileEl.files[0]) showPhoto(fileEl.files[0]); });
-  ['dragover','dragenter'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.add('drag');});});
-  ['dragleave','drop'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.classList.remove('drag');});});
-  drop.addEventListener('drop', function(e){ if(e.dataTransfer.files[0]) showPhoto(e.dataTransfer.files[0]); });
-
-  function fileToScaledB64(file){
-    return new Promise(function(resolve){
-      try{
-        var img = new Image();
-        img.onload = function(){
-          var max=1024, w=img.width, h=img.height;
-          if(w>h && w>max){ h=Math.round(h*max/w); w=max; }
-          else if(h>=w && h>max){ w=Math.round(w*max/h); h=max; }
-          var c=document.createElement('canvas'); c.width=w; c.height=h;
-          c.getContext('2d').drawImage(img,0,0,w,h);
-          var dataUrl=c.toDataURL('image/jpeg',0.85);
-          resolve({b64:dataUrl.split(',')[1], mime:'image/jpeg'});
-        };
-        img.onerror=function(){ resolve(null); };
-        img.src=URL.createObjectURL(file);
-      }catch(e){ resolve(null); }
-    });
-  }
-
-  function badge(u){ var x=UT[u]||UT[2]; return '<span class="dx-urg '+x.c+'">'+x.l+'</span>'; }
-
-  var FORMSPREE = "https://formspree.io/f/mykrdpyb";
+  document.getElementById('s2-btn-upload').addEventListener('click',function(){ upload.click(); });
+  document.getElementById('s2-btn-snap').addEventListener('click',function(){ snap.click(); });
+  upload.addEventListener('change',function(){ if(upload.files[0]) showPhoto(upload.files[0]); });
+  snap.addEventListener('change',function(){ if(snap.files[0]) showPhoto(snap.files[0]); });
+  removeBtn.addEventListener('click',function(){ clearPhoto(); });
+  ['dragover','dragenter'].forEach(function(ev){view.addEventListener(ev,function(e){e.preventDefault();view.classList.add('drag');});});
+  ['dragleave'].forEach(function(ev){view.addEventListener(ev,function(e){e.preventDefault();view.classList.remove('drag');});});
+  view.addEventListener('drop',function(e){e.preventDefault();view.classList.remove('drag');if(e.dataTransfer.files[0])showPhoto(e.dataTransfer.files[0]);});
 
   // Always refer to the company as "our Brandau Home Services team" (word-for-word).
   function brandFix(s){
     if(!s) return s;
-    var TOK = '';
-    s = s.replace(/\b(?:our|the)\s+Brandau(?:\s+Home\s+Services)?\s+team\b/gi, TOK);
-    s = s.replace(/\bBrandau(?:\s+Home\s+Services)?['’]s\s+team\b/gi, TOK);
-    s = s.replace(/\bBrandau\s+Home\s+Services\b/gi, TOK);
-    s = s.replace(/\bBrandau\b/gi, TOK);
-    s = s.split(TOK).join('our Brandau Home Services team');
-    s = s.replace(/\bour\s+our\b/gi, 'our');
-    s = s.replace(/\bthe\s+our\b/gi, 'our');
-    s = s.replace(/\ba\s+our\b/gi, 'our');
-    s = s.replace(/([.!?]["'\)\]]?\s+)our Brandau Home Services team/g, '$1Our Brandau Home Services team');
-    s = s.charAt(0).toUpperCase() + s.slice(1);
+    var TOK='\uE000';
+    s=s.replace(/\b(?:our|the)\s+Brandau(?:\s+Home\s+Services)?\s+team\b/gi,TOK);
+    s=s.replace(/\bBrandau(?:\s+Home\s+Services)?['’]s\s+team\b/gi,TOK);
+    s=s.replace(/\bBrandau\s+Home\s+Services\b/gi,TOK);
+    s=s.replace(/\bBrandau\b/gi,TOK);
+    s=s.split(TOK).join('our Brandau Home Services team');
+    s=s.replace(/\bour\s+our\b/gi,'our');
+    s=s.replace(/\bthe\s+our\b/gi,'our');
+    s=s.replace(/\ba\s+our\b/gi,'our');
+    s=s.replace(/([.!?]["'\)\]]?\s+)our Brandau Home Services team/g,'$1Our Brandau Home Services team');
+    s=s.charAt(0).toUpperCase()+s.slice(1);
     return s;
   }
+  function hintsString(){ return (state.sym&&SYMLABEL[state.sym])?("they think they see "+SYMLABEL[state.sym]):""; }
+  function track(){ if(typeof gtag==='function'){gtag('event','photo_diagnosed',{symptom:state.sym||'na',mode:'guided'});} window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'photo_diagnosed',symptom:state.sym||'na',mode:'guided'}); }
 
-  function renderCard(o){
-    var smsBody = encodeURIComponent("Hi Brandau — here's a photo of something at my place. What would it cost to fix?");
-    var T = brandFix(o.title), B = brandFix(o.body), D = brandFix(o.doText);
-    var problem = T + "\n\n" + B;
+  function gaugeSVG(u){
+    var m=UT[u]||UT[2];
+    function o(k){return u===k?'1':'0.22';}
+    return '<svg class="s2-gauge" viewBox="0 0 200 128" role="img" aria-label="Severity gauge">'+
+      '<path class="s2-seg" d="M20 100 A80 80 0 0 1 60 30.72" stroke="#57d08a" style="opacity:'+o(1)+'"/>'+
+      '<path class="s2-seg" d="M60 30.72 A80 80 0 0 1 140 30.72" stroke="#f2b64a" style="opacity:'+o(2)+'"/>'+
+      '<path class="s2-seg" d="M140 30.72 A80 80 0 0 1 180 100" stroke="#f0603c" style="opacity:'+o(3)+'"/>'+
+      '<g class="s2-needle" style="transform:rotate(-90deg)">'+
+        '<polygon points="96,100 104,100 100,30" fill="#eef6fa"/>'+
+        '<circle cx="100" cy="100" r="9" fill="#eef6fa"/>'+
+        '<circle cx="100" cy="100" r="4" fill="'+m.col+'"/>'+
+      '</g></svg>';
+  }
+
+  function renderResult(o){
+    var m=UT[o.urgency]||UT[2];
+    var T=brandFix(o.title),B=brandFix(o.body),D=brandFix(o.doText);
+    var problem=T+"\n\n"+B;
+    var smsBody=encodeURIComponent("Hi Brandau — here's a photo of something at my place. What would it cost to fix?");
     var html='';
-    if(state.photo){ html += '<img class="dx-res-photo" src="'+state.photo+'" alt="your photo">'; }
-    html += badge(o.urgency);
-    html += '<div class="dx-res"><h3>'+esc(T)+'</h3><p>'+esc(B)+'</p>';
-    html += '<div class="dx-do"><b>What we’d do</b><span>'+esc(D)+'</span></div>';
-    html += '<p class="dx-disc">This is a likely read, not a final diagnosis — the real answer comes from eyes on it. Brandau Home Services can come out and take a look for free.</p>';
-    html += '<div class="dx-actions">'+
-              '<button type="button" class="btn btn-primary" id="dx-quote-open">Get a Free Quote &rarr;</button>'+
-              '<a href="sms:+18158002557?&body='+smsBody+'" class="btn dx-text">Text us this photo</a>'+
-            '</div>';
-    html += '<form class="dx-quote" id="dx-quote" style="display:none;">'+
-              '<div class="dx-eye" style="margin-top:4px;">The problem &mdash; we filled this in for you (edit or add anything)</div>'+
-              '<textarea name="problem" id="dx-q-problem" rows="4">'+esc(problem)+'</textarea>'+
-              '<div class="dx-q-row">'+
-                '<input name="name" placeholder="Your name" required>'+
-                '<input name="phone" type="tel" placeholder="Phone">'+
-              '</div>'+
-              '<input name="email" type="email" placeholder="Email" required>'+
-              '<input type="hidden" name="_subject" value="New photo quote request — website">'+
-              '<input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">'+
-              '<button type="submit" class="btn btn-primary dx-send">Send</button>'+
-              '<p class="dx-fine" id="dx-q-msg">Goes straight to Brandau Home Services.</p>'+
-            '</form>';
-    html += '</div>';
-    out.innerHTML = html;
-    out.scrollIntoView({behavior:'smooth', block:'nearest'});
+    html+='<div class="s2-gauge-wrap">'+gaugeSVG(o.urgency)+'<div class="s2-gauge-read"><div class="s2-gauge-word" style="color:'+m.col+'">'+esc(m.l)+'</div><div class="s2-gauge-sub">Severity read</div></div></div>';
+    html+='<h3>'+esc(T)+'</h3>';
+    html+='<p class="s2-body">'+esc(B)+'</p>';
+    html+='<div class="s2-do"><b>What we’d do</b><span>'+esc(D)+'</span></div>';
+    html+='<p class="s2-disc">This is a likely read, not a final diagnosis — the real answer comes from eyes on it. Brandau Home Services can come out and take a look for free.</p>';
+    html+='<div class="s2-actions"><button type="button" class="btn s2-bp" id="s2-quote-open">Get a Free Quote &rarr;</button><a href="sms:+18158002557?&body='+smsBody+'" class="btn s2-bt">Text us this photo</a></div>';
+    html+='<form class="s2-quote" id="s2-quote" style="display:none;"><div class="s2-eye" style="margin-top:4px;">The problem — we filled this in for you (edit or add anything)</div><textarea name="problem" rows="4">'+esc(problem)+'</textarea><div class="s2-q-row"><input name="name" placeholder="Your name" required><input name="phone" type="tel" placeholder="Phone"></div><input name="email" type="email" placeholder="Email" required><input type="hidden" name="_subject" value="New photo quote request — website"><input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off"><button type="submit" class="btn s2-bp s2-send">Send</button><p class="s2-fine" id="s2-q-msg">Goes straight to Brandau Home Services.</p></form>';
+    result.innerHTML=html;
+    result.classList.add('show');
 
-    var openBtn = document.getElementById('dx-quote-open');
-    var form = document.getElementById('dx-quote');
-    if(openBtn && form){
-      openBtn.addEventListener('click', function(){
-        form.style.display='block';
-        openBtn.style.display='none';
-        form.scrollIntoView({behavior:'smooth', block:'nearest'});
-        var nm = form.querySelector('input[name="name"]'); if(nm) nm.focus();
-      });
-      form.addEventListener('submit', function(e){
+    var needle=result.querySelector('.s2-needle');
+    if(needle){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ needle.style.transform='rotate('+m.ang+'deg)'; }); }); }
+    result.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+    var openBtn=document.getElementById('s2-quote-open');
+    var form=document.getElementById('s2-quote');
+    if(openBtn&&form){
+      openBtn.addEventListener('click',function(){ form.style.display='block'; openBtn.style.display='none'; form.scrollIntoView({behavior:'smooth',block:'nearest'}); var nm=form.querySelector('input[name="name"]'); if(nm) nm.focus(); });
+      form.addEventListener('submit',function(e){
         e.preventDefault();
-        var msg = document.getElementById('dx-q-msg');
-        var btn = form.querySelector('.dx-send');
-        btn.disabled = true; msg.textContent = 'Sending…';
-        var fd = new FormData(form);
-        fd.append('urgency', (UT[o.urgency]||{}).l || '');
-        if(hintsString()) fd.append('they_noted', hintsString());
-        fetch(FORMSPREE, { method:'POST', body: fd, headers:{ 'Accept':'application/json' } })
-          .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
-          .then(function(res){
-            if(res.ok){
-              form.innerHTML = '<div class="dx-thanks"><h3>Got it &mdash; thanks!</h3><p>Your request is on its way to Brandau Home Services. We’ll reach out shortly to set up a free look.</p></div>';
-            } else {
-              btn.disabled = false;
-              msg.textContent = 'That didn’t go through — please try again, or call us at (815) 800-2557.';
-            }
-          })
-          .catch(function(){ btn.disabled = false; msg.textContent = 'Something hiccuped — try again, or call (815) 800-2557.'; });
+        var msg=document.getElementById('s2-q-msg'); var btn=form.querySelector('.s2-send');
+        btn.disabled=true; msg.textContent='Sending…';
+        var fd=new FormData(form); fd.append('urgency',m.l); if(hintsString()) fd.append('they_noted',hintsString());
+        fetch(FORMSPREE,{method:'POST',body:fd,headers:{'Accept':'application/json'}})
+          .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});})
+          .then(function(res){ if(res.ok){ form.innerHTML='<div class="s2-thanks"><h3>Got it — thanks!</h3><p>Your request is on its way to Brandau Home Services. We’ll reach out shortly to set up a free look.</p></div>'; } else { btn.disabled=false; msg.textContent='That didn’t go through — please try again, or call us at (815) 800-2557.'; } })
+          .catch(function(){ btn.disabled=false; msg.textContent='Something hiccuped — try again, or call (815) 800-2557.'; });
       });
     }
+    track();
   }
 
-  function guidedRead(){
-    var dx = DX[state.sym]; if(!dx) return;
-    var body = dx.p;
-    if(dx.loc && state.loc && dx.loc[state.loc]){ body += ' ' + dx.loc[state.loc]; }
-    renderCard({title:dx.t, urgency:dx.u, body:body, doText:dx.d});
-  }
+  function guidedRead(){ var dx=DX[state.sym]; if(!dx) return; renderResult({title:dx.t,urgency:dx.u,body:dx.p,doText:dx.d}); }
 
-  function hintsString(){
-    var parts=[];
-    if(state.loc && LOCLABEL[state.loc]) parts.push("it's in the "+LOCLABEL[state.loc]);
-    if(state.sym && SYMLABEL[state.sym]) parts.push("they think they see "+SYMLABEL[state.sym]);
-    return parts.join(', ');
-  }
-
-  function track(mode){
-    if(typeof gtag==='function'){ gtag('event','photo_diagnosed',{symptom:state.sym||'ai', location:state.loc||'na', mode:mode}); }
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({event:'photo_diagnosed', symptom:state.sym||'ai', location:state.loc||'na', mode:mode});
-  }
-
-  go.addEventListener('click', function(){
-    var useAI = AI_ENDPOINT && state.file;
-    if(!useAI && !state.sym){
-      out.innerHTML = '<div class="dx-empty"><div class="dx-hand">&#128072;</div><p>Tap <strong>what you’re seeing</strong> first — even a rough guess. A photo helps too, but the symptom is what we read.</p></div>';
+  go.addEventListener('click',function(){
+    if(!state.sym){
+      hint.classList.add('warn'); hint.textContent='Tap what you’re seeing first — even a rough guess. That’s what we read.';
+      symBox.scrollIntoView({behavior:'smooth',block:'nearest'});
       return;
     }
-    if(!useAI){ guidedRead(); track('guided'); return; }
-
-    out.innerHTML = '<div class="dx-empty"><div class="dx-hand">&#128260;</div><p>Reading your photo&hellip; give it a few seconds.</p></div>';
-    fileToScaledB64(state.file).then(function(img){
-      if(!img){ if(state.sym){ guidedRead(); } return; }
-      return fetch(AI_ENDPOINT, {
-        method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({ image: img.b64, mime: img.mime, hints: hintsString() })
-      }).then(function(r){ return r.json(); }).then(function(res){
-        if(!res || res.error || !res.title){
-          if(state.sym){ guidedRead(); }
-          else { out.innerHTML='<div class="dx-empty"><div class="dx-hand">&#129300;</div><p>Couldn’t get a clear read on that photo. Try a clearer shot, or tap what you’re seeing and we’ll still help.</p></div>'; }
-          return;
-        }
-        renderCard({ title:res.title, urgency:(UMAP[(res.urgency||'medium').toLowerCase()]||2), body:res.likely, doText:res.whatWeDo });
-        track('ai');
-      });
-    }).catch(function(){ if(state.sym){ guidedRead(); } else { out.innerHTML='<div class="dx-empty"><div class="dx-hand">&#129300;</div><p>Something hiccuped reading that photo. Give it another try, or tap what you’re seeing.</p></div>'; } });
+    result.classList.remove('show');
+    go.classList.add('busy');
+    view.classList.add('scanning');
+    view.scrollIntoView({behavior:'smooth',block:'center'});
+    setTimeout(function(){ view.classList.remove('scanning'); go.classList.remove('busy'); guidedRead(); }, 2100);
   });
 })();
 </script>
-
-<footer class="site-footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <div class="footer-brand">
-          <img src="https://images.squarespace-cdn.com/content/v1/68ae61301c68f653941afa50/17b04d4c-f9a6-4a3e-90db-281ad67f8ed3/BrandauHS_logo-02.jpg?format=1500w" alt="Brandau Home Services logo">
-        </div>
-        <p>Chicagoland's trusted full-service home services business — junk outs, cleanouts, landscaping, handyman work, and more, interior to exterior.</p>
-      </div>
-      <div>
-        <h4>Explore</h4>
-        <ul>
-          <li><a href="index.html">Home</a></li>
-          <li><a href="community.html">Neighbor Care</a></li>
-          <li><a href="contact.html">Contact</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Services</h4>
-        <ul>
-          <li><a href="homeowners.html">Homeowners</a></li>
-          <li><a href="realtors.html">Realtors</a></li>
-          <li><a href="landlords.html">Landlords</a></li>
-        </ul>
-      </div>
-      <div>
-        <h4>Contact</h4>
-        <ul>
-          <li><a href="tel:8158002557">(815) 800-2557</a></li>
-          <li><a href="mailto:office@brandauhomeservices.com">office@brandauhomeservices.com</a></li>
-          <li>Serving the Chicagoland area</li>
-        </ul>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© 2026 Brandau Home Services. All rights reserved.</span>
-      <span>Insured and locally owned.</span>
-    </div>
-  </div>
-</footer>
-
-<script src="script.js" defer></script>
-<script src="service-map.js" defer></script>
-<script src="punch-list.js" defer></script>
-<div class="mobile-cta-bar" aria-label="Quick contact">
-  <a href="tel:8158002557" class="mcb mcb-call"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Call</a>
-  <a href="sms:8158002557" class="mcb mcb-text"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>Text</a>
-  <a href="contact.html" class="mcb mcb-quote"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg>Free Quote</a>
-</div>
-
 </body>
 </html>
