@@ -356,24 +356,115 @@
     <div class="section-head center">
       <div class="eyebrow" style="justify-content:center;">What Chicagoland Says</div>
       <h2>Trusted By Homeowners Like You</h2>
+      <p class="gr-summary" id="gr-summary"></p>
     </div>
-    <div class="grid grid-3">
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p>"Showed up on time, fixed exactly what we needed, and left everything spotless. Exactly the kind of handyman you hope to find."</p>
-        <div class="who">— Homeowner, Naperville</div>
+        <div class="gr-stage" id="gr-stage" aria-live="polite">
+      <div class="gr-card active">
+        <div class="gr-top"><div class="gr-avatar gr-avatar--ph">H</div><div class="gr-meta"><div class="gr-name">Homeowner, Naperville</div><div class="gr-stars">★★★★★</div></div></div>
+        <p class="gr-text">"Showed up on time, fixed exactly what we needed, and left everything spotless. Exactly the kind of handyman you hope to find."</p>
+        <div class="gr-when">Verified customer</div>
       </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p>"We use Brandau for every pre-listing punch list now. Fast turnaround and it always passes inspection the first time."</p>
-        <div class="who">— Local Realtor</div>
+      <div class="gr-card">
+        <div class="gr-top"><div class="gr-avatar gr-avatar--ph">R</div><div class="gr-meta"><div class="gr-name">Local Realtor</div><div class="gr-stars">★★★★★</div></div></div>
+        <p class="gr-text">"We use Brandau for every pre-listing punch list now. Fast turnaround and it always passes inspection the first time."</p>
+        <div class="gr-when">Verified customer</div>
       </div>
-      <div class="testimonial">
-        <div class="stars">★★★★★</div>
-        <p>"Handled a full rehab on our rental between tenants — on budget, on schedule, no surprises."</p>
-        <div class="who">— Landlord, Joliet</div>
+      <div class="gr-card">
+        <div class="gr-top"><div class="gr-avatar gr-avatar--ph">L</div><div class="gr-meta"><div class="gr-name">Landlord, Joliet</div><div class="gr-stars">★★★★★</div></div></div>
+        <p class="gr-text">"Handled a full rehab on our rental between tenants — on budget, on schedule, no surprises."</p>
+        <div class="gr-when">Verified customer</div>
       </div>
     </div>
+    <div class="gr-controls">
+      <button class="gr-arrow" id="gr-prev" type="button" aria-label="Previous review">&#8249;</button>
+      <div class="gr-dots" id="gr-dots"></div>
+      <button class="gr-arrow" id="gr-next" type="button" aria-label="Next review">&#8250;</button>
+    </div>
+    <div class="gr-foot"><a href="https://g.page/r/CXRDToaMkE_PEAE/review" target="_blank" rel="noopener" id="gr-readall">See more reviews on Google &rarr;</a></div>
+
+<style>
+.gr-summary{text-align:center;color:#5a6a72;font-size:1rem;margin:8px 0 0;min-height:1.2em;}
+.gr-summary strong{color:#0C3A52;}
+.gr-summary .gr-sumstars{color:#f5a623;letter-spacing:2px;}
+.gr-stage{position:relative;max-width:720px;margin:30px auto 0;}
+.gr-card{background:#fff;border:1px solid #e6edf1;border-radius:18px;padding:30px 30px 26px;box-shadow:0 18px 44px -28px rgba(10,22,32,.4);display:none;}
+.gr-card.active{display:block;animation:grFade .5s ease;}
+@keyframes grFade{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+.gr-top{display:flex;align-items:center;gap:14px;margin-bottom:14px;}
+.gr-avatar{width:52px;height:52px;border-radius:50%;object-fit:cover;flex:none;}
+.gr-avatar--ph{display:flex;align-items:center;justify-content:center;background:#1B9BD1;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.3rem;}
+.gr-meta{flex:1;min-width:0;}
+.gr-name{font-family:'Space Grotesk',sans-serif;font-weight:700;color:#0C3A52;font-size:1.02rem;}
+.gr-stars{color:#f5a623;letter-spacing:2px;font-size:.95rem;}
+.gr-glogo{flex:none;}
+.gr-text{color:#33454e;font-size:1.06rem;line-height:1.65;margin:0 0 16px;}
+.gr-when{color:#8a99a1;font-size:.85rem;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}
+.gr-when a{color:#1477a8;text-decoration:none;}
+.gr-when a:hover{text-decoration:underline;}
+.gr-controls{display:flex;align-items:center;justify-content:center;gap:16px;margin-top:22px;}
+.gr-arrow{width:40px;height:40px;border-radius:50%;border:1px solid #d6e0e7;background:#fff;color:#0C3A52;font-size:1.3rem;line-height:1;cursor:pointer;transition:border-color .15s,color .15s,background .15s;}
+.gr-arrow:hover{border-color:#1B9BD1;color:#1477a8;background:#eef8fd;}
+.gr-dots{display:flex;gap:8px;}
+.gr-dots button{width:9px;height:9px;border-radius:50%;border:none;background:#cdd9e1;cursor:pointer;padding:0;transition:background .15s;}
+.gr-dots button.on{background:#1B9BD1;}
+.gr-foot{text-align:center;margin-top:22px;}
+.gr-foot a{color:#1477a8;font-weight:600;text-decoration:none;}
+.gr-foot a:hover{text-decoration:underline;}
+</style>
+
+<script>
+(function(){
+  // ===== LIVE GOOGLE REVIEWS =====
+  // Paste your Cloudflare reviews Worker URL between the quotes to go live.
+  // Leave empty ("") and the section shows the sample cards above.
+  var REVIEWS_ENDPOINT = "https://brandau-reviews.office-4fb.workers.dev";
+  // ===============================
+
+  var stage=document.getElementById('gr-stage');
+  var dotsBox=document.getElementById('gr-dots');
+  var summary=document.getElementById('gr-summary');
+  if(!stage||!dotsBox) return;
+  var idx=0, timer=null, cards=[];
+  var GLOGO='<svg class="gr-glogo" width="20" height="20" viewBox="0 0 48 48" aria-label="Google"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>';
+
+  function esc(s){return (s==null?'':String(s)).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function starStr(n){n=Math.max(0,Math.min(5,Math.round(n||5)));return '★★★★★'.slice(0,n)+'☆☆☆☆☆'.slice(0,5-n);}
+  function collect(){cards=[].slice.call(stage.querySelectorAll('.gr-card'));}
+  function mark(){var ds=dotsBox.children;for(var i=0;i<ds.length;i++){ds[i].className=(i===idx?'on':'');}}
+  function buildDots(){dotsBox.innerHTML='';cards.forEach(function(_,i){var b=document.createElement('button');b.type='button';b.addEventListener('click',function(){go(i);reset();});dotsBox.appendChild(b);});mark();}
+  function go(i){if(!cards.length)return;idx=(i+cards.length)%cards.length;cards.forEach(function(c){c.classList.remove('active');});cards[idx].classList.add('active');mark();}
+  function next(){go(idx+1);}
+  function prev(){go(idx-1);}
+  function reset(){if(timer)clearInterval(timer);timer=setInterval(next,5500);}
+
+  var nb=document.getElementById('gr-next'),pb=document.getElementById('gr-prev');
+  if(nb)nb.addEventListener('click',function(){next();reset();});
+  if(pb)pb.addEventListener('click',function(){prev();reset();});
+
+  function renderLive(data){
+    if(!data||!data.reviews||!data.reviews.length){start();return;}
+    stage.innerHTML=data.reviews.map(function(r,i){
+      var av=r.photo?'<img class="gr-avatar" src="'+esc(r.photo)+'" alt="" referrerpolicy="no-referrer">':'<div class="gr-avatar gr-avatar--ph">'+esc((r.author||'G').charAt(0))+'</div>';
+      var prof=r.profileUrl?'<a href="'+esc(r.profileUrl)+'" target="_blank" rel="noopener">on Google</a>':'on Google';
+      return '<div class="gr-card'+(i===0?' active':'')+'">'+
+        '<div class="gr-top">'+av+'<div class="gr-meta"><div class="gr-name">'+esc(r.author)+'</div><div class="gr-stars">'+starStr(r.rating)+'</div></div>'+GLOGO+'</div>'+
+        '<p class="gr-text">"'+esc(r.text)+'"</p>'+
+        '<div class="gr-when">'+(r.when?esc(r.when)+' &middot; ':'')+prof+'</div></div>';
+    }).join('');
+    if(summary&&data.rating){summary.innerHTML='<strong>'+Number(data.rating).toFixed(1)+'</strong> <span class="gr-sumstars">'+starStr(data.rating)+'</span> from '+(data.total||data.reviews.length)+' Google reviews';}
+    var ra=document.getElementById('gr-readall');
+    if(ra&&data.mapsUri)ra.href=data.mapsUri;
+    idx=0;collect();buildDots();reset();
+  }
+  function start(){collect();buildDots();reset();}
+
+  if(REVIEWS_ENDPOINT){
+    fetch(REVIEWS_ENDPOINT).then(function(r){return r.json();}).then(renderLive).catch(function(){start();});
+  }else{start();}
+})();
+</script>
+
+
   </div>
 </section>
 
