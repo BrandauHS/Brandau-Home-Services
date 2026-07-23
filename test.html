@@ -197,6 +197,18 @@
 .dx-actions .btn{flex:1;min-width:150px;text-align:center;}
 .dx-text{background:#fff;border:1px solid #1B9BD1;color:#1477a8;}
 .dx-text:hover{background:#eef8fd;}
+.dx-quote{margin-top:18px;border-top:1px solid #e3ebf0;padding-top:16px;}
+.dx-quote textarea,.dx-quote input{width:100%;box-sizing:border-box;border:1px solid #d6e0e7;border-radius:10px;padding:11px 13px;font-family:'Inter',sans-serif;font-size:.93rem;color:#22333c;background:#fff;margin-bottom:10px;}
+.dx-quote textarea{resize:vertical;line-height:1.5;}
+.dx-quote textarea:focus,.dx-quote input:focus{outline:none;border-color:#1B9BD1;box-shadow:0 0 0 3px rgba(27,155,209,.15);}
+.dx-q-row{display:flex;gap:10px;}
+.dx-q-row input{flex:1;}
+@media(max-width:520px){.dx-q-row{flex-direction:column;gap:0;}}
+.dx-send{width:100%;margin-top:2px;}
+.dx-fine{font-size:.82rem;color:#8a99a1;margin:10px 2px 0;text-align:center;}
+.dx-thanks{text-align:center;padding:20px 8px;}
+.dx-thanks h3{font-family:'Space Grotesk',sans-serif;color:#0C3A52;margin:0 0 8px;}
+.dx-thanks p{color:#42525b;font-size:.95rem;line-height:1.55;margin:0;}
 </style>
 
 <script>
@@ -317,17 +329,68 @@
 
   function badge(u){ var x=UT[u]||UT[2]; return '<span class="dx-urg '+x.c+'">'+x.l+'</span>'; }
 
+  var FORMSPREE = "https://formspree.io/f/mykrdpyb";
+
   function renderCard(o){
     var smsBody = encodeURIComponent("Hi Brandau — here's a photo of something at my place. What would it cost to fix?");
+    var problem = o.title + "\n\n" + o.body;
     var html='';
     if(state.photo){ html += '<img class="dx-res-photo" src="'+state.photo+'" alt="your photo">'; }
     html += badge(o.urgency);
     html += '<div class="dx-res"><h3>'+esc(o.title)+'</h3><p>'+esc(o.body)+'</p>';
     html += '<div class="dx-do"><b>What we’d do</b><span>'+esc(o.doText)+'</span></div>';
-    html += '<p class="dx-disc">This is a likely read, not a final diagnosis. The real answer comes from eyes on it — and we’re happy to take a look for free.</p>';
-    html += '<div class="dx-actions"><a href="contact.html" class="btn btn-primary">Get a Free Quote &rarr;</a><a href="sms:+18158002557?&body='+smsBody+'" class="btn dx-text">Text us this photo</a></div></div>';
+    html += '<p class="dx-disc">This is a likely read, not a final diagnosis — the real answer comes from eyes on it. Brandau Home Services can come out and take a look for free.</p>';
+    html += '<div class="dx-actions">'+
+              '<button type="button" class="btn btn-primary" id="dx-quote-open">Get a Free Quote &rarr;</button>'+
+              '<a href="sms:+18158002557?&body='+smsBody+'" class="btn dx-text">Text us this photo</a>'+
+            '</div>';
+    html += '<form class="dx-quote" id="dx-quote" style="display:none;">'+
+              '<div class="dx-eye" style="margin-top:4px;">The problem &mdash; we filled this in for you (edit or add anything)</div>'+
+              '<textarea name="problem" id="dx-q-problem" rows="4">'+esc(problem)+'</textarea>'+
+              '<div class="dx-q-row">'+
+                '<input name="name" placeholder="Your name" required>'+
+                '<input name="phone" type="tel" placeholder="Phone">'+
+              '</div>'+
+              '<input name="email" type="email" placeholder="Email" required>'+
+              '<input type="hidden" name="_subject" value="New photo quote request — website">'+
+              '<input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">'+
+              '<button type="submit" class="btn btn-primary dx-send">Send to Brandau &rarr;</button>'+
+              '<p class="dx-fine" id="dx-q-msg">Goes straight to Brandau Home Services.</p>'+
+            '</form>';
+    html += '</div>';
     out.innerHTML = html;
     out.scrollIntoView({behavior:'smooth', block:'nearest'});
+
+    var openBtn = document.getElementById('dx-quote-open');
+    var form = document.getElementById('dx-quote');
+    if(openBtn && form){
+      openBtn.addEventListener('click', function(){
+        form.style.display='block';
+        openBtn.style.display='none';
+        form.scrollIntoView({behavior:'smooth', block:'nearest'});
+        var nm = form.querySelector('input[name="name"]'); if(nm) nm.focus();
+      });
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var msg = document.getElementById('dx-q-msg');
+        var btn = form.querySelector('.dx-send');
+        btn.disabled = true; msg.textContent = 'Sending…';
+        var fd = new FormData(form);
+        fd.append('urgency', (UT[o.urgency]||{}).l || '');
+        if(hintsString()) fd.append('they_noted', hintsString());
+        fetch(FORMSPREE, { method:'POST', body: fd, headers:{ 'Accept':'application/json' } })
+          .then(function(r){ return r.json().then(function(j){ return {ok:r.ok, j:j}; }); })
+          .then(function(res){
+            if(res.ok){
+              form.innerHTML = '<div class="dx-thanks"><h3>Got it &mdash; thanks!</h3><p>Your request is on its way to Brandau Home Services. We’ll reach out shortly to set up a free look.</p></div>';
+            } else {
+              btn.disabled = false;
+              msg.textContent = 'That didn’t go through — please try again, or call us at (815) 800-2557.';
+            }
+          })
+          .catch(function(){ btn.disabled = false; msg.textContent = 'Something hiccuped — try again, or call (815) 800-2557.'; });
+      });
+    }
   }
 
   function guidedRead(){
