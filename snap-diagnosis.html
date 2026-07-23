@@ -62,6 +62,7 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#1622
 
 /* Upload / Snap buttons */
 .snap2-controls{display:flex;gap:12px;margin-top:16px;}
+.s2-note{text-align:center;font-size:.82rem;color:#8fb0c2;margin:14px 2px 0;}
 .s2-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:9px;padding:14px 12px;border-radius:13px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1rem;cursor:pointer;transition:transform .14s,background .14s,box-shadow .14s;}
 .s2-btn svg{flex:none;}
 .s2-btn-ghost{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);color:#eaf4f9;}
@@ -137,126 +138,61 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#1622
   <div class="sd-head">
     <div class="sd-eyebrow">Free &middot; Instant &middot; Private</div>
     <h1>Snap Diagnosis</h1>
-    <p>Add a photo of the problem and run the scan &mdash; you&rsquo;ll get an instant read on how urgent it is and what we&rsquo;d do about it.</p>
+    <p>Upload or snap a photo of the problem &mdash; our tool reads the photo and tells you what it most likely is, how urgent it is, and what we&rsquo;d do about it.</p>
   </div>
 
   <div class="snap2">
-      <div class="snap2-console">
-        <div class="snap2-view" id="s2-view">
-          <div class="s2-grid"></div>
-          <span class="s2-corner s2-tl"></span><span class="s2-corner s2-tr"></span>
-          <span class="s2-corner s2-bl"></span><span class="s2-corner s2-br"></span>
-          <div class="s2-ph" id="s2-ph">
-            <div class="s2-cam"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
-            <strong>Add a photo of the problem</strong>
-            <span>Upload one or snap a new photo &mdash; it never leaves your device</span>
-          </div>
-          <img id="s2-img" alt="your photo">
-          <div class="s2-scanline" id="s2-scanline"></div>
-          <div class="s2-status" id="s2-status">ANALYZING<span class="s2-dots"><i>.</i><i>.</i><i>.</i></span></div>
-          <button type="button" class="s2-remove" id="s2-remove" title="Remove photo" hidden>&times;</button>
+    <div class="snap2-console">
+      <div class="snap2-view" id="s2-view">
+        <div class="s2-grid"></div>
+        <span class="s2-corner s2-tl"></span><span class="s2-corner s2-tr"></span>
+        <span class="s2-corner s2-bl"></span><span class="s2-corner s2-br"></span>
+        <div class="s2-ph" id="s2-ph">
+          <div class="s2-cam"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></div>
+          <strong>Add a photo of the problem</strong>
+          <span>Upload one or snap a new photo &mdash; it never leaves your device</span>
         </div>
-
-        <input type="file" id="s2-upload" accept="image/*" hidden>
-        <input type="file" id="s2-snap" accept="image/*" capture="environment" hidden>
-        <div class="snap2-controls">
-          <button type="button" class="s2-btn s2-btn-ghost" id="s2-btn-upload"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M12 3v13M7 8l5-5 5 5"/></svg>Upload Photo</button>
-          <button type="button" class="s2-btn s2-btn-primary" id="s2-btn-snap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Snap a Photo</button>
-        </div>
-
-        <div class="snap2-refine">
-          <div class="s2-eye">What are you seeing?</div>
-          <div class="s2-chips" id="s2-sym">
-            <button type="button" data-v="stain">Water stain</button>
-            <button type="button" data-v="crack">Crack</button>
-            <button type="button" data-v="leak">Active leak / drip</button>
-            <button type="button" data-v="mold">Mold / musty spots</button>
-            <button type="button" data-v="peel">Peeling / bubbling paint</button>
-            <button type="button" data-v="sag">Sagging</button>
-            <button type="button" data-v="burn">Burn mark / hot outlet</button>
-            <button type="button" data-v="rust">Rust / corrosion</button>
-            <button type="button" data-v="flood">Standing water</button>
-            <button type="button" data-v="broken">Broken / missing piece</button>
-            <button type="button" data-v="unsure">Not sure &mdash; just look</button>
-          </div>
-          <p class="s2-hint" id="s2-hint">Tap what you&rsquo;re seeing so we can give you the right read.</p>
-        </div>
-
-        <button type="button" class="snap2-go" id="s2-go"><span>Run Snap Diagnosis</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+        <img id="s2-img" alt="your photo">
+        <div class="s2-scanline" id="s2-scanline"></div>
+        <div class="s2-status" id="s2-status">READING PHOTO<span class="s2-dots"><i>.</i><i>.</i><i>.</i></span></div>
+        <button type="button" class="s2-remove" id="s2-remove" title="Remove photo" hidden>&times;</button>
       </div>
 
-      <div class="snap2-result" id="s2-result"></div>
+      <input type="file" id="s2-upload" accept="image/*" hidden>
+      <input type="file" id="s2-snap" accept="image/*" capture="environment" hidden>
+      <div class="snap2-controls">
+        <button type="button" class="s2-btn s2-btn-ghost" id="s2-btn-upload"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M12 3v13M7 8l5-5 5 5"/></svg>Upload Photo</button>
+        <button type="button" class="s2-btn s2-btn-primary" id="s2-btn-snap"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>Snap a Photo</button>
+      </div>
+      <p class="s2-note" id="s2-note">Your photo is read instantly and never stored.</p>
     </div>
+
+    <div class="snap2-result" id="s2-result"></div>
+  </div>
 </div>
 
 <script>
 (function(){
   // ============================================================
-  //  Snap Diagnosis runs ENTIRELY in the browser — no server,
-  //  no API, no cost. Add a photo, we play the scan, then read
-  //  the symptom you pick and give an instant, honest result.
+  //  Snap Diagnosis — reads the uploaded/snapped photo with AI
+  //  (Google Gemini) through a Cloudflare Worker that safely
+  //  holds the API key. No symptom questions — just the photo.
   // ============================================================
-  var UT={1:{l:'Keep an eye on it',c:'lo',col:'#57d08a',ang:-58},2:{l:'Worth handling soon',c:'md',col:'#f2b64a',ang:0},3:{l:'Don’t wait on this',c:'hi',col:'#f0603c',ang:58}};
-  var DX={
-    stain:{t:'Most likely: water finding its way in',u:2,
-      p:"A water stain almost always means water is getting somewhere it shouldn’t — even if it looks dry right now. The stain is the evidence; the real culprit is a leak nearby, usually above it.",
-      d:"We’d trace it back to the source — a pipe, roof flashing, or a gap around a window — fix that, then repair the stained drywall or ceiling so it looks new again."},
-    crack:{t:'Most likely: settling — but let’s make sure',u:2,
-      p:"Not all cracks are equal. Thin hairline cracks in drywall are usually just the house settling and are cosmetic. Wide ones, stair-step cracks in block or brick, or cracks that keep growing can mean something structural.",
-      d:"We’d check whether it’s cosmetic or actually moving, patch and repaint the harmless ones, and flag anything structural before it gets worse."},
-    leak:{t:'Most likely: an active leak doing quiet damage',u:3,
-      p:"An active drip wastes water and quietly wrecks everything around it — wood, drywall, subfloor — long before you see a big stain. The drip is cheap. The water damage it’s causing is not.",
-      d:"We’d find the source, shut it down, and repair anything the water has already gotten into."},
-    mold:{t:'Most likely: moisture plus time',u:3,
-      p:"Dark speckled spots and a musty smell usually mean moisture that’s been sitting a while. Surface mildew wipes away — but if it keeps coming back, there’s a moisture source feeding it that has to be fixed, not just cleaned.",
-      d:"We’d clean it up and, more importantly, find and fix whatever’s keeping the area damp — ventilation, a hidden leak, or grading — so it doesn’t just grow back."},
-    peel:{t:'Most likely: moisture behind the paint',u:1,
-      p:"Peeling or bubbling paint is usually a moisture problem underneath — the paint is losing its grip because water is getting behind it. Sometimes it’s just old paint or a rushed prep job.",
-      d:"We’d figure out whether it’s moisture or just age, fix the cause, then scrape, prime, and repaint it properly so it actually stays put."},
-    sag:{t:'Most likely: weight or water it shouldn’t be holding',u:3,
-      p:"Sagging means something is carrying more weight or water than it was built to. A sagging ceiling can mean water pooling above it; a sagging floor can mean a support issue below.",
-      d:"We’d find out what’s behind it before anything gives way, then repair both the cause and the surface."},
-    burn:{t:'Take this one seriously — possible fire risk',u:3,
-      p:"We don’t sugarcoat this one: scorch marks, a warm outlet, or a burning smell around anything electrical is a genuine fire risk. Stop using that outlet or circuit.",
-      d:"This needs eyes on it right away and a safe repair. Please don’t poke at electrical yourself — this is exactly the kind we handle so you don’t have to risk it."},
-    rust:{t:'Most likely: water meeting metal over time',u:2,
-      p:"Rust means water has been meeting metal for a while — on a pipe, a water heater, a railing, or a fixture. It’s a slow problem right up until the day a rusted pipe or tank lets go.",
-      d:"We’d check whether it’s just surface rust or eating through, and replace or protect it before it fails."},
-    flood:{t:'Move on this one fast',u:3,
-      p:"Standing water is the one to jump on quickest — it damages everything it touches and can invite mold within a day or two. In a basement it usually points to drainage, a sump problem, or grading pushing water toward the house.",
-      d:"We’d get the water out, find why it came in, and fix the path — sump, drainage, sealing, or grading — so the next storm doesn’t repeat it."},
-    broken:{t:'Most likely: small now, costly if ignored',u:2,
-      p:"A missing or damaged piece — a shingle, some siding, a cracked tile — is usually cheap to fix now and expensive to ignore, because it’s the opening that lets water start working on everything behind it.",
-      d:"We’d repair or replace the damaged piece and check that water hasn’t already snuck in behind it."},
-    unsure:{t:'That’s exactly what we’re for',u:2,
-      p:"No problem — you don’t have to know what it is. A clear photo tells us a lot on its own, and the fact that it caught your eye usually means it’s worth a look.",
-      d:"Send it over and we’ll tell you what we’re seeing and what it would take to make it right."}
-  };
-  var SYMLABEL={stain:'a water stain',crack:'a crack',leak:'an active leak or drip',mold:'mold or musty spots',peel:'peeling or bubbling paint',sag:'sagging',burn:'a burn mark or hot outlet',rust:'rust or corrosion',flood:'standing water',broken:'a broken or missing piece',unsure:''};
+  var AI_ENDPOINT = "https://brandau-photo-ai.office-4fb.workers.dev";
+
+  var UT={1:{l:'Keep an eye on it',c:'lo',col:'#57d08a',ang:-58},2:{l:'Worth handling soon',c:'md',col:'#f2b64a',ang:0},3:{l:"Don’t wait on this",c:'hi',col:'#f0603c',ang:58}};
+  var UMAP={low:1,medium:2,high:3};
 
   var view=document.getElementById('s2-view');
-  var ph=document.getElementById('s2-ph');
   var img=document.getElementById('s2-img');
   var removeBtn=document.getElementById('s2-remove');
   var upload=document.getElementById('s2-upload');
   var snap=document.getElementById('s2-snap');
-  var symBox=document.getElementById('s2-sym');
-  var hint=document.getElementById('s2-hint');
-  var go=document.getElementById('s2-go');
   var result=document.getElementById('s2-result');
-  var state={photo:null,file:null,sym:null};
+  var state={photo:null,file:null};
   var FORMSPREE="https://formspree.io/f/mykrdpyb";
 
   function esc(s){s=(s==null?'':String(s));return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
-
-  symBox.addEventListener('click',function(e){
-    var b=e.target.closest('button'); if(!b) return;
-    Array.prototype.forEach.call(symBox.querySelectorAll('button'),function(x){x.classList.remove('on');});
-    b.classList.add('on'); state.sym=b.getAttribute('data-v');
-    hint.classList.remove('warn'); hint.textContent='Ready when you are — hit Run Snap Diagnosis.';
-  });
-
-  function scanPulse(ms){ view.classList.add('scanning'); setTimeout(function(){ view.classList.remove('scanning'); }, ms); }
 
   function showPhoto(file){
     if(!file||!/^image\//.test(file.type)) return;
@@ -264,9 +200,9 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#1622
     state.photo=url; state.file=file;
     img.src=url; view.classList.add('has-photo'); removeBtn.hidden=false;
     view.classList.remove('drag');
-    scanPulse(1200); // quick confirmation sweep
+    analyze();
   }
-  function clearPhoto(){ state.photo=null; state.file=null; view.classList.remove('has-photo'); img.removeAttribute('src'); removeBtn.hidden=true; }
+  function clearPhoto(){ state.photo=null; state.file=null; view.classList.remove('has-photo'); img.removeAttribute('src'); removeBtn.hidden=true; result.classList.remove('show'); result.innerHTML=''; }
 
   document.getElementById('s2-btn-upload').addEventListener('click',function(){ upload.click(); });
   document.getElementById('s2-btn-snap').addEventListener('click',function(){ snap.click(); });
@@ -274,13 +210,13 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#1622
   snap.addEventListener('change',function(){ if(snap.files[0]) showPhoto(snap.files[0]); });
   removeBtn.addEventListener('click',function(){ clearPhoto(); });
   ['dragover','dragenter'].forEach(function(ev){view.addEventListener(ev,function(e){e.preventDefault();view.classList.add('drag');});});
-  ['dragleave'].forEach(function(ev){view.addEventListener(ev,function(e){e.preventDefault();view.classList.remove('drag');});});
+  view.addEventListener('dragleave',function(e){e.preventDefault();view.classList.remove('drag');});
   view.addEventListener('drop',function(e){e.preventDefault();view.classList.remove('drag');if(e.dataTransfer.files[0])showPhoto(e.dataTransfer.files[0]);});
 
   // Always refer to the company as "our Brandau Home Services team" (word-for-word).
   function brandFix(s){
     if(!s) return s;
-    var TOK='\uE000';
+    var TOK='';
     s=s.replace(/\b(?:our|the)\s+Brandau(?:\s+Home\s+Services)?\s+team\b/gi,TOK);
     s=s.replace(/\bBrandau(?:\s+Home\s+Services)?['’]s\s+team\b/gi,TOK);
     s=s.replace(/\bBrandau\s+Home\s+Services\b/gi,TOK);
@@ -293,8 +229,24 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#1622
     s=s.charAt(0).toUpperCase()+s.slice(1);
     return s;
   }
-  function hintsString(){ return (state.sym&&SYMLABEL[state.sym])?("they think they see "+SYMLABEL[state.sym]):""; }
-  function track(){ if(typeof gtag==='function'){gtag('event','photo_diagnosed',{symptom:state.sym||'na',mode:'guided'});} window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'photo_diagnosed',symptom:state.sym||'na',mode:'guided'}); }
+
+  function fileToScaledB64(file){
+    return new Promise(function(resolve){
+      try{
+        var im=new Image();
+        im.onload=function(){
+          var max=1024,w=im.width,h=im.height;
+          if(w>h&&w>max){h=Math.round(h*max/w);w=max;} else if(h>=w&&h>max){w=Math.round(w*max/h);h=max;}
+          var c=document.createElement('canvas'); c.width=w; c.height=h;
+          c.getContext('2d').drawImage(im,0,0,w,h);
+          var d=c.toDataURL('image/jpeg',0.85);
+          resolve({b64:d.split(',')[1],mime:'image/jpeg'});
+        };
+        im.onerror=function(){resolve(null);};
+        im.src=URL.createObjectURL(file);
+      }catch(e){resolve(null);}
+    });
+  }
 
   function gaugeSVG(u){
     var m=UT[u]||UT[2];
@@ -310,58 +262,81 @@ body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;color:#1622
       '</g></svg>';
   }
 
+  function actionsAndForm(problem){
+    var smsBody=encodeURIComponent("Hi Brandau — here's a photo of something at my place. What would it cost to fix?");
+    return '<div class="s2-actions"><button type="button" class="btn s2-bp" id="s2-quote-open">Get a Free Quote &rarr;</button>'+
+           '<a href="sms:+18158002557?&body='+smsBody+'" class="btn s2-bt">Text us this photo</a></div>'+
+           '<form class="s2-quote" id="s2-quote" style="display:none;"><div class="s2-eye" style="margin-top:4px;">The problem — we filled this in for you (edit or add anything)</div>'+
+           '<textarea name="problem" rows="4">'+esc(problem)+'</textarea>'+
+           '<div class="s2-q-row"><input name="name" placeholder="Your name" required><input name="phone" type="tel" placeholder="Phone"></div>'+
+           '<input name="email" type="email" placeholder="Email" required>'+
+           '<input type="hidden" name="_subject" value="New photo quote request — website">'+
+           '<input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">'+
+           '<button type="submit" class="btn s2-bp s2-send">Send</button>'+
+           '<p class="s2-fine" id="s2-q-msg">Goes straight to Brandau Home Services.</p></form>';
+  }
+  function wireQuote(urgLabel){
+    var openBtn=document.getElementById('s2-quote-open'), form=document.getElementById('s2-quote');
+    if(!openBtn||!form) return;
+    openBtn.addEventListener('click',function(){ form.style.display='block'; openBtn.style.display='none'; form.scrollIntoView({behavior:'smooth',block:'nearest'}); var nm=form.querySelector('input[name="name"]'); if(nm) nm.focus(); });
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      var msg=document.getElementById('s2-q-msg'), btn=form.querySelector('.s2-send');
+      btn.disabled=true; msg.textContent='Sending…';
+      var fd=new FormData(form); if(urgLabel) fd.append('urgency',urgLabel);
+      fetch(FORMSPREE,{method:'POST',body:fd,headers:{'Accept':'application/json'}})
+        .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});})
+        .then(function(res){ if(res.ok){ form.innerHTML='<div class="s2-thanks"><h3>Got it — thanks!</h3><p>Your request is on its way to Brandau Home Services. We’ll reach out shortly to set up a free look.</p></div>'; } else { btn.disabled=false; msg.textContent='That didn’t go through — please try again, or call us at (815) 800-2557.'; } })
+        .catch(function(){ btn.disabled=false; msg.textContent='Something hiccuped — try again, or call (815) 800-2557.'; });
+    });
+  }
+
   function renderResult(o){
     var m=UT[o.urgency]||UT[2];
     var T=brandFix(o.title),B=brandFix(o.body),D=brandFix(o.doText);
     var problem=T+"\n\n"+B;
-    var smsBody=encodeURIComponent("Hi Brandau — here's a photo of something at my place. What would it cost to fix?");
     var html='';
     html+='<div class="s2-gauge-wrap">'+gaugeSVG(o.urgency)+'<div class="s2-gauge-read"><div class="s2-gauge-word" style="color:'+m.col+'">'+esc(m.l)+'</div><div class="s2-gauge-sub">Severity read</div></div></div>';
     html+='<h3>'+esc(T)+'</h3>';
     html+='<p class="s2-body">'+esc(B)+'</p>';
     html+='<div class="s2-do"><b>What we’d do</b><span>'+esc(D)+'</span></div>';
     html+='<p class="s2-disc">This is a likely read, not a final diagnosis — the real answer comes from eyes on it. Brandau Home Services can come out and take a look for free.</p>';
-    html+='<div class="s2-actions"><button type="button" class="btn s2-bp" id="s2-quote-open">Get a Free Quote &rarr;</button><a href="sms:+18158002557?&body='+smsBody+'" class="btn s2-bt">Text us this photo</a></div>';
-    html+='<form class="s2-quote" id="s2-quote" style="display:none;"><div class="s2-eye" style="margin-top:4px;">The problem — we filled this in for you (edit or add anything)</div><textarea name="problem" rows="4">'+esc(problem)+'</textarea><div class="s2-q-row"><input name="name" placeholder="Your name" required><input name="phone" type="tel" placeholder="Phone"></div><input name="email" type="email" placeholder="Email" required><input type="hidden" name="_subject" value="New photo quote request — website"><input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off"><button type="submit" class="btn s2-bp s2-send">Send</button><p class="s2-fine" id="s2-q-msg">Goes straight to Brandau Home Services.</p></form>';
-    result.innerHTML=html;
-    result.classList.add('show');
-
+    html+=actionsAndForm(problem);
+    result.innerHTML=html; result.classList.add('show');
     var needle=result.querySelector('.s2-needle');
     if(needle){ requestAnimationFrame(function(){ requestAnimationFrame(function(){ needle.style.transform='rotate('+m.ang+'deg)'; }); }); }
     result.scrollIntoView({behavior:'smooth',block:'nearest'});
-
-    var openBtn=document.getElementById('s2-quote-open');
-    var form=document.getElementById('s2-quote');
-    if(openBtn&&form){
-      openBtn.addEventListener('click',function(){ form.style.display='block'; openBtn.style.display='none'; form.scrollIntoView({behavior:'smooth',block:'nearest'}); var nm=form.querySelector('input[name="name"]'); if(nm) nm.focus(); });
-      form.addEventListener('submit',function(e){
-        e.preventDefault();
-        var msg=document.getElementById('s2-q-msg'); var btn=form.querySelector('.s2-send');
-        btn.disabled=true; msg.textContent='Sending…';
-        var fd=new FormData(form); fd.append('urgency',m.l); if(hintsString()) fd.append('they_noted',hintsString());
-        fetch(FORMSPREE,{method:'POST',body:fd,headers:{'Accept':'application/json'}})
-          .then(function(r){return r.json().then(function(j){return {ok:r.ok,j:j};});})
-          .then(function(res){ if(res.ok){ form.innerHTML='<div class="s2-thanks"><h3>Got it — thanks!</h3><p>Your request is on its way to Brandau Home Services. We’ll reach out shortly to set up a free look.</p></div>'; } else { btn.disabled=false; msg.textContent='That didn’t go through — please try again, or call us at (815) 800-2557.'; } })
-          .catch(function(){ btn.disabled=false; msg.textContent='Something hiccuped — try again, or call (815) 800-2557.'; });
-      });
-    }
-    track();
+    wireQuote(m.l);
   }
 
-  function guidedRead(){ var dx=DX[state.sym]; if(!dx) return; renderResult({title:dx.t,urgency:dx.u,body:dx.p,doText:dx.d}); }
+  function renderError(){
+    var html='<h3>We couldn’t get a clear read on that one</h3>'+
+      '<p class="s2-body">Sometimes a blurry shot or tricky lighting throws it off. Try a clearer, closer photo — or send it straight to us and we’ll tell you exactly what we’re looking at.</p>'+
+      actionsAndForm("I’ve got something at my place I’d like looked at — I can send a photo. What would it cost to fix?");
+    result.innerHTML=html; result.classList.add('show');
+    result.scrollIntoView({behavior:'smooth',block:'nearest'});
+    wireQuote('');
+  }
 
-  go.addEventListener('click',function(){
-    if(!state.sym){
-      hint.classList.add('warn'); hint.textContent='Tap what you’re seeing first — even a rough guess. That’s what we read.';
-      symBox.scrollIntoView({behavior:'smooth',block:'nearest'});
-      return;
-    }
+  function track(){ if(typeof gtag==='function'){gtag('event','photo_diagnosed',{mode:'ai'});} window.dataLayer=window.dataLayer||[]; window.dataLayer.push({event:'photo_diagnosed',mode:'ai'}); }
+
+  function analyze(){
+    if(!state.file) return;
     result.classList.remove('show');
-    go.classList.add('busy');
     view.classList.add('scanning');
     view.scrollIntoView({behavior:'smooth',block:'center'});
-    setTimeout(function(){ view.classList.remove('scanning'); go.classList.remove('busy'); guidedRead(); }, 2100);
-  });
+    var started=Date.now();
+    function finish(fn){ var wait=Math.max(0,1500-(Date.now()-started)); setTimeout(function(){ view.classList.remove('scanning'); fn(); }, wait); }
+    fileToScaledB64(state.file).then(function(im){
+      if(!im){ finish(renderError); return; }
+      return fetch(AI_ENDPOINT,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({image:im.b64,mime:im.mime,hints:''})})
+        .then(function(r){return r.json();})
+        .then(function(res){
+          if(!res||res.error||!res.title){ finish(renderError); return; }
+          finish(function(){ renderResult({title:res.title,urgency:(UMAP[(res.urgency||'medium').toLowerCase()]||2),body:res.likely,doText:res.whatWeDo}); track(); });
+        });
+    }).catch(function(){ finish(renderError); });
+  }
 })();
 </script>
 </body>
